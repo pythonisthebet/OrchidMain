@@ -1,4 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
+using Orchid.Services;
+using Orchid.ViewModels;
+using Orchid.Views;
+using TriviaAppClean.Views;
 
 namespace Orchid
 {
@@ -28,17 +32,22 @@ namespace Orchid
         {
 
             builder.Services.AddTransient<AppShell>();
+            builder.Services.AddTransient<LoginView>();
+            builder.Services.AddTransient<SignUpView>();
 
             return builder;
         }
 
         public static MauiAppBuilder RegisterDataServices(this MauiAppBuilder builder)
         {
+            builder.Services.AddSingleton<OrchidWebAPIProxy>();
             return builder;
         }
         public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder builder)
         {
-
+            builder.Services.AddSingleton<ShellViewModel>();
+            builder.Services.AddSingleton<LoginViewModel>();
+            builder.Services.AddSingleton<SignUpViewModel>();
             return builder;
         }
     }

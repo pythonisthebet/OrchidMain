@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Orchid.Views.SignUpView"
+             Title="SignUpView">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="labelNameStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Small" />
+            </Style>
+            <Style x:Key="labelErrorStyle" TargetType="Label">
+                <Setter Property="HorizontalOptions" Value="End" />
+                <Setter Property="TextColor" Value="Red" />
+                <Setter Property="FontSize" Value="Small" />
+            </Style>
+            <Style x:Key="entryStyle" TargetType="Entry">
+                <Setter Property="HorizontalOptions" Value="Fill" />
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout Padding="0,20,0,0">
+        <!-- name -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Text="Nickname" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
+            <Label Text="{Binding NameError}" IsVisible="{Binding ShowNameError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
+        </Grid>
+        <Entry Placeholder="Enter your name" Text="{Binding Name}" Style="{StaticResource entryStyle}"/>
+        
+        <!-- Email -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Text="Email" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
+            <Label Text="{Binding EmailError}" IsVisible="{Binding ShowEmailError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
+        </Grid>
+        <Entry Placeholder="Enter your Email" Text="{Binding Email}" Style="{StaticResource entryStyle}"/>
+        
+        <!-- Password -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Text="Password" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
+            <Label Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
+        </Grid>
+        <Entry Placeholder="Enter your Password" Text="{Binding Password}" Style="{StaticResource entryStyle}"/>
+
+        <!-- Private Policy -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Text="private policy" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
+            <Label Text="{Binding CheckBoxError}" IsVisible="{Binding ShowCheckBoxError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
+        </Grid>
+        <CheckBox Color="#58CCEd" IsChecked="{Binding CheckBox}"/>
+
+        <Button Text="שמור נתונים" Command="{Binding SaveDataCommand}"></Button>
+    </StackLayout>
+</ContentPage>
