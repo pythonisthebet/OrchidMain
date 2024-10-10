@@ -4,6 +4,6 @@ public partial class ConnectingToServerView : ContentPage
 {
 	public ConnectingToServerView()
 	{
-		InitializeComponent();
+		//InitializeComponent();
 	}
 }

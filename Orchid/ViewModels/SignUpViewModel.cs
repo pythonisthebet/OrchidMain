@@ -247,24 +247,24 @@ namespace Orchid.ViewModels
             if (ValidateForm())
             {
                 User u = new User();
-                u.Email = this.Email;
-                u.Password = this.Password;
-                u.Name = this.Name;
-                u.Rank = 0;
-                u.Score = 0;
-                if (await this.OrchidService.RegisterUser(u))
-                {
-                    await App.Current.MainPage.DisplayAlert("Save data", "your data is saved", "אישור", FlowDirection.RightToLeft);
-                    await App.Current.MainPage.Navigation.PopAsync();
-                }
-                else
-                {
-                    await App.Current.MainPage.DisplayAlert("Save data", "there is a problem with your data", "אישור", FlowDirection.RightToLeft);
-                }
-            }
-            else
-            {
-                await App.Current.MainPage.DisplayAlert("Save data", "there is a problem with your data", "אישור", FlowDirection.RightToLeft);
+                u.UserEmail = this.Email;
+                u.UserPassword = this.Password;
+                u.UserName = this.Name;
+                u.IsAdmin = false;
+                u.IsPremium = false;
+            //    if (await this.OrchidService.RegisterUser(u)) awaiting webapiproxy function register
+            //    {
+            //        await App.Current.MainPage.DisplayAlert("Save data", "your data is saved", "אישור", FlowDirection.RightToLeft);
+            //        await App.Current.MainPage.Navigation.PopAsync();
+            //    }
+            //    else
+            //    {
+            //        await App.Current.MainPage.DisplayAlert("Save data", "there is a problem with your data", "אישור", FlowDirection.RightToLeft);
+            //    }
+            //}
+            //else
+            //{
+            //    await App.Current.MainPage.DisplayAlert("Save data", "there is a problem with your data", "אישור", FlowDirection.RightToLeft);
             }
                 
         }

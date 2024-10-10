@@ -24,27 +24,27 @@ namespace Orchid.ViewModels
 
 
         #region attributes and paramaters
-        private bool isMaster;
+        //private bool isMaster; from trivia clean
         private bool isAdmin;
-        public bool IsMaster
-        {
-            get
-            {
-                if ((App)Application.Current == null)
-                    return true;
-                else if (((App)Application.Current).LoggedInUser.Rank > 0)
-                    return true; 
-                else
-                    return false;
-            }
-        }
+        //public bool IsMaster from trivia clean
+        //{
+        //    get
+        //    {
+        //        if ((App)Application.Current == null)
+        //            return true;
+        //        else if (((App)Application.Current).LoggedInUser.Rank > 0)
+        //            return true; 
+        //        else
+        //            return false;
+        //    }
+        //}
         public bool IsAdmin
         {
             get
             {
                 if ((App)Application.Current == null)
                     return true;
-                else if (((App)Application.Current).LoggedInUser.Rank > 1)
+                else if (((App)Application.Current).LoggedInUser.IsAdmin == true)
                     return true;
                 else
                     return false;

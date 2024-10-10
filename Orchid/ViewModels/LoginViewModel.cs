@@ -88,7 +88,8 @@ namespace Orchid.ViewModels
             //Choose the way you want to blob the page while indicating a server call
             InServerCall = true;
             //await Shell.Current.GoToAsync("connectingToServer");
-            User? u = await this.OrchidService.LoginAsync(mail, pass);
+            ////////////////////////////User? u = await this.OrchidService.LoginAsync(mail, pass);
+            User? u = null;
             //await Shell.Current.Navigation.PopModalAsync();
             InServerCall = false;
 
