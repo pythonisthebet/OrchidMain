@@ -6,7 +6,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-//using Orchid.Models;
+using Orchid.Models;
 
 namespace Orchid.Services
 {
@@ -30,8 +30,8 @@ namespace Orchid.Services
         private static string serverIP = "th3r7mpp-7021.euw.devtunnels.ms";
         private HttpClient client;
         private string baseUrl;
-        public static string BaseAddress = "https://th3r7mpp-7021.euw.devtunnels.ms/api/";
-        private static string ImageBaseAddress = "https://th3r7mpp-7021.euw.devtunnels.ms/";
+        public static string BaseAddress = "https://th3r7mpp-5029.euw.devtunnels.ms/api/";
+        private static string ImageBaseAddress = "https://th3r7mpp-5029.euw.devtunnels.ms/";
         #endregion
 
         public OrchidWebAPIProxy()
@@ -52,6 +52,76 @@ namespace Orchid.Services
         public string GetDefaultProfilePhotoUrl()
         {
             return $"{OrchidWebAPIProxy.ImageBaseAddress}/profileImages/default.png";
+        }
+
+        public async Task<AppUser?> LoginAsync(LoginInfo userInfo)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}login";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(userInfo);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    AppUser? result = JsonSerializer.Deserialize<AppUser>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        //This methos call the Register web API on the server and return the AppUser object with the given ID
+        //or null if the call fails
+        public async Task<AppUser?> Register(AppUser user)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}register";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(user);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    AppUser? result = JsonSerializer.Deserialize<AppUser>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
     }
 }

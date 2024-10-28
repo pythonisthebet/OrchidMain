@@ -2,7 +2,6 @@
 using Orchid.Services;
 using Orchid.ViewModels;
 using Orchid.Views;
-using TriviaAppClean.Views;
 
 namespace Orchid
 {

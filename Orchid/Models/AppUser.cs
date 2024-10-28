@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Orchid.Models
 {
-    
-    public class User
+    public class AppUser
     {
         public int Id { get; set; }
 
@@ -20,6 +19,8 @@ namespace Orchid.Models
         public bool IsPremium { get; set; }
 
         public bool IsAdmin { get; set; }
-    }
 
+        public virtual List<ChList> ChList { get; set; } = new List<ChList>();
+
+    }
 }

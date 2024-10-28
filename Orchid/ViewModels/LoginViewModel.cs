@@ -85,11 +85,11 @@ namespace Orchid.ViewModels
         //and if so login to the user and go to profile page in the shell
         private async void OnLogin()
         {
+            LoginInfo loginInfo = new(mail, pass);
             //Choose the way you want to blob the page while indicating a server call
             InServerCall = true;
             //await Shell.Current.GoToAsync("connectingToServer");
-            ////////////////////////////User? u = await this.OrchidService.LoginAsync(mail, pass);
-            User? u = null;
+            AppUser? u = await this.OrchidService.LoginAsync(loginInfo);
             //await Shell.Current.Navigation.PopModalAsync();
             InServerCall = false;
 
