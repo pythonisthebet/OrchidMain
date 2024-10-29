@@ -63,31 +63,61 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Views\%40classView.xaml">
+	  <Compile Update="Views\_subclassView.xaml.cs">
+	    <DependentUpon>_subclassView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\_statsView.xaml.cs">
+	    <DependentUpon>_statsView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\_spellsView.xaml.cs">
+	    <DependentUpon>_spellsView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\_skillsView.xaml.cs">
+	    <DependentUpon>_skillsView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\_raceView.xaml.cs">
+	    <DependentUpon>_raceView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\_imgGeneratorView.xaml.cs">
+	    <DependentUpon>_imgGeneratorView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\_featsView.xaml.cs">
+	    <DependentUpon>_featsView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\_equipmentView.xaml.cs">
+	    <DependentUpon>_equipmentView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\_classView.xaml.cs">
+	    <DependentUpon>_classView.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\_classView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\%40equipmentView.xaml">
+	  <MauiXaml Update="Views\_equipmentView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\%40featsView.xaml">
+	  <MauiXaml Update="Views\_featsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\%40imgGeneratorView.xaml">
+	  <MauiXaml Update="Views\_imgGeneratorView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\%40raceView.xaml">
+	  <MauiXaml Update="Views\_raceView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\%40skillsView.xaml">
+	  <MauiXaml Update="Views\_skillsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\%40spellsView.xaml">
+	  <MauiXaml Update="Views\_spellsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\%40statsView.xaml">
+	  <MauiXaml Update="Views\_statsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\%40subclassView.xaml">
+	  <MauiXaml Update="Views\_subclassView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\AddContentView.xaml">
