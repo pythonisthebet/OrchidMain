@@ -39,15 +39,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
-
-		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
-
-		<!-- Images -->
-		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -62,62 +53,33 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Compile Update="Views\_subclassView.xaml.cs">
-	    <DependentUpon>_subclassView.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\_statsView.xaml.cs">
-	    <DependentUpon>_statsView.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\_spellsView.xaml.cs">
-	    <DependentUpon>_spellsView.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\_skillsView.xaml.cs">
-	    <DependentUpon>_skillsView.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\_raceView.xaml.cs">
-	    <DependentUpon>_raceView.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\_imgGeneratorView.xaml.cs">
-	    <DependentUpon>_imgGeneratorView.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\_featsView.xaml.cs">
-	    <DependentUpon>_featsView.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\_equipmentView.xaml.cs">
-	    <DependentUpon>_equipmentView.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\_classView.xaml.cs">
-	    <DependentUpon>_classView.xaml</DependentUpon>
-	  </Compile>
-	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Views\_classView.xaml">
+	  <MauiXaml Update="Views\AA_classView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\_equipmentView.xaml">
+	  <MauiXaml Update="Views\AA_equipmentView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\_featsView.xaml">
+	  <MauiXaml Update="Views\AA_featsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\_imgGeneratorView.xaml">
+	  <MauiXaml Update="Views\AA_imgGeneratorView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\_raceView.xaml">
+	  <MauiXaml Update="Views\AA_raceView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\_skillsView.xaml">
+	  <MauiXaml Update="Views\AA_skillsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\_spellsView.xaml">
+	  <MauiXaml Update="Views\AA_spellsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\_statsView.xaml">
+	  <MauiXaml Update="Views\AA_statsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\_subclassView.xaml">
+	  <MauiXaml Update="Views\AA_subclassView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\AddContentView.xaml">
