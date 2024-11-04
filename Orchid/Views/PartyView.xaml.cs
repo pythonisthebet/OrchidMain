@@ -1,9 +1,12 @@
+using Orchid.ViewModels;
+
 namespace Orchid.Views;
 
 public partial class PartyView : ContentPage
 {
-	public PartyView()
-	{
-		InitializeComponent();
-	}
+    public PartyView(PartyViewModel vm)
+    {
+        this.BindingContext = vm;
+        InitializeComponent();
+    }
 }

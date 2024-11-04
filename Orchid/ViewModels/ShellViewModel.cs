@@ -8,7 +8,7 @@ using Orchid.Models;
 
 namespace Orchid.ViewModels
 {
-    public class ShellViewModel
+    public class ShellViewModel : ViewModelBase
     {
         //this page is just for a log out command and not showing views if you dont have permission 
 

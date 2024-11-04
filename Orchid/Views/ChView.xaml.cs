@@ -1,9 +1,12 @@
+using Orchid.ViewModels;
+
 namespace Orchid.Views;
 
 public partial class ChView : ContentPage
 {
-	public ChView()
-	{
-		InitializeComponent();
-	}
+    public ChView(ChViewModel vm)
+    {
+        this.BindingContext = vm;
+        InitializeComponent();
+    }
 }

@@ -1,9 +1,12 @@
+using Orchid.ViewModels;
+
 namespace Orchid.Views;
 
 public partial class AA_imgGeneratorView : ContentPage
 {
-	public AA_imgGeneratorView()
-	{
-		InitializeComponent();
-	}
+    public AA_imgGeneratorView(AA_imgGeneratorViewModel vm)
+    {
+        this.BindingContext = vm;
+        InitializeComponent();
+    }
 }

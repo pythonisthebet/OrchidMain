@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Orchid.ViewModels
 {
-    internal class AA_classViewModel
+    public class AA_classViewModel : ViewModelBase
     {
     }
 }
