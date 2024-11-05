@@ -4,13 +4,62 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Orchid"
+    xmlns:views="clr-namespace:Orchid.Views"
     Shell.FlyoutBehavior="Flyout"
     Title="Orchid">
 
+    <FlyoutItem x:Name="UserItems" FlyoutDisplayOptions="AsMultipleItems" Route="tabs" Title="UserItems" >
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+          Title="Profile" Icon="Profile_icon.png"
+          ContentTemplate="{DataTemplate views:ProfileView}"
+          Route="Profile" />
+    <ShellContent
+          Title="Character List" Icon="game_icon.png"
+          ContentTemplate="{DataTemplate views:Ch_ListView}"
+          Route="Game" />
+    <ShellContent
+          Title="Browse content" Icon="trophy.png"
+          ContentTemplate="{DataTemplate views:BrowseView}"
+          Route="Leaderboard" />
+        <ShellContent
+        Title="Add Content" Icon="trophy.png"
+        ContentTemplate="{DataTemplate views:AddContentView}"
+        Route="AddContent" />
+    </FlyoutItem>
+    <FlyoutItem x:Name="ForumItems" FlyoutDisplayOptions="AsMultipleItems" Route="tabs" Title="ForumItems"  >
+        <!-- normally no icon but if Banned it appears-->
+        <ShellContent
+          Title="Appeal" Icon="pending.png"
+          ContentTemplate="{DataTemplate views:AppealView}"
+          Route="Appeal" 
+          IsVisible="{Binding IsBanned}"  />
+        <!-- normally icon but if Banned it disappear-->
+        <ShellContent
+          Title="Forums" Icon="pending.png"
+          ContentTemplate="{DataTemplate views:ForumListView}"
+          Route="ForumList" 
+          IsVisible="{Binding IsNotBanned}"  />
+    </FlyoutItem>
+    <FlyoutItem x:Name="PartyItems" FlyoutDisplayOptions="AsMultipleItems" Route="tabs" Title="AdminItems">
+        <!--Not Sure about the icon-->
+        <ShellContent
+          Title="PartyList" Icon="list_icon.png"
+          ContentTemplate="{DataTemplate views:PartyListView}"
+          Route="PartyList" />
+        <ShellContent
+          Title="PartManager" Icon="list_icon.png"
+          ContentTemplate="{DataTemplate views:PartyManagerView}"
+          Route="PartManager" />
+    </FlyoutItem>
+    <FlyoutItem x:Name="Subscription" FlyoutDisplayOptions="AsSingleItem" Route="tabs" Title="Subscription">
+        <ShellContent
+      Title="Subscription" Icon="list_icon.png"
+      ContentTemplate="{DataTemplate views:SubscriptionView}"
+      Route="Subscription" />
+    </FlyoutItem>
+
+
+
     <MenuItem
     
     Command="{Binding LogoutCommand}"
