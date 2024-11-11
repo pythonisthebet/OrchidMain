@@ -34,6 +34,11 @@ namespace Orchid.Services
         private static string ImageBaseAddress = "https://th3r7mpp-5029.euw.devtunnels.ms/";
         #endregion
 
+        public class Users
+        {
+            public List<AppUser> TheUsers { get; set; }
+        }
+
         public OrchidWebAPIProxy()
         {
             //Set client handler to support cookies!!
@@ -120,6 +125,81 @@ namespace Orchid.Services
             }
             catch (Exception ex)
             {
+                return null;
+            }
+        }
+
+        public async Task<bool> UpdateAppUser(AppUser u)
+        {
+            try
+            {
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+                string json = JsonSerializer.Serialize<AppUser>(u, options);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUrl}?action=updateUser", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+
+                    string jsonContent = await response.Content.ReadAsStringAsync();
+                    bool b = JsonSerializer.Deserialize<bool>(jsonContent, options);
+                    return b;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
+
+        public async Task<List<AppUser>> GetAllUsers()
+        {
+            try
+            {
+                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUrl}?action=getUsers");
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string content = await response.Content.ReadAsStringAsync();
+                    Users u = JsonSerializer.Deserialize<Users>(content, options);
+                    if (u == null)
+                        return null;
+                    else
+                    {
+                        //now read all chercters of that user
+                        //List<AmericanQuestion> questions = await GetAllQuestions();
+                        //foreach (User user in u.TheUsers)
+                        //{
+                        //    user.Questions = new List<AmericanQuestion>();
+                        //    foreach (AmericanQuestion question in questions)
+                        //    {
+                        //        if (user.Id == question.UserId)
+                        //            user.Questions.Add(question);
+                        //    }
+                        //}
+
+                    }
+                    return u.TheUsers;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
                 return null;
             }
         }
