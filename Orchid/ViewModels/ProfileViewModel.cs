@@ -119,7 +119,7 @@ namespace Orchid.ViewModels
 
         #region changeUserDetails
         //on pressing change on any of the proparties in view
-        //public ICommand ChangeCommand => new Command(OnChangeCommand);
+        public ICommand ChangeCommand => new Command(OnChangeCommand);
         #region validations
         private bool ValidateEmail(string Email)
         {
@@ -136,7 +136,7 @@ namespace Orchid.ViewModels
         }
         private bool ValidatePassword(string pass)
         {
-            return pass.Length > 8 && pass.Any(x => char.IsLetter(x)); // need to inclode one letter
+            return pass.Length >= 8 && pass.Any(x => char.IsLetter(x)); // need to inclode one letter
         }
         #endregion
         //on ChangeCommand and getting with param (command parameter)
