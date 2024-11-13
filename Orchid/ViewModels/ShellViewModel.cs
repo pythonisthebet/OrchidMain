@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Microsoft.Extensions.DependencyInjection;
 using Orchid.Models;
+using Orchid.Views;
 
 namespace Orchid.ViewModels
 {
@@ -14,8 +16,10 @@ namespace Orchid.ViewModels
 
         //constractor
         //initilizing the logout command
-        public ShellViewModel() 
+        private IServiceProvider serviceProvider;
+        public ShellViewModel(IServiceProvider serviceProvider)
         {
+            this.serviceProvider = serviceProvider;
             this.LogoutCommand = new Command(OnLogout);
         }
 
@@ -55,10 +59,11 @@ namespace Orchid.ViewModels
 
         //on LogoutCommand
         //clear the current user and send them to the login screen exiting the shell
-        public async void OnLogout()
+        public void OnLogout()
         {
             ((App)Application.Current).LoggedInUser = null;
-            ((App)Application.Current).MainPage = ((App)Application.Current).Login;
+
+            ((App)Application.Current).MainPage = new NavigationPage(serviceProvider.GetService<LoginView>());
         }
     }
 }
