@@ -98,7 +98,7 @@ namespace Orchid.ViewModels
         }
         private void ValidatePassword()
         {
-            this.ShowPasswordError = (Password == null) || Password.Length < 8 || !Password.Any(x => char.IsLetter(x)); // need to inclode one letter  
+            this.ShowPasswordError = (Password == null) || Password.Length < 8 || Password.Length > 12 || !Password.Any(x => char.IsLetter(x)); // need to inclode one letter  
         }
         #endregion
         #region Email
