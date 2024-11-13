@@ -8,6 +8,8 @@ using System.Windows.Input;
 using Orchid.Models;
 using Orchid.Services;
 using Orchid.Views;
+using Orchid.ViewModels;
+using Microsoft.Win32;
 
 namespace Orchid.ViewModels
 {
@@ -60,15 +62,16 @@ namespace Orchid.ViewModels
             }
         }
         #endregion
-        
+
 
         //constractor
         //initialize the properties, attributes and commands
-        public LoginViewModel(OrchidWebAPIProxy service, SignUpView signUp)
+        private IServiceProvider serviceProvider;
+        public LoginViewModel(OrchidWebAPIProxy proxy, IServiceProvider serviceProvider)
         {
+            this.serviceProvider = serviceProvider;
             InServerCall = false;
-            this.signupView = signUp;
-            this.OrchidService = service;
+            this.OrchidService = proxy;
             this.LoginCommand = new Command(OnLogin);
             this.SignUpCommand = new Command(GoToSignUp);
         }
@@ -108,8 +111,12 @@ namespace Orchid.ViewModels
                 Pass = "";
 
 
-                Application.Current.MainPage = new AppShell(new ShellViewModel());
-
+                AppShell shell = serviceProvider.GetService<AppShell>();
+                Ch_ListViewModel c = serviceProvider.GetService<Ch_ListViewModel>();
+                //Ch_ListViewModel.Refresh(); //Refresh data and user in the tasksview model as it is a singleton
+                ((App)Application.Current).MainPage = shell;
+                Shell.Current.FlyoutIsPresented = false; //close the flyout
+                await Shell.Current.GoToAsync("Ch_List"); //Navigate to the Tasks tab page
             }
         }
 
@@ -118,8 +125,7 @@ namespace Orchid.ViewModels
         //send you to SignUpView
         private async void GoToSignUp()
         {
-            await App.Current.MainPage.Navigation.PushAsync(signupView);
-
+            await ((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<SignUpView>());
         }
     }
 }

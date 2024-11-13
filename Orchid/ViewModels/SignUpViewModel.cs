@@ -254,6 +254,9 @@ namespace Orchid.ViewModels
                 u.IsPremium = false;
                 if (null != await this.OrchidService.Register(u)) //awaiting webapiproxy function register
                 {
+                    this.Email = "";
+                    this.Password = "";
+                    this.Name = "";
                     await App.Current.MainPage.DisplayAlert("Save data", "your data is saved", "אישור", FlowDirection.RightToLeft);
                     await App.Current.MainPage.Navigation.PopAsync();
                 }

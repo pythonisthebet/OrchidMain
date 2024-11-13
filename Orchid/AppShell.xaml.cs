@@ -19,6 +19,7 @@ namespace Orchid
         private void RegisterRoutes()
         {
             Routing.RegisterRoute("connectingToServer", typeof(ConnectingToServerView));
+            Routing.RegisterRoute("Ch_List", typeof(Ch_ListView));
             Routing.RegisterRoute("cheracter", typeof(ChView));
             Routing.RegisterRoute("createCheracter", typeof(AA_classView));
             Routing.RegisterRoute("forum", typeof(ForumsView));
