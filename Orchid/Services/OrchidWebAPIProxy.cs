@@ -54,6 +54,9 @@ namespace Orchid.Services
             return $"{OrchidWebAPIProxy.ImageBaseAddress}/profileImages/default.png";
         }
 
+        #region Login
+        //This method call the Login web API on the server and return the AppUser object with the given Email and Password
+        //or null if the call fails
         public async Task<AppUser?> LoginAsync(LoginInfo userInfo)
         {
             //Set URI to the specific function API
@@ -88,7 +91,11 @@ namespace Orchid.Services
             }
         }
 
-        //This methos call the Register web API on the server and return the AppUser object with the given ID
+
+        #endregion Login
+
+        #region Register
+        //This method call the Register web API on the server and return the AppUser object with the given ID
         //or null if the call fails
         public async Task<AppUser?> Register(AppUser user)
         {
@@ -124,6 +131,11 @@ namespace Orchid.Services
             }
         }
 
+        #endregion Register
+
+        #region UpdateUser
+        //This method call the updateUser web API on the server and return a boolean if the change was a seccess
+        //or null if the call fails
         public async Task<bool> UpdateAppUser(AppUser u)
         {
             //Set URI to the specific function API
@@ -155,6 +167,11 @@ namespace Orchid.Services
             }
         }
 
+        #endregion UpdateUser
+
+        #region GetAllUsers
+        //This method call the GetAllUsers web API on the server and return a all users in DATA BASE as Model.AppUser
+        //or null if the call fails
         public async Task<List<AppUser>> GetAllUsers()
         {
             //Set URI to the specific function API
@@ -186,5 +203,9 @@ namespace Orchid.Services
                 return null;
             }
         }
+
+        #endregion GetAllUsers
+
+
     }
 }
