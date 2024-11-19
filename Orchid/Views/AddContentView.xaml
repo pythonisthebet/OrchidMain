@@ -26,7 +26,7 @@
             <Label Text="ItemSubType" Grid.Column="0" Grid.Row="2" Style="{StaticResource labelStyle}" />
             <Label Text="ItemSubType" Grid.Column="0" Grid.Row="3" Style="{StaticResource labelStyle}" />
             <Label Text="ItemSubType" Grid.Column="0" Grid.Row="4" Style="{StaticResource labelStyle}" />
-            <Label Text="ItemContent" Grid.Column="0" Grid.Row="5" Grid.RowSpan="2" Style="{StaticResource labelStyle}" />
+            <Label Text="ItemContent" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Style="{StaticResource labelStyle}" />
 
             <Entry Placeholder="Enter the Item Name" Text="{Binding ItemName}" Grid.Column="1" Grid.Row="0" Style="{StaticResource entryStyle}"/>
             <Picker Title="Enter the Item Type" SelectedItem="{Binding ItemType}" ItemsSource="{Binding TypeSource}" Grid.Column="1" Grid.Row="1" Style="{StaticResource entryStyle}"/>
@@ -34,7 +34,7 @@
             <Picker Title="Enter the Item SubType" SelectedItem="{Binding SubType1}" ItemsSource="{Binding SubType1}" Grid.Column="1" Grid.Row="2" Style="{StaticResource entryStyle}" HeightRequest="{Binding IsSubType1}"/>
             <Picker Title="Enter the Item SubType" SelectedItem="{Binding SubType2}" ItemsSource="{Binding SubType2}" Grid.Column="1" Grid.Row="3" Style="{StaticResource entryStyle}" HeightRequest="{Binding IsSubType2}"/>
             <Picker Title="Enter the Item SubType" SelectedItem="{Binding SubType3}" ItemsSource="{Binding SubType3}" Grid.Column="1" Grid.Row="4" Style="{StaticResource entryStyle}" HeightRequest="{Binding IsSubType3}"/>
-            <Entry Placeholder="Enter the Item Content/Body" Text="{Binding ItemContent}" Grid.Column="0" Grid.Row="6" Grid.RowSpan="2" Style="{StaticResource entryStyle}"/>
+            <Entry Placeholder="Enter the Item Content/Body" Text="{Binding ItemContent}" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Style="{StaticResource entryStyle}"/>
 
 
 
