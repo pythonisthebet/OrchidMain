@@ -2,6 +2,7 @@
 using Orchid.Services;
 using Orchid.ViewModels;
 using Orchid.Views;
+using CommunityToolkit.Maui;
 
 namespace Orchid
 {
@@ -11,7 +12,7 @@ namespace Orchid
         {
             var builder = MauiApp.CreateBuilder();
             builder
-                .UseMauiApp<App>()
+                .UseMauiApp<App>().UseMauiCommunityToolkit() // for adding expander in addcontentview
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

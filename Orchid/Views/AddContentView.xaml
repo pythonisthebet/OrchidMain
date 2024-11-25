@@ -2,8 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Orchid.Views.AddContentView"
-             Title="AddContentView">
-    <VerticalStackLayout>
+             Title="AddContentView"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+
+    <VerticalStackLayout Margin="20">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -12,33 +14,48 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
-                <!-- the row definition below have auto as hight there should be no hight if they are not enabled -->
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+
+
+
 
             </Grid.RowDefinitions>
 
-            <Label Text="ItemName" Grid.Column="0" Grid.Row="0" Style="{StaticResource labelStyle}"/>
-            <Label Text="ItemType" Grid.Column="0" Grid.Row="1" Style="{StaticResource labelStyle}"/>
-            <Label Text="ItemSubType" Grid.Column="0" Grid.Row="2" Style="{StaticResource labelStyle}" />
-            <Label Text="ItemSubType" Grid.Column="0" Grid.Row="3" Style="{StaticResource labelStyle}" />
-            <Label Text="ItemSubType" Grid.Column="0" Grid.Row="4" Style="{StaticResource labelStyle}" />
-            <Label Text="ItemContent" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Style="{StaticResource labelStyle}" />
+            <Label Text="ItemName" VerticalOptions="Center" Grid.Column="0" Grid.Row="0" Style="{StaticResource labelStyle}"/>
+            <Label Text="ItemType" VerticalOptions="Center" Grid.Column="0" Grid.Row="1" Style="{StaticResource labelStyle}"/>
+            <CollectionView Grid.Row="2" Grid.Column="0" Grid.RowSpan="2" ItemsSource="{Binding SubTypes}" WidthRequest="200" >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate >
+
+                        <toolkit:Expander>
+                            <toolkit:Expander.Header>
+                                <StackLayout Orientation="Horizontal" HeightRequest="42" Padding="10"  >
+                                    <Label HorizontalOptions="Start" Text="{Binding SubTypeName}" />
+                                    <Label Text="&#9660;" HorizontalOptions="EndAndExpand" VerticalOptions="Center" />
+                                </StackLayout>
+                            </toolkit:Expander.Header>
+
+                            <toolkit:Expander.Content>
+
+                                <CollectionView Grid.Row="2" Grid.Column="0" SelectionMode="{Binding SelectionMode}" ItemsSource="{Binding Options}" SelectedItems="{Binding SelectedOption}" WidthRequest="200"/>
+                            </toolkit:Expander.Content>
+                        </toolkit:Expander>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+=            <Label Text="ItemContent" VerticalOptions="Center" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Style="{StaticResource labelStyle}" />
 
             <Entry Placeholder="Enter the Item Name" Text="{Binding ItemName}" Grid.Column="1" Grid.Row="0" Style="{StaticResource entryStyle}"/>
             <Picker Title="Enter the Item Type" SelectedItem="{Binding ItemType}" ItemsSource="{Binding TypeSource}" Grid.Column="1" Grid.Row="1" Style="{StaticResource entryStyle}"/>
-            <!-- the row definition below have HeightRequest so they would disappear if they dont exist -->
-            <Picker Title="Enter the Item SubType" SelectedItem="{Binding SubType1}" ItemsSource="{Binding SubType1}" Grid.Column="1" Grid.Row="2" Style="{StaticResource entryStyle}" HeightRequest="{Binding IsSubType1}"/>
-            <Picker Title="Enter the Item SubType" SelectedItem="{Binding SubType2}" ItemsSource="{Binding SubType2}" Grid.Column="1" Grid.Row="3" Style="{StaticResource entryStyle}" HeightRequest="{Binding IsSubType2}"/>
-            <Picker Title="Enter the Item SubType" SelectedItem="{Binding SubType3}" ItemsSource="{Binding SubType3}" Grid.Column="1" Grid.Row="4" Style="{StaticResource entryStyle}" HeightRequest="{Binding IsSubType3}"/>
-            <Entry Placeholder="Enter the Item Content/Body" Text="{Binding ItemContent}" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Style="{StaticResource entryStyle}"/>
-
-
-
-
+            <Entry Placeholder="Enter the Item Content/Body" Text="{Binding ItemContent}" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="4" Style="{StaticResource entryStyle}"/>
         </Grid>
+
+        
+
+
+
     </VerticalStackLayout>
+    
 </ContentPage>
