@@ -45,7 +45,7 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-=            <Label Text="ItemContent" VerticalOptions="Center" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Style="{StaticResource labelStyle}" />
+            <Label Text="ItemContent" VerticalOptions="Center" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Style="{StaticResource labelStyle}" />
 
             <Entry Placeholder="Enter the Item Name" Text="{Binding ItemName}" Grid.Column="1" Grid.Row="0" Style="{StaticResource entryStyle}"/>
             <Picker Title="Enter the Item Type" SelectedItem="{Binding ItemType}" ItemsSource="{Binding TypeSource}" Grid.Column="1" Grid.Row="1" Style="{StaticResource entryStyle}"/>
