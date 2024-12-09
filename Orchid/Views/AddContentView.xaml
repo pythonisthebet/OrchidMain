@@ -42,6 +42,7 @@
                                 <CollectionView Grid.Row="2" Grid.Column="0" SelectionMode="{Binding SelectionMode}" ItemsSource="{Binding Options}" SelectedItems="{Binding SelectedOption}" WidthRequest="200"/>
                             </toolkit:Expander.Content>
                         </toolkit:Expander>
+
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
