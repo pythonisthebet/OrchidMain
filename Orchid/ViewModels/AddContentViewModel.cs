@@ -7,6 +7,8 @@ using Orchid.Services;
 using Orchid.Views;
 using Orchid.ViewModels;
 using Microsoft.Win32;
+using CommunityToolkit.Maui.Core.Extensions;
+using System.Collections.ObjectModel;
 
 namespace Orchid.ViewModels
 {
@@ -15,9 +17,30 @@ namespace Orchid.ViewModels
         #region attributes and properties
         private OrchidWebAPIProxy OrchidService;
         private SignUpView signupView;
-        List<string> TypeSource = new List<string>();
-        List<SubType> SubTypes = new List<SubType>();
 
+        ObservableCollection<SubType> subTypes;
+
+        public ObservableCollection<SubType> SubTypes
+        {
+            get { return subTypes; }
+            set
+            {
+                subTypes = value;
+                OnPropertyChanged("SubTypes");
+            }
+        }
+
+        private List<string> typeSource;
+
+        public List<string> TypeSource
+        {
+            get { return typeSource; }
+            set
+            {
+                typeSource = value;
+                OnPropertyChanged("TypeSource");
+            }
+        }
 
         private string itemName;
         public string ItemName
@@ -36,7 +59,9 @@ namespace Orchid.ViewModels
             set
             {
                 itemType = value;
+                InitializeListsSubType();
                 OnPropertyChanged("ItemType");
+                OnPropertyChanged("SubTypes");
             }
         }
         private bool inServerCall;
@@ -75,46 +100,36 @@ namespace Orchid.ViewModels
             this.serviceProvider = serviceProvider;
             InServerCall = false;
             this.OrchidService = proxy;
-            
-            this.LoginCommand = new Command(OnLogin);
-            this.SignUpCommand = new Command(GoToSignUp);
+            TypeSource = new List<string>();
+            SubTypes = new ObservableCollection<SubType>();
+            InitializeListsType();
+
 
             
 
             
         }
 
-        public void InitializeLists()
+        public void InitializeListsSubType()
         {
-            #region TypeSource
-            if (TypeSource.Count < 1)
-            {
-                TypeSource.Add("Equipment");
-                TypeSource.Add("Feats");
-                TypeSource.Add("races");
-                TypeSource.Add("skills");
-                TypeSource.Add("Spells");
-            }
-            #endregion
-
             #region SubTypes
             SubTypes.Clear();
             switch (ItemType)
             {
                 case "Equipment":
                     SubTypes.Add(new SubType("Rarity", "Single", new string[6] { "common", "uncommon", "rare", "very rare", "legendary", "artifact" }));
-                    SubTypes.Add(new SubType("Type", "Single", new string[10] { "none","armour", "potion", "ring", "rod", "scroll", "staff","wand","weapon","Wondrous Item"}));
+                    SubTypes.Add(new SubType("Type", "Single", new string[10] { "none", "armour", "potion", "ring", "rod", "scroll", "staff", "wand", "weapon", "Wondrous Item" }));
                     break;
 
                 case "Feats":
-                    SubTypes.Add(new SubType("Type", "Single", new string[3] { "general", "class feat" , "racial trait"}));
+                    SubTypes.Add(new SubType("Type", "Single", new string[3] { "general", "class feat", "racial trait" }));
                     break;
 
                 case "races":
                     break;
 
                 case "skills":
-                    SubTypes.Add(new SubType("stat", "Single", new string[6] { "str", "dex", "con", "int", "wis", "cha"}));
+                    SubTypes.Add(new SubType("stat", "Single", new string[6] { "str", "dex", "con", "int", "wis", "cha" }));
                     break;
 
                 case "Spells":
@@ -126,9 +141,25 @@ namespace Orchid.ViewModels
                 default:
                     break;
             }
-            
+
             #endregion
 
         }
+
+        public void InitializeListsType()
+        {
+            #region TypeSource
+            if (TypeSource.Count < 1)
+            {
+                TypeSource.Add("Equipment");
+                TypeSource.Add("Feats");
+                TypeSource.Add("races");
+                TypeSource.Add("skills");
+                TypeSource.Add("Spells");
+            }
+            #endregion
+            
+        }
+           
     }
 }

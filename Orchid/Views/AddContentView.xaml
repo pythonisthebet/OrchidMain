@@ -17,6 +17,8 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+
 
 
 
@@ -25,7 +27,11 @@
 
             <Label Text="ItemName" VerticalOptions="Center" Grid.Column="0" Grid.Row="0" Style="{StaticResource labelStyle}"/>
             <Label Text="ItemType" VerticalOptions="Center" Grid.Column="0" Grid.Row="1" Style="{StaticResource labelStyle}"/>
-            <CollectionView Grid.Row="2" Grid.Column="0" Grid.RowSpan="2" ItemsSource="{Binding SubTypes}" WidthRequest="200" >
+            
+            <Entry Placeholder="Enter the Item Name" Text="{Binding ItemName}" Grid.Column="1" Grid.Row="0" Style="{StaticResource entryStyle}"/>
+            <Picker Title="Enter the Item Type" SelectedItem="{Binding ItemType}" ItemsSource="{Binding TypeSource}" Grid.Column="1" Grid.Row="1" Style="{StaticResource entryStyle}"/>
+
+            <CollectionView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding SubTypes}" WidthRequest="200" >
                 <CollectionView.ItemTemplate>
                     <DataTemplate >
 
@@ -48,9 +54,8 @@
             </CollectionView>
             <Label Text="ItemContent" VerticalOptions="Center" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Style="{StaticResource labelStyle}" />
 
-            <Entry Placeholder="Enter the Item Name" Text="{Binding ItemName}" Grid.Column="1" Grid.Row="0" Style="{StaticResource entryStyle}"/>
-            <Picker Title="Enter the Item Type" SelectedItem="{Binding ItemType}" ItemsSource="{Binding TypeSource}" Grid.Column="1" Grid.Row="1" Style="{StaticResource entryStyle}"/>
-            <Entry Placeholder="Enter the Item Content/Body" Text="{Binding ItemContent}" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="4" Style="{StaticResource entryStyle}"/>
+
+            <Entry Placeholder="Enter the Item Content/Body" Text="{Binding ItemContent}" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="4" Style="{StaticResource entryStyle}"/>
         </Grid>
 
         
