@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Orchid.Models
-{
+{    
+    //parsed from jsonfrom external api https://www.dnd5eapi.co/api/
     public class ExtApiSpellRoot
     {
         public int count { get; set; }
