@@ -60,6 +60,47 @@
           Route="Subscription" />
     </FlyoutItem>
 
+    <FlyoutItem x:Name="CharacterItems" FlyoutDisplayOptions="AsMultipleItems" Route="characterCreation" Title="UserItems" FlyoutItemIsVisible="False">
+        <ShellContent
+            Title="Class" Icon="game_icon.png"
+            ContentTemplate="{DataTemplate views:AA_classView}"
+            Route="class" />
+        <ShellContent
+            Title="Race" Icon="trophy.png"
+            ContentTemplate="{DataTemplate views:AA_raceView}"
+            Route="Race" />
+        <ShellContent
+            Title="Stats" Icon="trophy.png"
+            ContentTemplate="{DataTemplate views:AA_statsView}"
+            Route="Stats" />
+        <ShellContent
+            Title="Subclass" Icon="trophy.png"
+            ContentTemplate="{DataTemplate views:AA_subclassView}"
+            Route="Subclass" />
+        <ShellContent
+            Title="Feats" Icon="trophy.png"
+            ContentTemplate="{DataTemplate views:AA_featsView}"
+            Route="Feats" />
+        <ShellContent
+            Title="Skills" Icon="trophy.png"
+            ContentTemplate="{DataTemplate views:AA_skillsView}"
+            Route="Skills" />
+        <ShellContent
+            Title="Spells" Icon="trophy.png"
+            ContentTemplate="{DataTemplate views:AA_spellsView}"
+            Route="Spells" />
+        <ShellContent
+            Title="Equipment" Icon="trophy.png"
+            ContentTemplate="{DataTemplate views:AA_equipmentView}"
+            Route="Equipment" />
+        <ShellContent
+            Title="ImgGenerator" Icon="trophy.png"
+            ContentTemplate="{DataTemplate views:AA_imgGeneratorView}"
+            Route="ImgGenerator" />
+        
+        
+
+    </FlyoutItem>
 
 
     <MenuItem

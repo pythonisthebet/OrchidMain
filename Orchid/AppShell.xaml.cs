@@ -22,11 +22,12 @@ namespace Orchid
             Routing.RegisterRoute("Ch_List", typeof(Ch_ListView));
             Routing.RegisterRoute("Profile", typeof(ProfileView));
             Routing.RegisterRoute("cheracter", typeof(ChView));
-            Routing.RegisterRoute("createCheracter", typeof(AA_classView));
+            //Routing.RegisterRoute("AA_classView", typeof(AA_classView));
             Routing.RegisterRoute("forum", typeof(ForumsView));
             Routing.RegisterRoute("Party", typeof(PartyView));
             Routing.RegisterRoute("Post", typeof(PostView));
             Routing.RegisterRoute("ViewPost", typeof(ViewPostView));
+
         }
     }
 }

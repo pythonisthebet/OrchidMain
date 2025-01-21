@@ -3,23 +3,39 @@
     x:Class="Orchid.Views.Ch_ListView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:Orchid.Models"
     xmlns:vm="clr-namespace:Orchid.ViewModels"
-    xmlns:models="clr-namespace:Orchid.Models" 
     Title="Ch_ListView">
     <VerticalStackLayout>
 
-        <Border BackgroundColor="Gray" HorizontalOptions="CenterAndExpand">
-            <Button ImageSource="add2.png" HorizontalOptions="Center" Command="{Binding NewCharCommand}"/>
-        </Border>
-        
+        <Border
+            Margin="10"
+            Padding="30"
+            BackgroundColor="LightGray"
+            HorizontalOptions="Fill"
+            StrokeShape="RoundRectangle 10,10,10,10">
 
-        <CollectionView  ItemsSource="{Binding ChList}" ItemsLayout="VerticalList" x:Name="theCollectionView" 
-                         SelectedItem="{Binding SelectedChar}"
-                         SelectionMode="Single" SelectionChangedCommand="{Binding SingleSelectCommand}">
+            <Button
+                Command="{Binding SingleSelectCommand}"
+                HorizontalOptions="Center"
+                ImageSource="add2.png" />
+        </Border>
+
+
+        <CollectionView
+            x:Name="theCollectionView"
+            ItemsLayout="VerticalList"
+            ItemsSource="{Binding ChList}"
+            SelectedItem="{Binding SelectedChar}"
+            SelectionChangedCommand="{Binding SingleSelectCommand}"
+            SelectionMode="Single">
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Padding="20" HorizontalOptions="FillAndExpand" VerticalOptions="Start">
+                    <Grid
+                        Padding="20"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="Start">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
@@ -28,18 +44,25 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0" Grid.Row="0"
-                            Source="{Binding ImgId}"
-                            />
-                        <Label Grid.Column="0" Grid.Row="0"
-                            Text="{Binding CharacterName}"
-                            FontAttributes="Bold"/>
-                        <Label Grid.Column="1" Grid.Row="1"
-                            Text="{Binding Classes}"
-                            FontAttributes="Bold"/>
-                        <Label Grid.Column="1" Grid.Row="1"
-                            Text="{Binding LevelValue}"
-                            FontAttributes="Bold"/>
+                        <Image
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Source="{Binding ImgId}" />
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            FontAttributes="Bold"
+                            Text="{Binding CharacterName}" />
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            FontAttributes="Bold"
+                            Text="{Binding Classes}" />
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            FontAttributes="Bold"
+                            Text="{Binding LevelValue}" />
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

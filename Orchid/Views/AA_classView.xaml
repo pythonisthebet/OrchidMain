@@ -4,9 +4,13 @@
              x:Class="Orchid.Views.AA_classView"
              Title="AA_classView">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <CollectionView
+            x:Name="theCollectionView"
+            ItemsLayout="VerticalList"
+            ItemsSource="{Binding ClassList}"
+            SelectedItem="{Binding SelectedClass}"
+            SelectionChangedCommand="{Binding SingleSelectCommand}"
+            SelectionMode="Single">
+        </CollectionView>
     </VerticalStackLayout>
 </ContentPage>
