@@ -112,11 +112,11 @@ namespace Orchid.ViewModels
 
 
                 AppShell shell = serviceProvider.GetService<AppShell>();
-                Ch_ListViewModel c = serviceProvider.GetService<Ch_ListViewModel>();
+                //Ch_ListViewModel c = serviceProvider.GetService<Ch_ListViewModel>();
                 //Ch_ListViewModel.Refresh(); //Refresh data and user in the tasksview model as it is a singleton
                 ((App)Application.Current).MainPage = shell;
                 Shell.Current.FlyoutIsPresented = false; //close the flyout
-                await Shell.Current.GoToAsync("Ch_List"); //Navigate to the Tasks tab page
+                //await Shell.Current.GoToAsync("Ch_List"); //Navigate to the Tasks tab page
             }
         }
 

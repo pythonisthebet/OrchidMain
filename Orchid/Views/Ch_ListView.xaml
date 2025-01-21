@@ -8,6 +8,11 @@
     Title="Ch_ListView">
     <VerticalStackLayout>
 
+        <Border BackgroundColor="Gray" HorizontalOptions="CenterAndExpand">
+            <Button ImageSource="add2.png" HorizontalOptions="Center" Command="{Binding NewCharCommand}"/>
+        </Border>
+        
+
         <CollectionView  ItemsSource="{Binding ChList}" ItemsLayout="VerticalList" x:Name="theCollectionView" 
                          SelectedItem="{Binding SelectedChar}"
                          SelectionMode="Single" SelectionChangedCommand="{Binding SingleSelectCommand}">
@@ -24,16 +29,16 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Image Grid.Column="0" Grid.Row="0"
-                            Source="{Binding ImageUrl}"
+                            Source="{Binding ImgId}"
                             />
                         <Label Grid.Column="0" Grid.Row="0"
-                            Text="{Binding Name}"
+                            Text="{Binding CharacterName}"
                             FontAttributes="Bold"/>
                         <Label Grid.Column="1" Grid.Row="1"
                             Text="{Binding Classes}"
                             FontAttributes="Bold"/>
                         <Label Grid.Column="1" Grid.Row="1"
-                            Text="{Binding Level}"
+                            Text="{Binding LevelValue}"
                             FontAttributes="Bold"/>
                     </Grid>
                 </DataTemplate>

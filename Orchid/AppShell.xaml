@@ -9,19 +9,15 @@
     Title="Orchid">
 
     <FlyoutItem x:Name="UserItems" FlyoutDisplayOptions="AsMultipleItems" Route="tabs" Title="UserItems" >
-    <ShellContent
-          Title="Profile" Icon="Profile_icon.png"
-          ContentTemplate="{DataTemplate views:ProfileView}"
-          Route="Profile" />
-    <ShellContent
-          Title="Character List" Icon="game_icon.png"
-          ContentTemplate="{DataTemplate views:Ch_ListView}"
-          Route="Game" />
-    <ShellContent
-          Title="Browse content" Icon="trophy.png"
-          ContentTemplate="{DataTemplate views:BrowseView}"
-          Route="Leaderboard" />
         <ShellContent
+         Title="Character List" Icon="game_icon.png"
+         ContentTemplate="{DataTemplate views:Ch_ListView}"
+         Route="Game" />
+    <ShellContent
+         Title="Browse content" Icon="trophy.png"
+         ContentTemplate="{DataTemplate views:BrowseView}"
+         Route="Leaderboard" />
+    <ShellContent
         Title="Add Content" Icon="trophy.png"
         ContentTemplate="{DataTemplate views:AddContentView}"
         Route="AddContent" />
@@ -51,11 +47,17 @@
           ContentTemplate="{DataTemplate views:PartyManagerView}"
           Route="PartManager" />
     </FlyoutItem>
+    <FlyoutItem x:Name="Profile" FlyoutDisplayOptions="AsSingleItem" Route="tabs" Title="Profile">
+        <ShellContent
+          Title="Profile" Icon="list_icon.png"
+          ContentTemplate="{DataTemplate views:ProfileView}"
+          Route="Profile" />
+    </FlyoutItem>
     <FlyoutItem x:Name="Subscription" FlyoutDisplayOptions="AsSingleItem" Route="tabs" Title="Subscription">
         <ShellContent
-      Title="Subscription" Icon="list_icon.png"
-      ContentTemplate="{DataTemplate views:SubscriptionView}"
-      Route="Subscription" />
+          Title="Subscription" Icon="list_icon.png"
+          ContentTemplate="{DataTemplate views:SubscriptionView}"
+          Route="Subscription" />
     </FlyoutItem>
 
 
