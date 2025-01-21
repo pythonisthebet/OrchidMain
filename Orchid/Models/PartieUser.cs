@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace Orchid.Models;
 
 public class PartieUser// need to see if i need DTO for many to many

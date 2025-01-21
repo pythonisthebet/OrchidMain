@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Orchid.Models;
 
+
 public class Appeal
 {
     public int Id { get; set; }

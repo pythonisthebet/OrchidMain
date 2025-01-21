@@ -13,6 +13,7 @@ namespace Orchid
         //this is the current user that is logged in
         public AppUser LoggedInUser { get; set; }
 
+
         //this is the Login page we have to create one here to not cause a loop couse login => shell == > login if we create a login on logout and not now
         public LoginView Login;
 

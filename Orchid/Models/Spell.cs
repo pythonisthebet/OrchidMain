@@ -4,19 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace Orchid.Models;
 
 public class Spell
 {
     public int Id { get; set; }
 
-    public string SName { get; set; } = null!;
+    public string SpellName { get; set; } = null!;
 
-    public int SLevel { get; set; }
+    public int SpellLevel { get; set; }
 
-    public string SDescription { get; set; } = null!;
+    public Spell() { }
 
-    public bool IsOfficial { get; set; }
+    public Spell(Models.Spell model)
+    {
+        this.Id = model.Id;
+        this.SpellName = model.SpellName;
+        this.SpellLevel = model.SpellLevel;
+    }
 
+    public Models.Spell GetModel()///////////user id does not link to the respectiv user in db need fix!!!!!!
+    {
+        Models.Spell newModel = new Models.Spell();
+        newModel.Id = this.Id;
+        newModel.SpellName = this.SpellName;
+        newModel.SpellLevel = this.SpellLevel;
+        return newModel;
+    }
 }
