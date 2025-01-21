@@ -14,19 +14,4 @@ public class Feat
 
     public Feat() { }
 
-    public Feat(Models.Feat model)
-    {
-        this.Id = model.Id;
-        this.FeatName = model.FeatName;
-        this.LevelTaken = model.LevelTaken;
-    }
-
-    public Models.Feat GetModel()///////////user id does not link to the respectiv user in db need fix!!!!!!
-    {
-        Models.Feat newModel = new Models.Feat();
-        newModel.Id = this.Id;
-        newModel.FeatName = this.FeatName;
-        newModel.LevelTaken = this.LevelTaken;
-        return newModel;
-    }
 }

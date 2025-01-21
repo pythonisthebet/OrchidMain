@@ -27,11 +27,11 @@ namespace Orchid.Services
 
         #region with tunnel
         //Define the serevr IP address! (should be realIP address if you are using a device that is not running on the same machine as the server)
-        private static string serverIP = "th3r7mpp-5029.euw.devtunnels.ms";
+        private static string serverIP = "s6ddwtzb-5029.euw.devtunnels.ms";
         private HttpClient client;
         private string baseUrl;
-        public static string BaseAddress = "https://th3r7mpp-5029.euw.devtunnels.ms/api/";
-        private static string ImageBaseAddress = "https://th3r7mpp-5029.euw.devtunnels.ms/";
+        public static string BaseAddress = "https://s6ddwtzb-5029.euw.devtunnels.ms/api/";
+        private static string ImageBaseAddress = "https://s6ddwtzb-5029.euw.devtunnels.ms/";
         #endregion
 
         public OrchidWebAPIProxy()
@@ -206,6 +206,43 @@ namespace Orchid.Services
 
         #endregion GetAllUsers
 
+        #region GetAllCharacters
+        //This method call the GetAllCharacters web API on the server and return a all users in DATA BASE as Model.AppUser
+        //or null if the call fails
+        public async Task<List<Character>> GetAllCharacters(AppUser user)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}getAllCharacters";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(user);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    List<Character>? result = JsonSerializer.Deserialize<List<Character>>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        #endregion
 
     }
 }

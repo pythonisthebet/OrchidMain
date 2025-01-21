@@ -24,27 +24,4 @@ public class Post
 
     public Post() { }
 
-    public Post(Models.Post model)
-    {
-        this.Id = model.Id;
-        this.UserId = model.UserId;
-        this.Title = model.Title;
-        this.Forum = model.Forum;
-        this.PostBody = model.PostBody;
-        this.Likes = model.Likes;
-        this.Pviews = model.Pviews;
-    }
-
-    public Models.Post GetModel()///////////user id does not link to the respectiv user in db need fix!!!!!!
-    {
-        Models.Post newModel = new Models.Post();
-        newModel.Id = this.Id;
-        newModel.UserId = this.UserId;
-        newModel.Title = this.Title;
-        newModel.Forum = this.Forum;
-        newModel.PostBody = this.PostBody;
-        newModel.Likes = this.Likes;
-        newModel.Pviews = this.Pviews;
-        return newModel;
-    }
 }

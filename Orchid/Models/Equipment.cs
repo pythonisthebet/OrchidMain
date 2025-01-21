@@ -14,24 +14,4 @@ public class Equipment
     public bool IsShield { get; set; }
     public bool IsAttunment { get; set; }
 
-    public Equipment() { }
-    public Equipment(Models.Equipment model)
-    {
-        this.Id = model.Id;
-        this.IsWeapon = model.IsWeapon;
-        this.IsArmor = model.IsArmor;
-        this.IsShield = model.IsShield;
-        this.IsAttunment = model.IsAttunment;
-    }
-
-    public Models.Equipment GetModel()///////////user id does not link to the respectiv user in db need fix!!!!!!
-    {
-        Models.Equipment newModel = new Models.Equipment();
-        newModel.Id = this.Id;
-        newModel.IsWeapon = this.IsWeapon;
-        newModel.IsArmor = this.IsArmor;
-        newModel.IsShield = this.IsShield;
-        newModel.IsAttunment = this.IsAttunment;
-        return newModel;
-    }
 }

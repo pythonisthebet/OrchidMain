@@ -5,10 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Orchid.Models;
+public class LoginInfo
 {
-    public class LoginInfo
+    public string Email { get; set; }
+    public string Password { get; set; }
+
+    public LoginInfo() { }
+
+    public LoginInfo(string email, string password)
     {
-        public string Email { get; set; }
-        public string Password { get; set; }
+        Email = email;
+        Password = password;
     }
 }

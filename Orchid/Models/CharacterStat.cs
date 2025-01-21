@@ -22,32 +22,5 @@ public class CharacterStat
 
     public int Charisma { get; set; }
 
-    public CharacterStat() { }
-
-    public CharacterStat(Models.CharacterStat model)
-    {
-        this.Id = model.Id;
-        this.Strength = model.Strength;
-        this.Dexterity = model.Dexterity;
-        this.Constitution = model.Constitution;
-        this.Intelligence = model.Intelligence;
-        this.Wisdom = model.Wisdom;
-        this.Charisma = model.Charisma;
-
-
-    }
-
-    public Models.CharacterStat GetModel()///////////user id does not link to the respectiv user in db need fix!!!!!!
-    {
-        Models.CharacterStat newModel = new Models.CharacterStat();
-        newModel.Id = this.Id;
-        newModel.Strength = this.Strength;
-        newModel.Dexterity = this.Dexterity;
-        newModel.Constitution = this.Constitution;
-        newModel.Intelligence = this.Intelligence;
-        newModel.Wisdom = this.Wisdom;
-        newModel.Charisma = this.Charisma;
-        return newModel;
-    }
 }
 

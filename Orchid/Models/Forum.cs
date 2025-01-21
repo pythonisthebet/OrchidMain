@@ -14,17 +14,4 @@ public class Forum
 
     public Forum() { }
 
-    public Forum(Models.Forum model)
-    {
-        this.Id = model.Id;
-        this.Fname = model.Fname;
-    }
-
-    public Models.Forum GetModel()///////////user id does not link to the respectiv user in db need fix!!!!!!
-    {
-        Models.Forum newModel = new Models.Forum();
-        newModel.Id = this.Id;
-        newModel.Fname = this.Fname;
-        return newModel;
-    }
 }
