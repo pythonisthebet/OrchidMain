@@ -13,6 +13,8 @@ namespace Orchid.ViewModels
     {
         #region Attributes and Properties
         private OrchidWebAPIProxy OrchidService;
+        private ExternalService ExternalApiService;
+
 
         private List<string> classList;
 
@@ -67,17 +69,34 @@ namespace Orchid.ViewModels
         #endregion
 
         #region constructor
-        private OrchidWebAPIProxy proxy;
         private IServiceProvider serviceProvider;
-        public AA_classViewModel(OrchidWebAPIProxy proxy, IServiceProvider serviceProvider)
+        OrchidWebAPIProxy proxy;
+        ExternalService proxy2;
+        public AA_classViewModel(OrchidWebAPIProxy proxy, ExternalService proxy2, IServiceProvider serviceProvider)
         {
             this.serviceProvider = serviceProvider;
             InServerCall = false;
             this.OrchidService = proxy;
+            this.ExternalApiService = proxy2;
         }
         #endregion
 
         public ICommand Confirm => new Command(OnConfirm);
+
+
+        public async Task InitilizeAsync()
+
+        {
+            ClassList = await proxy2.GetClasses();
+            List<Class> templist = await proxy.GetAllClasses(((App)Application.Current).CurrentCharacter);
+            foreach (Class item in templist)
+            {
+                selectedClasses.Add(item.ClassName);
+            }
+        }
+        
+
+
 
         async void OnConfirm()
         {
@@ -87,7 +106,7 @@ namespace Orchid.ViewModels
 
                 foreach (string item in SelectedClasses)
                 {
-                    Class linkedClass = new(((App)Application.Current).CurrentCharacter.Id, item); 
+                    Class linkedClass = new(((App)Application.Current).CurrentCharacter.Id, item);
                     await proxy.AddClass(linkedClass);
                 }
                 //Add goto here to show details
@@ -101,8 +120,6 @@ namespace Orchid.ViewModels
 
 
         }
-
-
     }
 }
 
