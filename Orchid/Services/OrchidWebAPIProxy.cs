@@ -285,7 +285,7 @@ namespace Orchid.Services
         #region AddClass
         //This method call the CreateCharacter web API on the server and return the Character object with the given ID
         //or null if the call fails
-        public async Task<ClassPlusUserId?> AddClass(ClassPlusUserId item)
+        public async Task<Class?> AddClass(Class item)
         {
             //Set URI to the specific function API
             string url = $"{this.baseUrl}addClass";
@@ -305,7 +305,7 @@ namespace Orchid.Services
                     {
                         PropertyNameCaseInsensitive = true
                     };
-                    ClassPlusUserId? result = JsonSerializer.Deserialize<ClassPlusUserId>(resContent, options);
+                    Class? result = JsonSerializer.Deserialize<Class>(resContent, options);
                     return result;
                 }
                 else

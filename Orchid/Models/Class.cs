@@ -13,4 +13,12 @@ public class Class
     public string SubclassName { get; set; } = null!;
     public int LevelValue { get; set; }
 
+    public Class(int id, string className)
+    {
+        Id = id;
+        ClassName = className;
+        SubclassName = "";
+        LevelValue = 0;
+    }
+
 }
