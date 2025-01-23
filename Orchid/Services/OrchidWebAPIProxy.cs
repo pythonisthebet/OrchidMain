@@ -250,7 +250,7 @@ namespace Orchid.Services
         public async Task<Character?> CreateCharacter(Character character)
         {
             //Set URI to the specific function API
-            string url = $"{this.baseUrl}register";
+            string url = $"{this.baseUrl}createCharacter";
             try
             {
                 //Call the server API
@@ -282,5 +282,80 @@ namespace Orchid.Services
         }
         #endregion
 
+        #region AddClass
+        //This method call the CreateCharacter web API on the server and return the Character object with the given ID
+        //or null if the call fails
+        public async Task<ClassPlusUserId?> AddClass(ClassPlusUserId item)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}addClass";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(item);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    ClassPlusUserId? result = JsonSerializer.Deserialize<ClassPlusUserId>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region RemoveClasses
+        //This method call the CreateCharacter web API on the server and return the Character object with the given ID
+        //or null if the call fails
+        public async Task<Class?> RemoveClasses(int id)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}removeClasses";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(id);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    Class? result = JsonSerializer.Deserialize<Class>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        #endregion
     }
 }

@@ -14,9 +14,9 @@ namespace Orchid.ViewModels
         #region Attributes and Properties
         private OrchidWebAPIProxy OrchidService;
 
-        private List<string> classList;
+        private List<Class> classList;
 
-        public List<string> ClassList
+        public List<Class> ClassList
         {
             get { return classList; }
 
@@ -27,8 +27,8 @@ namespace Orchid.ViewModels
             }
         }
 
-        private List<string> selectedClasses;
-        public List<string> SelectedClasses
+        private List<Class> selectedClasses;
+        public List<Class> SelectedClasses
         {
             get
             {
@@ -83,10 +83,12 @@ namespace Orchid.ViewModels
         {
             if (SelectedClasses != null)
             {
-                
-                foreach (string item in SelectedClasses)
+                await proxy.RemoveClasses(((App)Application.Current).CurrentCharacter.Id);
+
+                foreach (Class item in SelectedClasses)
                 {
-                    proxy.AddClass(item, ((App)Application.Current).CurrentCharacter.Id);
+                    ClassPlusUserId classPlusUserIdItem = new(((App)Application.Current).CurrentCharacter.Id, item); 
+                    await proxy.AddClass(classPlusUserIdItem);
                 }
                 //Add goto here to show details
                 //and edit like in creating a new character 
