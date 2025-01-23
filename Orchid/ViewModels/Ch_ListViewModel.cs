@@ -67,7 +67,7 @@ namespace Orchid.ViewModels
 
         #endregion
 
-        #region constractor
+        #region constructor
         private OrchidWebAPIProxy proxy;
         private IServiceProvider serviceProvider;
         public Ch_ListViewModel(OrchidWebAPIProxy proxy, IServiceProvider serviceProvider)

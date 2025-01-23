@@ -8,9 +8,9 @@
             x:Name="theCollectionView"
             ItemsLayout="VerticalList"
             ItemsSource="{Binding ClassList}"
-            SelectedItem="{Binding SelectedClass}"
+            SelectedItems="{Binding SelectedClasses}"
             SelectionChangedCommand="{Binding SingleSelectCommand}"
-            SelectionMode="Single">
+            SelectionMode="Multiple">
         </CollectionView>
     </VerticalStackLayout>
 </ContentPage>

@@ -1,4 +1,5 @@
 ﻿using Orchid.Models;
+using Orchid.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace Orchid.ViewModels
     public class AA_classViewModel : ViewModelBase
     {
         #region Attributes and Properties
+        private OrchidWebAPIProxy OrchidService;
+
         private List<string> classList;
 
         public List<string> ClassList
@@ -24,40 +27,74 @@ namespace Orchid.ViewModels
             }
         }
 
-        private Object selectedClass;
-        public Object SelectedClass
+        private List<string> selectedClasses;
+        public List<string> SelectedClasses
         {
             get
             {
-                return this.selectedClass;
+                return this.selectedClasses;
             }
             set
             {
-                this.selectedClass = value;
-                OnPropertyChanged("SelectedClass");
+                this.selectedClasses = value;
+                OnPropertyChanged("SelectedClasses");
+            }
+        }
+
+        private bool inServerCall;
+        public bool InServerCall
+        {
+            get
+            {
+                return this.inServerCall;
+            }
+            set
+            {
+                this.inServerCall = value;
+                OnPropertyChanged("NotInServerCall");
+                OnPropertyChanged("InServerCall");
+            }
+        }
+
+        public bool NotInServerCall
+        {
+            get
+            {
+                return !this.InServerCall;
             }
         }
 
         #endregion
 
-        public ICommand SingleSelectCommand => new Command(OnSingleSelectChar);
-
-        async void OnSingleSelectChar()
+        #region constructor
+        private OrchidWebAPIProxy proxy;
+        private IServiceProvider serviceProvider;
+        public AA_classViewModel(OrchidWebAPIProxy proxy, IServiceProvider serviceProvider)
         {
-            if (SelectedClass != null)
+            this.serviceProvider = serviceProvider;
+            InServerCall = false;
+            this.OrchidService = proxy;
+        }
+        #endregion
+
+        public ICommand Confirm => new Command(OnConfirm);
+
+        async void OnConfirm()
+        {
+            if (SelectedClasses != null)
             {
-                Character character = new Character();
-                ((App)Application.Current).CurrentCharacter = (string)SelectedClass;
+                
+                foreach (string item in SelectedClasses)
+                {
+                    proxy.AddClass(item, ((App)Application.Current).CurrentCharacter.Id);
+                }
                 //Add goto here to show details
                 //and edit like in creating a new character 
-                await Shell.Current.GoToAsync("createCheracter");
 
-                selectedChar = null;
+
+                selectedClasses = null;
             }
-            else
-            {
-                await Shell.Current.GoToAsync("//characterCreation/class");
-            }
+
 
 
 
@@ -66,4 +103,4 @@ namespace Orchid.ViewModels
 
     }
 }
-}
+
