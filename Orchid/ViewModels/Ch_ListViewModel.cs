@@ -93,7 +93,7 @@ namespace Orchid.ViewModels
             else
             {
                 string answer = await Application.Current.MainPage.DisplayPromptAsync("Required query", "What's The Characters name?");
-                Character character = new(answer, ((App)Application.Current).CurrentCharacter.Id);
+                Character character = new(answer, ((App)Application.Current).LoggedInUser.Id);
                 Character? u = await this.OrchidService.CreateCharacter(character);
                 ((App)Application.Current).CurrentCharacter = u;
                 await Shell.Current.GoToAsync("//characterCreation/class");

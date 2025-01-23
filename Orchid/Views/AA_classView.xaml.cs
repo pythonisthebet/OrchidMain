@@ -7,7 +7,7 @@ public partial class AA_classView : ContentPage
     private readonly AA_classViewModel _vm;
     public AA_classView(AA_classViewModel vm)
     {
-        object _vm = vm;
+        AA_classViewModel _vm = vm;
         this.BindingContext = vm;
         InitializeComponent();
     }
@@ -15,6 +15,7 @@ public partial class AA_classView : ContentPage
 
     protected override async void OnAppearing()
     {
+        AA_classViewModel _vm = (BindingContext as AA_classViewModel);
         await _vm.InitilizeAsync();// you can have some additional logic to cache the result` 
     }
 }

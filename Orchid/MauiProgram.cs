@@ -71,6 +71,8 @@ namespace Orchid
         public static MauiAppBuilder RegisterDataServices(this MauiAppBuilder builder)
         {
             builder.Services.AddSingleton<OrchidWebAPIProxy>();
+            builder.Services.AddSingleton<ExternalService>();
+
             return builder;
         }
         public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder builder)

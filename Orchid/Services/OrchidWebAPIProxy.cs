@@ -267,8 +267,8 @@ namespace Orchid.Services
                     {
                         PropertyNameCaseInsensitive = true
                     };
-                    Character? result = JsonSerializer.Deserialize<Character>(resContent, options);
-                    return result;
+                    Character item = JsonSerializer.Deserialize<Character>(resContent, options);
+                    return item;
                 }
                 else
                 {

@@ -70,8 +70,6 @@ namespace Orchid.ViewModels
 
         #region constructor
         private IServiceProvider serviceProvider;
-        OrchidWebAPIProxy proxy;
-        ExternalService proxy2;
         public AA_classViewModel(OrchidWebAPIProxy proxy, ExternalService proxy2, IServiceProvider serviceProvider)
         {
             this.serviceProvider = serviceProvider;
@@ -82,32 +80,43 @@ namespace Orchid.ViewModels
         #endregion
 
         public ICommand Confirm => new Command(OnConfirm);
+        public ICommand SelectionChangedCommand => new Command(OnSelectionChanged);
+
 
 
         public async Task InitilizeAsync()
 
         {
-            ClassList = await proxy2.GetClasses();
-            List<Class> templist = await proxy.GetAllClasses(((App)Application.Current).CurrentCharacter);
+            ClassList = await ExternalApiService.GetClasses();
+            List<Class> templist = await OrchidService.GetAllClasses(((App)Application.Current).CurrentCharacter);
             foreach (Class item in templist)
             {
                 selectedClasses.Add(item.ClassName);
             }
         }
-        
+
+        public async void OnSelectionChanged()
+
+        {
+            ClassList = await ExternalApiService.GetClasses();
+            List<Class> templist = await OrchidService.GetAllClasses(((App)Application.Current).CurrentCharacter);
+            foreach (Class item in templist)
+            {
+                selectedClasses.Add(item.ClassName);
+            }
+        }
 
 
-
-        async void OnConfirm()
+        public async void OnConfirm()
         {
             if (SelectedClasses != null)
             {
-                await proxy.RemoveClasses(((App)Application.Current).CurrentCharacter.Id);
+                await OrchidService.RemoveClasses(((App)Application.Current).CurrentCharacter.Id);
 
                 foreach (string item in SelectedClasses)
                 {
                     Class linkedClass = new(((App)Application.Current).CurrentCharacter.Id, item);
-                    await proxy.AddClass(linkedClass);
+                    await OrchidService.AddClass(linkedClass);
                 }
                 //Add goto here to show details
                 //and edit like in creating a new character 
@@ -115,11 +124,9 @@ namespace Orchid.ViewModels
 
                 selectedClasses = null;
             }
-
-
-
-
         }
+
+
     }
 }
 

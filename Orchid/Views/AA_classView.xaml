@@ -9,8 +9,10 @@
             ItemsLayout="VerticalList"
             ItemsSource="{Binding ClassList}"
             SelectedItems="{Binding SelectedClasses}"
-            SelectionChangedCommand="{Binding SingleSelectCommand}"
+            SelectionChangedCommand="{Binding SelectionChangedCommand}"
             SelectionMode="Multiple">
         </CollectionView>
+
+        <Button Text="Confirm" Command="{Binding Confirm}"/>
     </VerticalStackLayout>
 </ContentPage>

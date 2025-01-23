@@ -13,7 +13,10 @@ public class Character
     public int? UserId { get; set; }
     public int LevelValue { get; set; }
     public string? ImgId { get; set; }
+    public Character() { }
 
-    public Character(string name,int id) { CharacterName = name; UserId = id; }
+    public Character(string name, int id) { CharacterName = name; UserId = id; Id = 0; LevelValue = 0; ImgId = ""; }
+
+    public Character(Character item) { Id = item.Id; CharacterName = item.CharacterName; UserId = item.UserId; LevelValue = item.LevelValue; ImgId = item.ImgId; }
 }
 
