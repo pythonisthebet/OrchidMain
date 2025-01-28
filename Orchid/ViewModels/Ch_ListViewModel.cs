@@ -28,6 +28,8 @@ namespace Orchid.ViewModels
             }
         }
 
+
+
         private Object selectedChar;
         public Object SelectedChar
         {
@@ -75,6 +77,17 @@ namespace Orchid.ViewModels
             this.serviceProvider = serviceProvider;
             InServerCall = false;
             this.OrchidService = proxy;
+
+        }
+
+        public async Task InitilizeAsync()
+        {
+            if (SelectedChar != null)
+            {
+                SelectedChar = null;
+            }
+            ChList = await OrchidService.GetAllCharacters(((App)Application.Current).LoggedInUser);
+
         }
         #endregion
         public ICommand SingleSelectCommand => new Command(OnSingleSelectChar);
@@ -86,7 +99,7 @@ namespace Orchid.ViewModels
                 ((App)Application.Current).CurrentCharacter = (Character)SelectedChar;
                 //Add goto here to show details
                 //and edit like in creating a new character 
-                await Shell.Current.GoToAsync("createCheracter");
+                await Shell.Current.GoToAsync("//characterCreation/class");
 
                 selectedChar = null;
             }

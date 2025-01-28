@@ -2,6 +2,7 @@
 using Orchid.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,8 +30,8 @@ namespace Orchid.ViewModels
             }
         }
 
-        private List<string> selectedClasses;
-        public List<string> SelectedClasses
+        private ObservableCollection<Object> selectedClasses;
+        public ObservableCollection<Object> SelectedClasses
         {
             get
             {
@@ -42,6 +43,21 @@ namespace Orchid.ViewModels
                 OnPropertyChanged("SelectedClasses");
             }
         }
+
+        //private object selectedItem;
+        //public object SelectedItem
+        //{
+        //    get
+        //    {
+        //        return this.selectedItem;
+        //    }
+        //    set
+        //    {
+        //        this.selectedItem = value;
+        //        selectedClasses.Add(this);
+        //        OnPropertyChanged("SelectedItem");
+        //    }
+        //}
 
         private bool inServerCall;
         public bool InServerCall
@@ -72,6 +88,7 @@ namespace Orchid.ViewModels
         private IServiceProvider serviceProvider;
         public AA_classViewModel(OrchidWebAPIProxy proxy, ExternalService proxy2, IServiceProvider serviceProvider)
         {
+            SelectedClasses = new();
             this.serviceProvider = serviceProvider;
             InServerCall = false;
             this.OrchidService = proxy;
@@ -87,23 +104,27 @@ namespace Orchid.ViewModels
         public async Task InitilizeAsync()
 
         {
+            //if (SelectedClasses != null)
+            //{
+            //    SelectedClasses = null;
+            //}
             ClassList = await ExternalApiService.GetClasses();
             List<Class> templist = await OrchidService.GetAllClasses(((App)Application.Current).CurrentCharacter);
             foreach (Class item in templist)
             {
-                selectedClasses.Add(item.ClassName);
+                SelectedClasses.Add(item.ClassName);
             }
         }
 
-        public async void OnSelectionChanged()
-
+        public async void OnSelectionChanged(object character)
         {
-            ClassList = await ExternalApiService.GetClasses();
-            List<Class> templist = await OrchidService.GetAllClasses(((App)Application.Current).CurrentCharacter);
-            foreach (Class item in templist)
-            {
-                selectedClasses.Add(item.ClassName);
-            }
+            //OnPropertyChanged("SelectedClasses");
+
+            //List<Class> templist = await OrchidService.GetAllClasses(((App)Application.Current).CurrentCharacter);
+            //foreach (Class item in templist)
+            //{
+            //    SelectedClasses.Add(item.ClassName);
+            //}
         }
 
 
@@ -122,8 +143,10 @@ namespace Orchid.ViewModels
                 //and edit like in creating a new character 
 
 
-                selectedClasses = null;
+                SelectedClasses = null;
             }
+
+            SelectedClasses = null;
         }
 
 

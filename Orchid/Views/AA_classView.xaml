@@ -2,15 +2,26 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Orchid.Views.AA_classView"
-             Title="AA_classView">
+             Title="AA_classView"
+             xmlns:viewmodel="clr-namespace:Orchid.ViewModels"
+             xmlns:models="clr-namespace:Orchid.Models"
+             xmlns:vm="clr-namespace:Orchid.ViewModels"
+             x:DataType="vm:AA_classViewModel">
+
     <VerticalStackLayout>
         <CollectionView
             x:Name="theCollectionView"
             ItemsLayout="VerticalList"
+            SelectionMode="Multiple"
+            
             ItemsSource="{Binding ClassList}"
-            SelectedItems="{Binding SelectedClasses}"
+            SelectedItems="{Binding SelectedClasses, Mode=TwoWay}"
             SelectionChangedCommand="{Binding SelectionChangedCommand}"
-            SelectionMode="Multiple">
+            SelectionChangedCommandParameter="{Binding}">
+            
+            <!--SelectedItem="{Binding SelectedItem}"-->
+
+
         </CollectionView>
 
         <Button Text="Confirm" Command="{Binding Confirm}"/>
