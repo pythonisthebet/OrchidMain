@@ -323,14 +323,14 @@ namespace Orchid.Services
         #region RemoveClasses
         //This method call the CreateCharacter web API on the server and return the Character object with the given ID
         //or null if the call fails
-        public async Task<Class?> RemoveClasses(int id)
+        public async Task<Class?> RemoveClasses(Character character)
         {
             //Set URI to the specific function API
             string url = $"{this.baseUrl}removeClasses";
             try
             {
                 //Call the server API
-                string json = JsonSerializer.Serialize(id);
+                string json = JsonSerializer.Serialize(character);
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(url, content);
                 //Check status

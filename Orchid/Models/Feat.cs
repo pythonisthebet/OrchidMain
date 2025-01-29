@@ -9,6 +9,7 @@ namespace Orchid.Models;
 public class Feat
 {
     public int Id { get; set; }
+    public int? Character_id {  get; set; }
     public string FeatName { get; set; } = null!;
     public int LevelTaken { get; set; }
 

@@ -18,4 +18,10 @@ public partial class AA_classView : ContentPage
         AA_classViewModel _vm = (BindingContext as AA_classViewModel);
         await _vm.InitilizeAsync();// you can have some additional logic to cache the result` 
     }
+
+    //protected override async void OnBackButtonPressed()
+    //{
+    //    AA_classViewModel _vm = (BindingContext as AA_classViewModel);
+    //    await _vm.InitilizeAsync();// you can have some additional logic to cache the result` 
+    //}
 }

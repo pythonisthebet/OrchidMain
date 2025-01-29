@@ -104,16 +104,18 @@ namespace Orchid.ViewModels
         public async Task InitilizeAsync()
 
         {
-            //if (SelectedClasses != null)
-            //{
-            //    SelectedClasses = null;
-            //}
+            if (SelectedClasses != null)
+            {
+                SelectedClasses = null;
+                SelectedClasses = new();
+            }
             ClassList = await ExternalApiService.GetClasses();
             List<Class> templist = await OrchidService.GetAllClasses(((App)Application.Current).CurrentCharacter);
             foreach (Class item in templist)
             {
                 SelectedClasses.Add(item.ClassName);
             }
+            OnPropertyChanged("SelectedClasses");
         }
 
         public async void OnSelectionChanged(object character)
@@ -132,7 +134,7 @@ namespace Orchid.ViewModels
         {
             if (SelectedClasses != null)
             {
-                await OrchidService.RemoveClasses(((App)Application.Current).CurrentCharacter.Id);
+                await OrchidService.RemoveClasses(((App)Application.Current).CurrentCharacter);
 
                 foreach (string item in SelectedClasses)
                 {
@@ -143,10 +145,11 @@ namespace Orchid.ViewModels
                 //and edit like in creating a new character 
 
 
-                SelectedClasses = null;
             }
 
             SelectedClasses = null;
+            selectedClasses = new();
+
         }
 
 

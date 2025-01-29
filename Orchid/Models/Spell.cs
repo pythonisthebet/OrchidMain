@@ -10,6 +10,8 @@ public class Spell
 {
     public int Id { get; set; }
 
+    public int? Character_id {  get; set; }
+
     public string SpellName { get; set; } = null!;
 
     public int SpellLevel { get; set; }
