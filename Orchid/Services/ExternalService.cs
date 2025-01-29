@@ -69,6 +69,39 @@ namespace Orchid.Services
         }
 
         //function
+        //get every Race in the api
+        public async Task<List<string>> GetRaces()
+        {
+            string url = ExtAPI + "api/races";
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                string resContent = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode)
+                {
+                    RaceRootobject result = JsonSerializer.Deserialize<RaceRootobject>(resContent);
+                    List<RaceRootResult> rList = result.results.ToList();
+                    List<string> races = new List<string>();
+                    foreach (RaceRootResult r in rList)
+                    {
+                        races.Add(r.index);
+                    }
+                    return races;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+
+
+        //function
         //get the details of a given class
         public async Task<ExtApiClass> GetClassDetails(string Class)
         {
