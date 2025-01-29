@@ -12,4 +12,11 @@ public class Race
     public string RaceName { get; set; } = null!;
     public string SubraceName { get; set; } = null!;
 
+    public Race(int id, string raceName)
+    {
+        Id = id;
+        RaceName = raceName;
+        SubraceName = "";
+    }
+
 }

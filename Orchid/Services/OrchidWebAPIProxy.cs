@@ -320,6 +320,44 @@ namespace Orchid.Services
         }
         #endregion
 
+        #region AddRace
+        //This method call the CreateCharacter web API on the server and return the Character object with the given ID
+        //or null if the call fails
+        public async Task<Race?> AddRace(Race item)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}addRace";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(item);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    Race? result = JsonSerializer.Deserialize<Race>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        #endregion
+
         #region RemoveClasses
         //This method call the CreateCharacter web API on the server and return the Character object with the given ID
         //or null if the call fails
@@ -358,6 +396,44 @@ namespace Orchid.Services
         }
         #endregion
 
+        #region RemoveRace
+        //This method call the CreateCharacter web API on the server and return the Character object with the given ID
+        //or null if the call fails
+        public async Task<Race?> RemoveRace(Character character)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}removeRaces";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(character);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    Race? result = JsonSerializer.Deserialize<Race>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        #endregion
+
         #region GetAllClasses
         //This method call the GetAllCharacters web API on the server and return a all users in DATA BASE as Model.AppUser
         //or null if the call fails
@@ -382,6 +458,44 @@ namespace Orchid.Services
                         PropertyNameCaseInsensitive = true
                     };
                     List<Class>? result = JsonSerializer.Deserialize<List<Class>>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region GetRace
+        //This method call the GetRace web API on the server and return a all users in DATA BASE as Model.AppUser
+        //or null if the call fails
+        public async Task<Race> GetRace(Character character)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}getRace";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(character);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    Race result = JsonSerializer.Deserialize<Race>(resContent, options);
                     return result;
                 }
                 else
