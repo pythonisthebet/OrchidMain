@@ -147,8 +147,8 @@ namespace Orchid.ViewModels
 
             }
 
-            SelectedClasses = null;
-            selectedClasses = new();
+            //SelectedClasses = null;
+            //selectedClasses = new();
 
         }
 
