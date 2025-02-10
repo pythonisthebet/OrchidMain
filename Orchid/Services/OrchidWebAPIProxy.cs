@@ -358,6 +358,44 @@ namespace Orchid.Services
         }
         #endregion
 
+        #region AddSkill
+        //This method call the CreateCharacter web API on the server and return the Character object with the given ID
+        //or null if the call fails
+        public async Task<bool?> AddSkill(Character character,string skill)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}addSkill";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(character,skill);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    bool? result = JsonSerializer.Deserialize<bool>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        #endregion
+
         #region RemoveClasses
         //This method call the CreateCharacter web API on the server and return the Character object with the given ID
         //or null if the call fails
@@ -434,6 +472,44 @@ namespace Orchid.Services
         }
         #endregion
 
+        #region RemoveSkills
+        //This method call the CreateCharacter web API on the server and return the Character object with the given ID
+        //or null if the call fails
+        public async Task<Skill?> RemoveSkills(Character character)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}removeSkills";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(character);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    Skill? result = JsonSerializer.Deserialize<Skill>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        #endregion
+
         #region GetAllClasses
         //This method call the GetAllCharacters web API on the server and return a all users in DATA BASE as Model.AppUser
         //or null if the call fails
@@ -470,8 +546,47 @@ namespace Orchid.Services
                 return null;
             }
         }
+
         #endregion
 
+        #region GetAllSkills
+        //This method call the GetAllCharacters web API on the server and return a all users in DATA BASE as Model.AppUser
+        //or null if the call fails
+        public async Task<List<string>> GetAllSkills(Character character)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}getAllSkills";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(character);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    List<string>? result = JsonSerializer.Deserialize<List<string>>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        #endregion
+        
         #region GetRace
         //This method call the GetRace web API on the server and return a all users in DATA BASE as Model.AppUser
         //or null if the call fails

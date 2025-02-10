@@ -2,11 +2,27 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Orchid.Views.AA_skillsView"
-             Title="AA_skillsView">
+             Title="AA_skillsView"
+             xmlns:viewmodel="clr-namespace:Orchid.ViewModels"
+             xmlns:models="clr-namespace:Orchid.Models"
+             xmlns:vm="clr-namespace:Orchid.ViewModels"
+             x:DataType="vm:AA_classViewModel">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <CollectionView
+            x:Name="theCollectionView"
+            ItemsLayout="VerticalList"
+            SelectionMode="Multiple"
+            
+            ItemsSource="{Binding SkillList}"
+            SelectedItems="{Binding SelectedSkills, Mode=TwoWay}"
+            SelectionChangedCommand="{Binding SelectionChangedCommand}"
+            SelectionChangedCommandParameter="{Binding}">
+
+            <!--SelectedItem="{Binding SelectedItem}"-->
+
+
+        </CollectionView>
+
+        <Button Text="Confirm" Command="{Binding Confirm}"/>
     </VerticalStackLayout>
 </ContentPage>

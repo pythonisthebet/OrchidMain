@@ -33,6 +33,7 @@ namespace Orchid.Services
         public static string ParseProficiencies(string text)
         {
             text.Remove(6);
+            text.Replace("-", "_");
             return text;
         }
 
@@ -241,6 +242,38 @@ namespace Orchid.Services
             }
         }
 
-        
+        //function
+        //get every skill of a given class
+        public async Task<(List<string> list,int count)> GetSkills(Class item)
+        {
+            string url = ExtAPI + "api/" + item.ClassName;
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                string resContent = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode)
+                {
+                    //ClassRootobject result = JsonSerializer.Deserialize<ClassRootobject>(resContent);
+                    ExtApiClass c = JsonSerializer.Deserialize<ExtApiClass>(resContent);
+                    List<Option> partofoptions = c.proficiency_choices.LastOrDefault().from.options.ToList();
+                    List<string> skills = new List<string>();
+                    foreach (Option i in partofoptions)
+                    {
+                        skills.Add(ParseProficiencies(i.item.index));
+                    }
+                    int count = c.proficiency_choices.LastOrDefault().choose;
+                    return (skills,count);
+                }
+                else
+                {
+                    return (null,0);
+                }
+            }
+            catch (Exception ex)
+            {
+                return (null, 0);
+            }
+        }
+
     }
 }
