@@ -368,7 +368,7 @@ namespace Orchid.Services
             try
             {
                 //Call the server API
-                string json = JsonSerializer.Serialize(character,skill);
+                string json = JsonSerializer.Serialize((character,skill));
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(url, content);
                 //Check status
