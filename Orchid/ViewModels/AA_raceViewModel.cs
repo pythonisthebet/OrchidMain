@@ -97,7 +97,7 @@ namespace Orchid.ViewModels
         #endregion
 
         public ICommand Confirm => new Command(OnConfirm);
-        public ICommand SelectionChangedCommand => new Command(OnSelectionChanged);
+        //public ICommand SelectionChangedCommand => new Command(OnSelectionChanged);
 
 
 
@@ -113,21 +113,21 @@ namespace Orchid.ViewModels
             Race temprace = await OrchidService.GetRace(((App)Application.Current).CurrentCharacter);
             if (temprace != null)
             {
-                SelectedRace = temprace;
+                SelectedRace = temprace.RaceName;
             }
             OnPropertyChanged("SelectedRace");
         }
 
-        public async void OnSelectionChanged(object character)
-        {
-            //OnPropertyChanged("SelectedClasses");
+        //public async void OnSelectionChanged(object character)
+        //{
+        //    OnPropertyChanged("SelectedClasses");
 
-            //List<Class> templist = await OrchidService.GetAllClasses(((App)Application.Current).CurrentCharacter);
-            //foreach (Class item in templist)
-            //{
-            //    SelectedClasses.Add(item.ClassName);
-            //}
-        }
+        //    List<Class> templist = await OrchidService.GetAllClasses(((App)Application.Current).CurrentCharacter);
+        //    foreach (Class item in templist)
+        //    {
+        //        SelectedClasses.Add(item.ClassName);
+        //    }
+        //}
 
 
         public async void OnConfirm()
