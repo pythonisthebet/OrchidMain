@@ -32,9 +32,10 @@ namespace Orchid.Services
         //turn a string, Example:"skill-arcana" to a list of Proficiencies
         public static string ParseProficiencies(string text)
         {
-            text.Remove(6);
-            text.Replace("-", "_");
-            return text;
+            string newtext;
+            newtext = text.Remove(0,6);
+            newtext = newtext.Replace("-", "_");
+            return newtext;
         }
 
 
@@ -246,7 +247,7 @@ namespace Orchid.Services
         //get every skill of a given class
         public async Task<(List<string> list,int count)> GetSkills(Class item)
         {
-            string url = ExtAPI + "api/" + item.ClassName;
+            string url = ExtAPI + "api/classes/" + item.ClassName;
             try
             {
                 HttpResponseMessage response = await client.GetAsync(url);

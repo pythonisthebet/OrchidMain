@@ -116,25 +116,28 @@ namespace Orchid.ViewModels
 
 
         public async Task InitilizeAsync()
-
         {
             if (SelectedSkills != null)
             {
                 SelectedSkills = null;
                 SelectedSkills = new();
             }
-            Class selectedClass = OrchidService.GetAllClasses(((App)Application.Current).CurrentCharacter).Result.FirstOrDefault();
+            List<Class> tempClasslist = await OrchidService.GetAllClasses(((App)Application.Current).CurrentCharacter);
+            Class selectedClass = tempClasslist.FirstOrDefault();
 
             (List<string> list, int count) SkillListpluscount = await ExternalApiService.GetSkills(selectedClass);
             SkillList = SkillListpluscount.list;
             selectedSkillsCount = SkillListpluscount.count;
 
             List<string> templist = await OrchidService.GetAllSkills(((App)Application.Current).CurrentCharacter);
-            foreach(string item in templist)
+            if (templist != null)
             {
-                SelectedSkills.Add(item);
+                foreach (string item in templist)
+                {
+                    SelectedSkills.Add(item);
+                }
+                OnPropertyChanged("SelectedSkills");
             }
-            OnPropertyChanged("SelectedSkills");
         }
 
         //public async void OnSelectionChanged(object character)
@@ -154,11 +157,71 @@ namespace Orchid.ViewModels
             if (SelectedSkills != null)
             {
                 await OrchidService.RemoveSkills(((App)Application.Current).CurrentCharacter);
-
+                ProficienciesSkill skills = new();
                 foreach (string item in SelectedSkills)
                 {
-                    await OrchidService.AddSkill(((App)Application.Current).CurrentCharacter, item);
+                    
+                    switch (item.ToLower()) // Case insensitive matching
+                    {
+                        case "acrobatics":
+                            skills.Acrobatics = true;
+                            break;
+                        case "animalhandling":
+                            skills.AnimalHandling = true;
+                            break;
+                        case "arcana":
+                            skills.Arcana = true;
+                            break;
+                        case "athletics":
+                            skills.Athletics = true;
+                            break;
+                        case "deception":
+                            skills.Deception = true;
+                            break;
+                        case "history":
+                            skills.History = true;
+                            break;
+                        case "insight":
+                            skills.Insight = true;
+                            break;
+                        case "intimidation":
+                            skills.Intimidation = true;
+                            break;
+                        case "investigation":
+                            skills.Investigation = true;
+                            break;
+                        case "medicine":
+                            skills.Medicine = true;
+                            break;
+                        case "nature":
+                            skills.Nature = true;
+                            break;
+                        case "perception":
+                            skills.Perception = true;
+                            break;
+                        case "performance":
+                            skills.Performance = true;
+                            break;
+                        case "persuasion":
+                            skills.Persuasion = true;
+                            break;
+                        case "religion":
+                            skills.Religion = true;
+                            break;
+                        case "sleightofhand":
+                            skills.SleightOfHand = true;
+                            break;
+                        case "stealth":
+                            skills.Stealth = true;
+                            break;
+                        case "survival":
+                            skills.Survival = true;
+                            break;
+                        default:
+                            break;
+                    }
                 }
+                await OrchidService.AddSkills(((App)Application.Current).CurrentCharacter, skills);
                 //Add goto here to show details
                 //and edit like in creating a new character 
 

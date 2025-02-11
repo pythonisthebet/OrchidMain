@@ -6,7 +6,7 @@
              xmlns:viewmodel="clr-namespace:Orchid.ViewModels"
              xmlns:models="clr-namespace:Orchid.Models"
              xmlns:vm="clr-namespace:Orchid.ViewModels"
-             x:DataType="vm:AA_classViewModel">
+             x:DataType="vm:AA_skillsViewModel">
     <VerticalStackLayout>
         <CollectionView
             x:Name="theCollectionView"
@@ -14,9 +14,7 @@
             SelectionMode="Multiple"
             
             ItemsSource="{Binding SkillList}"
-            SelectedItems="{Binding SelectedSkills, Mode=TwoWay}"
-            SelectionChangedCommand="{Binding SelectionChangedCommand}"
-            SelectionChangedCommandParameter="{Binding}">
+            SelectedItems="{Binding SelectedSkills, Mode=TwoWay}">
 
             <!--SelectedItem="{Binding SelectedItem}"-->
 

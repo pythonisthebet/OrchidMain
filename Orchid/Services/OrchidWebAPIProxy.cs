@@ -358,17 +358,18 @@ namespace Orchid.Services
         }
         #endregion
 
-        #region AddSkill
+        #region AddSkills
         //This method call the CreateCharacter web API on the server and return the Character object with the given ID
         //or null if the call fails
-        public async Task<bool?> AddSkill(Character character,string skill)
+        public async Task<ProficienciesSkill?> AddSkills(Character character,ProficienciesSkill skill)
         {
             //Set URI to the specific function API
-            string url = $"{this.baseUrl}addSkill";
+            string url = $"{this.baseUrl}addSkills";
             try
             {
                 //Call the server API
-                string json = JsonSerializer.Serialize((character,skill));
+                (Character character, ProficienciesSkill skill) tuple = (character, skill);
+                string json = JsonSerializer.Serialize(tuple);
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(url, content);
                 //Check status
@@ -381,7 +382,7 @@ namespace Orchid.Services
                     {
                         PropertyNameCaseInsensitive = true
                     };
-                    bool? result = JsonSerializer.Deserialize<bool>(resContent, options);
+                    ProficienciesSkill? result = JsonSerializer.Deserialize<ProficienciesSkill>(resContent, options);
                     return result;
                 }
                 else
@@ -555,7 +556,7 @@ namespace Orchid.Services
         public async Task<List<string>> GetAllSkills(Character character)
         {
             //Set URI to the specific function API
-            string url = $"{this.baseUrl}getAllSkills";
+            string url = $"{this.baseUrl}getSkills";
             try
             {
                 //Call the server API
