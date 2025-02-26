@@ -10,7 +10,7 @@ namespace Orchid.Services
 {
     public class ExternalService
     {
-        private static string ExtAPI = "https://www.dnd5eapi.co/2014/";
+        private static string ExtAPI = "https://www.dnd5eapi.co/";
         private HttpClient client;
         public ExternalService()
         {

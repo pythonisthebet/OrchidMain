@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Orchid.Models
 {
 
-    //parsed from jsonfrom external api https://www.dnd5eapi.co/api/
+    //parsed from json from external api https://www.dnd5eapi.co/api/
 
     public class ClassRootobject
     {

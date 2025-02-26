@@ -147,6 +147,19 @@ namespace Orchid.ViewModels
 
             }
 
+            Ch_obj_json new_ch = new Ch_obj_json();
+            Class_obj[] class_list = new Class_obj[selectedClasses.Count];
+            int count = 0;
+            foreach (Class item in selectedClasses)
+            {
+                class_list[count].name += item.ClassName;
+                class_list
+        {
+
+        }
+
+            }
+            new_ch.class_Obj = new Class_obj[selectedClasses.Count]();
             //SelectedClasses = null;
             //selectedClasses = new();
 
