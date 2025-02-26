@@ -1,6 +1,7 @@
 ﻿using Orchid.Models;
 using Orchid.Views;
 using Orchid.ViewModels;
+using System.Dynamic;
 
 
 namespace Orchid
@@ -13,6 +14,7 @@ namespace Orchid
         //this is the current user that is logged in
         public AppUser LoggedInUser { get; set; }
         public Character CurrentCharacter { get; set; }
+        public ExpandoObject CurrentCharacterProperties {  get; set; }
 
         //this is the Login page we have to create one here to not cause a loop couse login => shell == > login if we create a login on logout and not now
         public LoginView Login;
@@ -23,6 +25,7 @@ namespace Orchid
         {
             LoggedInUser = null;
             CurrentCharacter = null;
+            CurrentCharacterProperties = null;
             InitializeComponent();
             Login = v;
 

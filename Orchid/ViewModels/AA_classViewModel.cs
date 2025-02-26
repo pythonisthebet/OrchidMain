@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Dynamic;
 
 namespace Orchid.ViewModels
 {
@@ -30,8 +31,8 @@ namespace Orchid.ViewModels
             }
         }
 
-        private ObservableCollection<Object> selectedClasses;
-        public ObservableCollection<Object> SelectedClasses
+        private ObservableCollection<string> selectedClasses;
+        public ObservableCollection<string> SelectedClasses
         {
             get
             {
@@ -58,6 +59,19 @@ namespace Orchid.ViewModels
         //        OnPropertyChanged("SelectedItem");
         //    }
         //}
+
+        private Color selected_Color;
+
+        public Color Selected_Color
+        {
+            get { return selected_Color; }
+
+            set
+            {
+                selected_Color = value;
+                OnPropertyChanged("Selected_Color");
+            }
+        }
 
         private bool inServerCall;
         public bool InServerCall
@@ -118,50 +132,31 @@ namespace Orchid.ViewModels
             OnPropertyChanged("SelectedClasses");
         }
 
-        public async void OnSelectionChanged(object character)
+        public async void OnSelectionChanged()
         {
-            //OnPropertyChanged("SelectedClasses");
+            OnPropertyChanged("SelectedClasses");
+            Selected_Color = Colors.Red;
 
-            //List<Class> templist = await OrchidService.GetAllClasses(((App)Application.Current).CurrentCharacter);
-            //foreach (Class item in templist)
-            //{
-            //    SelectedClasses.Add(item.ClassName);
-            //}
         }
 
 
         public async void OnConfirm()
         {
-            if (SelectedClasses != null)
+            IDictionary<string, object> temp = ((App)Application.Current).CurrentCharacterProperties;
+            if (temp.ContainsKey("classes"))
             {
-                await OrchidService.RemoveClasses(((App)Application.Current).CurrentCharacter);
-
-                foreach (string item in SelectedClasses)
-                {
-                    Class linkedClass = new(((App)Application.Current).CurrentCharacter.Id, item);
-                    await OrchidService.AddClass(linkedClass);
-                }
-                //Add goto here to show details
-                //and edit like in creating a new character 
-
+                temp.Remove("classes");
+                ((App)Application.Current).CurrentCharacterProperties = (ExpandoObject)temp;
+                ((App)Application.Current).CurrentCharacterProperties.TryAdd("Classes", selectedClasses.ToList());
+            }
+            else
+            {
+                ((App)Application.Current).CurrentCharacterProperties.TryAdd("Classes", selectedClasses.ToList());
 
             }
+            Selected_Color = Colors.LightGreen;
 
-            Ch_obj_json new_ch = new Ch_obj_json();
-            Class_obj[] class_list = new Class_obj[selectedClasses.Count];
-            int count = 0;
-            foreach (Class item in selectedClasses)
-            {
-                class_list[count].name += item.ClassName;
-                class_list
-        {
 
-        }
-
-            }
-            new_ch.class_Obj = new Class_obj[selectedClasses.Count]();
-            //SelectedClasses = null;
-            //selectedClasses = new();
 
         }
 

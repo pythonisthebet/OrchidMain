@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Dynamic;
 
 namespace Orchid.ViewModels
 {
@@ -109,6 +110,9 @@ namespace Orchid.ViewModels
                 Character character = new(answer, ((App)Application.Current).LoggedInUser.Id);
                 Character? u = await this.OrchidService.CreateCharacter(character);
                 ((App)Application.Current).CurrentCharacter = u;
+                //((App)Application.Current).CurrentCharacterProperties = new ExpandoObject();
+                //((App)Application.Current).CurrentCharacterProperties.TryAdd("Id", u.Id);
+                //await Shell.Current.GoToAsync("class");
                 await Shell.Current.GoToAsync("//characterCreation/class");
             }
                 

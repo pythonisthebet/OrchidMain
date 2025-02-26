@@ -8,6 +8,23 @@
              xmlns:vm="clr-namespace:Orchid.ViewModels"
              x:DataType="vm:AA_classViewModel">
 
+    <ContentPage.Resources>
+        <Style TargetType="CollectionView">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="{Binding Selected_Color}" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
     <VerticalStackLayout>
         <CollectionView
             x:Name="theCollectionView"
@@ -17,7 +34,8 @@
             ItemsSource="{Binding ClassList}"
             SelectedItems="{Binding SelectedClasses, Mode=TwoWay}"
             SelectionChangedCommand="{Binding SelectionChangedCommand}"
-            SelectionChangedCommandParameter="{Binding}">
+            SelectionChangedCommandParameter="{Binding}"
+            >
             
             <!--SelectedItem="{Binding SelectedItem}"-->
 
