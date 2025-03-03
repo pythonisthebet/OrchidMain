@@ -33,9 +33,7 @@
             
             ItemsSource="{Binding ClassList}"
             SelectedItems="{Binding SelectedClasses, Mode=TwoWay}"
-            SelectionChangedCommand="{Binding SelectionChangedCommand}"
-            SelectionChangedCommandParameter="{Binding}"
-            >
+            SelectionChangedCommand="{Binding SelectionChangedCommand}">
             
             <!--SelectedItem="{Binding SelectedItem}"-->
 

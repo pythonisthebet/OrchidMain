@@ -31,8 +31,8 @@ namespace Orchid.ViewModels
             }
         }
 
-        private ObservableCollection<string> selectedClasses;
-        public ObservableCollection<string> SelectedClasses
+        private ObservableCollection<object> selectedClasses;
+        public ObservableCollection<object> SelectedClasses
         {
             get
             {
@@ -116,7 +116,6 @@ namespace Orchid.ViewModels
 
 
         public async Task InitilizeAsync()
-
         {
             if (SelectedClasses != null)
             {
@@ -143,15 +142,16 @@ namespace Orchid.ViewModels
         public async void OnConfirm()
         {
             IDictionary<string, object> temp = ((App)Application.Current).CurrentCharacterProperties;
+            List<string> selectedClasses_String = selectedClasses.Select(s => (string)s).ToList();
             if (temp.ContainsKey("classes"))
             {
                 temp.Remove("classes");
                 ((App)Application.Current).CurrentCharacterProperties = (ExpandoObject)temp;
-                ((App)Application.Current).CurrentCharacterProperties.TryAdd("Classes", selectedClasses.ToList());
+                ((App)Application.Current).CurrentCharacterProperties.TryAdd("Classes", selectedClasses_String.ToList());
             }
             else
             {
-                ((App)Application.Current).CurrentCharacterProperties.TryAdd("Classes", selectedClasses.ToList());
+                ((App)Application.Current).CurrentCharacterProperties.TryAdd("Classes", selectedClasses_String.ToList());
 
             }
             Selected_Color = Colors.LightGreen;
