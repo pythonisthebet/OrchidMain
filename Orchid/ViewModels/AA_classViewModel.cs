@@ -31,8 +31,8 @@ namespace Orchid.ViewModels
             }
         }
 
-        private ObservableCollection<object> selectedClasses;
-        public ObservableCollection<object> SelectedClasses
+        private ObservableCollection<Object> selectedClasses;
+        public ObservableCollection<Object> SelectedClasses
         {
             get
             {
@@ -60,18 +60,33 @@ namespace Orchid.ViewModels
         //    }
         //}
 
-        private Color selected_Color;
+        //private Color selected_Color;
 
-        public Color Selected_Color
+        //public Color Selected_Color
+        //{
+        //    get { return selected_Color; }
+
+        //    set
+        //    {
+        //        selected_Color = value;
+        //        OnPropertyChanged("Selected_Color");
+        //    }
+        //}
+
+        private bool isConfiremed;
+        public bool IsConfiremed
         {
-            get { return selected_Color; }
-
+            get
+            {
+                return this.isConfiremed;
+            }
             set
             {
-                selected_Color = value;
-                OnPropertyChanged("Selected_Color");
+                this.isConfiremed = value;
+                OnPropertyChanged("IsConfiremed");
             }
         }
+        
 
         private bool inServerCall;
         public bool InServerCall
@@ -103,6 +118,8 @@ namespace Orchid.ViewModels
         public AA_classViewModel(OrchidWebAPIProxy proxy, ExternalService proxy2, IServiceProvider serviceProvider)
         {
             SelectedClasses = new();
+            //selected_Color = Colors.Red;
+            isConfiremed = false;
             this.serviceProvider = serviceProvider;
             InServerCall = false;
             this.OrchidService = proxy;
@@ -117,12 +134,9 @@ namespace Orchid.ViewModels
 
         public async Task InitilizeAsync()
         {
-            if (SelectedClasses != null)
-            {
-                SelectedClasses = null;
-                SelectedClasses = new();
-            }
+            SelectedClasses.Clear();
             ClassList = await ExternalApiService.GetClasses();
+            //remove the line below and change it to one using json not the db
             List<Class> templist = await OrchidService.GetAllClasses(((App)Application.Current).CurrentCharacter);
             foreach (Class item in templist)
             {
@@ -133,9 +147,8 @@ namespace Orchid.ViewModels
 
         public async void OnSelectionChanged()
         {
-            OnPropertyChanged("SelectedClasses");
-            Selected_Color = Colors.Red;
-
+            isConfiremed = false;
+            //Selected_Color = Colors.Red;
         }
 
 
@@ -154,7 +167,8 @@ namespace Orchid.ViewModels
                 ((App)Application.Current).CurrentCharacterProperties.TryAdd("Classes", selectedClasses_String.ToList());
 
             }
-            Selected_Color = Colors.LightGreen;
+            //Selected_Color = Colors.LightGreen;
+            isConfiremed = true;
 
 
 

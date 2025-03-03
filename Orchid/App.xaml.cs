@@ -23,9 +23,9 @@ namespace Orchid
         //initilizing logged in user login page (via builder) and the main page which is the page we show to the user
         public App(LoginView v)
         {
-            LoggedInUser = null;
-            CurrentCharacter = null;
-            CurrentCharacterProperties = null;
+            LoggedInUser = new();
+            CurrentCharacter = new();
+            CurrentCharacterProperties = new();
             InitializeComponent();
             Login = v;
 

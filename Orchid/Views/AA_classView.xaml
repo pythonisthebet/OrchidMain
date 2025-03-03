@@ -8,38 +8,50 @@
              xmlns:vm="clr-namespace:Orchid.ViewModels"
              x:DataType="vm:AA_classViewModel">
 
-    <ContentPage.Resources>
-        <Style TargetType="CollectionView">
+    <!--<ContentPage.Resources>
+        <Style TargetType="Grid">
             <Setter Property="VisualStateManager.VisualStateGroups">
                 <VisualStateGroupList>
                     <VisualStateGroup x:Name="CommonStates">
                         <VisualState x:Name="Normal" />
                         <VisualState x:Name="Selected">
+                            <VisualState.StateTriggers>
+                                <StateTrigger IsActive="{Binding IsConfiremed}" />
+                            </VisualState.StateTriggers>
                             <VisualState.Setters>
                                 <Setter Property="BackgroundColor"
-                                        Value="{Binding Selected_Color}" />
+                                        Value="Green" />
                             </VisualState.Setters>
+                            
                         </VisualState>
                     </VisualStateGroup>
                 </VisualStateGroupList>
             </Setter>
         </Style>
-    </ContentPage.Resources>
+    </ContentPage.Resources>-->
     <VerticalStackLayout>
-        <CollectionView
-            x:Name="theCollectionView"
-            ItemsLayout="VerticalList"
-            SelectionMode="Multiple"
+        <Grid Margin="10">
+            <CollectionView
+                x:Name="theCollectionView"
+                ItemsLayout="VerticalList"
+                SelectionMode="Multiple"
             
-            ItemsSource="{Binding ClassList}"
-            SelectedItems="{Binding SelectedClasses, Mode=TwoWay}"
-            SelectionChangedCommand="{Binding SelectionChangedCommand}">
-            
-            <!--SelectedItem="{Binding SelectedItem}"-->
+                ItemsSource="{Binding ClassList}"
+                SelectedItems="{Binding SelectedClasses, Mode=TwoWay}"
+                SelectionChangedCommand="{Binding SelectionChangedCommand}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="5">
+                            <Label
+                                Text="{Binding}"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <!--SelectedItem="{Binding SelectedItem}"-->
 
 
-        </CollectionView>
-
+            </CollectionView>
+        </Grid>
         <Button Text="Confirm" Command="{Binding Confirm}"/>
     </VerticalStackLayout>
 </ContentPage>

@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Orchid.Models;
+using System.Dynamic;
 
 namespace Orchid.Services
 {
@@ -625,5 +626,81 @@ namespace Orchid.Services
             }
         }
         #endregion
+
+        #region StoreCharacter
+        //This method call the StoreCharacter web API on the server  and Stores a character expando object there
+        public async Task StoreCharacter(ExpandoObject character)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}storeCharacter";
+            try
+            {
+                dynamic c = character;
+                //Call the server API
+                string json = JsonSerializer.Serialize(c);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    return;
+                }
+                else
+                {
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
+        }
+        #endregion
+
+        #region GetDynamicCharacter
+        //This method call the GetRace web API on the server and return a all users in DATA BASE as Model.AppUser
+        //or null if the call fails
+        public async Task<Race> GetDynamicCharacter(Character character)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}getRace";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(character);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    Race result = JsonSerializer.Deserialize<Race>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        #endregion
+
     }
 }
