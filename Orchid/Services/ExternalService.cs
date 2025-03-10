@@ -1,6 +1,7 @@
 ﻿using Orchid.Models;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -41,23 +42,34 @@ namespace Orchid.Services
 
         //function
         //get every class in the api
-        public async Task<List<string>> GetClasses()
+        public async Task<List<string>> GetDynamicList(string type)
         {
-            string url = ExtAPI + "api/classes";
+            string url = ExtAPI + $"api/{type}";
             try
             {
                 HttpResponseMessage response = await client.GetAsync(url);
                 string resContent = await response.Content.ReadAsStringAsync();
                 if (response.IsSuccessStatusCode)
                 {
-                    ClassRootobject result = JsonSerializer.Deserialize<ClassRootobject>(resContent);
-                    List<ClassRootResults> cList = result.results.ToList();
-                    List<string> classes = new List<string>();
-                    foreach (ClassRootResults c in cList)
+                    ExpandoObject result = JsonSerializer.Deserialize<ExpandoObject>(resContent);
+                    dynamic apiobject = result;
+
+                    List<ExpandoObject> objectwithoucount = JsonSerializer.Deserialize<List<ExpandoObject>>(apiobject.results);
+                    dynamic objectlist = objectwithoucount;
+                    List<string> objects = new List<string>();
+
+                    foreach (dynamic e in objectlist)
                     {
-                        classes.Add(c.index);
+                        objects.Add(e.index.GetString());
                     }
-                    return classes;
+                    //List<ClassRootResults> cList = result.results.ToList();
+                    //List<string> classes = new List<string>();
+                    //foreach (ClassRootResults c in cList)
+                    //{
+                    //    classes.Add(c.index);
+                    //}
+
+                    return objects;
                 }
                 else
                 {
