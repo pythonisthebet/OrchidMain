@@ -3,6 +3,7 @@ using Orchid.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -109,12 +110,14 @@ namespace Orchid.ViewModels
                 SelectedClasses = null;
                 SelectedClasses = new();
             }
+            InServerCall = true;
             ClassList = await ExternalApiService.GetDynamicList("classes");
             List<Class> templist = await OrchidService.GetAllClasses(((App)Application.Current).CurrentCharacter);
             foreach (Class item in templist)
             {
                 SelectedClasses.Add(item.ClassName);
             }
+            InServerCall = false;
             OnPropertyChanged("SelectedClasses");
         }
 
@@ -147,19 +150,28 @@ namespace Orchid.ViewModels
 
             }
 
-        //    Ch_obj_json new_ch = new Ch_obj_json();
-        //    Class_obj[] class_list = new Class_obj[selectedClasses.Count];
-        //    int count = 0;
-        //    foreach (Class item in selectedClasses)
-        //    {
-        //        class_list[count].name += item.ClassName;
-        //        class_list
-        //{
+            if (SelectedClasses != null)
+            {
+                ((App)Application.Current).)
+                items.TryAdd("selectedClasses", SelectedClasses);
+                //need to add the level of each class
 
-        //}
 
-        //    }
-        //    new_ch.class_Obj = new Class_obj[selectedClasses.Count]();
+            }
+
+            //    Ch_obj_json new_ch = new Ch_obj_json();
+            //    Class_obj[] class_list = new Class_obj[selectedClasses.Count];
+            //    int count = 0;
+            //    foreach (Class item in selectedClasses)
+            //    {
+            //        class_list[count].name += item.ClassName;
+            //        class_list
+            //{
+
+            //}
+
+            //    }
+            //    new_ch.class_Obj = new Class_obj[selectedClasses.Count]();
             //SelectedClasses = null;
             //selectedClasses = new();
 
