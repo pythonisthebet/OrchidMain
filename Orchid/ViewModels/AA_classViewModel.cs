@@ -135,7 +135,7 @@ namespace Orchid.ViewModels
         public async Task InitilizeAsync()
         {
             SelectedClasses.Clear();
-            ClassList = await ExternalApiService.GetClasses();
+            ClassList = await ExternalApiService.GetDynamicList("classes");
             //remove the line below and change it to one using json not the db
             List<Class> templist = await OrchidService.GetAllClasses(((App)Application.Current).CurrentCharacter);
             foreach (Class item in templist)
