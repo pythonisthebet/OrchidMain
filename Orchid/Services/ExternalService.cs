@@ -40,6 +40,48 @@ namespace Orchid.Services
 
 
         //function
+        //get every item in api dynamicly in the api
+        public async Task<List<string>> GetDynamicList(string type)
+        {
+            string url = ExtAPI + $"api/{type}";
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                string resContent = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode)
+                {
+                    ExpandoObject result = JsonSerializer.Deserialize<ExpandoObject>(resContent);
+                    dynamic apiobject = result;
+        
+                    List<ExpandoObject> objectwithoucount = JsonSerializer.Deserialize<List<ExpandoObject>>(apiobject.results);
+                    dynamic objectlist = objectwithoucount;
+                    List<string> objects = new List<string>();
+        
+                    foreach (dynamic e in objectlist)
+                    {
+                        objects.Add(e.index.GetString());
+                    }
+                    //List<ClassRootResults> cList = result.results.ToList();
+                    //List<string> classes = new List<string>();
+                    //foreach (ClassRootResults c in cList)
+                    //{
+                    //    classes.Add(c.index);
+                    //}
+        
+                    return objects;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        
+        //function
         //get every class in the api
         public async Task<List<string>> GetClasses()
         {
