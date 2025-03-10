@@ -135,9 +135,11 @@ namespace Orchid.ViewModels
         public async Task InitilizeAsync()
         {
             SelectedClasses.Clear();
+            InServerCall = true;
             ClassList = await ExternalApiService.GetDynamicList("classes");
             //remove the line below and change it to one using json not the db
             List<Class> templist = await OrchidService.GetAllClasses(((App)Application.Current).CurrentCharacter);
+            InServerCall = false;
             foreach (Class item in templist)
             {
                 SelectedClasses.Add(item.ClassName);
@@ -169,6 +171,16 @@ namespace Orchid.ViewModels
             }
             //Selected_Color = Colors.LightGreen;
             isConfiremed = true;
+
+            /*if (SelectedClasses != null)
+            {
+                ((App)Application.Current).)
+                items.TryAdd("selectedClasses", SelectedClasses);
+                //need to add the level of each class
+
+
+            }*/
+
 
 
 
