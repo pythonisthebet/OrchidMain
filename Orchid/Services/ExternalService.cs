@@ -81,7 +81,38 @@ namespace Orchid.Services
                 return null;
             }
         }
-        
+
+        //function
+        //get a specific item in api dynamicly
+        public async Task<ExpandoObject> GetDynamicItem(string type)
+        {
+            string url = ExtAPI + $"api/{type}";
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                string resContent = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode)
+                {
+                    ExpandoObject result = JsonSerializer.Deserialize<ExpandoObject>(resContent);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+
+
+
+
+
+
         //function
         //get every class in the api
         public async Task<List<string>> GetClasses()
