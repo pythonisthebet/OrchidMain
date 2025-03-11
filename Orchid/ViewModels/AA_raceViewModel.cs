@@ -104,18 +104,18 @@ namespace Orchid.ViewModels
         public async Task InitilizeAsync()
 
         {
-            if (SelectedRace != null)
-            {
-                SelectedRace = null;
-                SelectedRace = new();
-            }
-            RaceList = await ExternalApiService.GetRaces();
-            Race temprace = await OrchidService.GetRace(((App)Application.Current).CurrentCharacter);
-            if (temprace != null)
-            {
-                SelectedRace = temprace.RaceName;
-            }
-            OnPropertyChanged("SelectedRace");
+            //if (SelectedRace != null)
+            //{
+            //    SelectedRace = null;
+            //    SelectedRace = new();
+            //}
+            //RaceList = await ExternalApiService.GetRaces();
+            //Race temprace = await OrchidService.GetRace(((App)Application.Current).CurrentCharacter);
+            //if (temprace != null)
+            //{
+            //    SelectedRace = temprace.RaceName;
+            //}
+            //OnPropertyChanged("SelectedRace");
         }
 
         //public async void OnSelectionChanged(object character)
@@ -134,14 +134,14 @@ namespace Orchid.ViewModels
         {
             if (SelectedRace != null)
             {
-                await OrchidService.RemoveRace(((App)Application.Current).CurrentCharacter);
+                //await OrchidService.RemoveRace(((App)Application.Current).CurrentCharacter);
 
 
-                Race linkedRace = new(((App)Application.Current).CurrentCharacter.Id, (string)selectedRace);
-                await OrchidService.AddRace(linkedRace);
+                //Race linkedRace = new(((App)Application.Current).CurrentCharacter.Id, (string)selectedRace);
+                //await OrchidService.AddRace(linkedRace);
 
-                //Add goto here to show details
-                //and edit like in creating a new character 
+                ////Add goto here to show details
+                ////and edit like in creating a new character 
 
 
             }

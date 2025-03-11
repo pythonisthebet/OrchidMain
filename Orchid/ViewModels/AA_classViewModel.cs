@@ -138,12 +138,13 @@ namespace Orchid.ViewModels
             InServerCall = true;
             ClassList = await ExternalApiService.GetDynamicList("classes");
             //remove the line below and change it to one using json not the db
-            List<Class> templist = await OrchidService.GetAllClasses(((App)Application.Current).CurrentCharacter);
+            //////////////////////////////////////////List<Class> templist = await OrchidService.GetAllClasses(((App)Application.Current).CurrentCharacter);
+            
+            //////////////////////////////////////////foreach (Class item in templist)
+            //////////////////////////////////////////{
+            //////////////////////////////////////////    SelectedClasses.Add(item.ClassName);
+            //////////////////////////////////////////}
             InServerCall = false;
-            foreach (Class item in templist)
-            {
-                SelectedClasses.Add(item.ClassName);
-            }
             OnPropertyChanged("SelectedClasses");
         }
 
@@ -171,6 +172,15 @@ namespace Orchid.ViewModels
             }
             //Selected_Color = Colors.LightGreen;
             isConfiremed = true;
+
+
+
+            //test
+            Character tempforid = await OrchidService.CreateCharacter(((App)Application.Current).CurrentCharacter);
+
+            await OrchidService.StoreCharacter(((App)Application.Current).CurrentCharacterProperties, tempforid.Id, ((App)Application.Current).LoggedInUser.Id);
+
+
 
             /*if (SelectedClasses != null)
             {

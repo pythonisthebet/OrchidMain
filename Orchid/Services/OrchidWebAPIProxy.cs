@@ -630,7 +630,7 @@ namespace Orchid.Services
 
         #region StoreCharacter
         //This method call the StoreCharacter web API on the server  and Stores a character expando object there
-        public async Task StoreCharacter(ExpandoObject character)
+        public async Task StoreCharacter(ExpandoObject character, int Cid, int Uid)
         {
             //Set URI to the specific function API
             string url = $"{this.baseUrl}storeCharacter";
@@ -638,7 +638,8 @@ namespace Orchid.Services
             {
                 dynamic c = character;
                 //Call the server API
-                string json = JsonSerializer.Serialize(c);
+                (dynamic, int, int) tuple = (c, Cid, Uid);
+                string json = JsonSerializer.Serialize(tuple);
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(url, content);
                 //Check status
