@@ -636,10 +636,14 @@ namespace Orchid.Services
             string url = $"{this.baseUrl}storeCharacter";
             try
             {
-                dynamic c = character;
+                ExpandoObject ToSend = new ExpandoObject();
+                ToSend.TryAdd("character", character);
+                ToSend.TryAdd("Uid", Uid);
+                ToSend.TryAdd("Cid", Cid);
+
+
                 //Call the server API
-                (dynamic, int, int) tuple = (c, Cid, Uid);
-                string json = JsonSerializer.Serialize(tuple);
+                string json = JsonSerializer.Serialize(ToSend);
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(url, content);
                 //Check status
@@ -669,7 +673,7 @@ namespace Orchid.Services
         #region GetDynamicCharacter
         //This method call the GetDynamicCharacter web API on the server and a json object that of the same ID of the given character
         //or null if the call fails
-        public async Task<ExpandoObject> GetDynamicCharacter(Character character)
+        public async Task<ExpandoObject> GetDynamicCharacter(int Uid,Character character)
         {
             //Set URI to the specific function API
             string url = $"{this.baseUrl}getDynamicCharacter";
@@ -677,7 +681,11 @@ namespace Orchid.Services
             {
                 //Call the server API
                 int id = character.Id;
-                string json = JsonSerializer.Serialize(id);
+                ExpandoObject ToSend = new ExpandoObject();
+
+                ToSend.TryAdd("Cid",id);
+                ToSend.TryAdd("Uid", Uid);
+                string json = JsonSerializer.Serialize(ToSend);
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(url, content);
                 //Check status

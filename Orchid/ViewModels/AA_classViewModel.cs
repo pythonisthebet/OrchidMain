@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Dynamic;
+using System.Runtime.InteropServices;
+using System.Text.Json;
 
 namespace Orchid.ViewModels
 {
@@ -137,13 +139,24 @@ namespace Orchid.ViewModels
             SelectedClasses.Clear();
             InServerCall = true;
             ClassList = await ExternalApiService.GetDynamicList("classes");
-            //remove the line below and change it to one using json not the db
-            //////////////////////////////////////////List<Class> templist = await OrchidService.GetAllClasses(((App)Application.Current).CurrentCharacter);
-            
-            //////////////////////////////////////////foreach (Class item in templist)
-            //////////////////////////////////////////{
-            //////////////////////////////////////////    SelectedClasses.Add(item.ClassName);
-            //////////////////////////////////////////}
+            ExpandoObject dynamicCh = await OrchidService.GetDynamicCharacter(((App)Application.Current).LoggedInUser.Id, ((App)Application.Current).CurrentCharacter);
+            if (dynamicCh != (null))
+            {
+                dynamic temp = dynamicCh;
+                var temp2 = temp.character;
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+                ExpandoObject temp3 = JsonSerializer.Deserialize<ExpandoObject>(temp2, options);
+                dynamic temp4 = temp3;
+                var clas = temp4.Classes;
+                List<string> templist = JsonSerializer.Deserialize<List<string>>(clas);
+                foreach (string item in templist)
+                {
+                    SelectedClasses.Add(item);
+                }
+            }
             InServerCall = false;
             OnPropertyChanged("SelectedClasses");
         }
@@ -176,9 +189,7 @@ namespace Orchid.ViewModels
 
 
             //test
-            Character tempforid = await OrchidService.CreateCharacter(((App)Application.Current).CurrentCharacter);
-
-            await OrchidService.StoreCharacter(((App)Application.Current).CurrentCharacterProperties, tempforid.Id, ((App)Application.Current).LoggedInUser.Id);
+            await OrchidService.StoreCharacter(((App)Application.Current).CurrentCharacterProperties, ((App)Application.Current).CurrentCharacter.Id, ((App)Application.Current).LoggedInUser.Id);
 
 
 
