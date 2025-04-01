@@ -142,19 +142,25 @@ namespace Orchid.ViewModels
             ExpandoObject dynamicCh = await OrchidService.GetDynamicCharacter(((App)Application.Current).LoggedInUser.Id, ((App)Application.Current).CurrentCharacter);
             if (dynamicCh != (null))
             {
-                dynamic temp = dynamicCh;
-                var temp2 = temp.character;
-                JsonSerializerOptions options = new JsonSerializerOptions
+                try
                 {
-                    PropertyNameCaseInsensitive = true
-                };
-                ExpandoObject temp3 = JsonSerializer.Deserialize<ExpandoObject>(temp2, options);
-                dynamic temp4 = temp3;
-                var clas = temp4.Classes;
-                List<string> templist = JsonSerializer.Deserialize<List<string>>(clas);
-                foreach (string item in templist)
+                    dynamic temp = dynamicCh;
+                    var temp2 = temp.character;
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    ExpandoObject temp3 = JsonSerializer.Deserialize<ExpandoObject>(temp2, options);
+                    dynamic temp4 = temp3;
+                    var clas = temp4.Classes;
+                    List<string> templist = JsonSerializer.Deserialize<List<string>>(clas);
+                    foreach (string item in templist)
+                    {
+                        SelectedClasses.Add(item);
+                    }
+                }
+                catch (Exception)
                 {
-                    SelectedClasses.Add(item);
                 }
             }
             InServerCall = false;

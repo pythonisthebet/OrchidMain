@@ -3,8 +3,10 @@ using Orchid.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -104,18 +106,33 @@ namespace Orchid.ViewModels
         public async Task InitilizeAsync()
 
         {
-            //if (SelectedRace != null)
-            //{
-            //    SelectedRace = null;
-            //    SelectedRace = new();
-            //}
-            //RaceList = await ExternalApiService.GetRaces();
-            //Race temprace = await OrchidService.GetRace(((App)Application.Current).CurrentCharacter);
-            //if (temprace != null)
-            //{
-            //    SelectedRace = temprace.RaceName;
-            //}
-            //OnPropertyChanged("SelectedRace");
+            {
+                SelectedRace = new object();
+                InServerCall = true;
+                RaceList = await ExternalApiService.GetDynamicList("races");
+                ExpandoObject dynamicCh = await OrchidService.GetDynamicCharacter(((App)Application.Current).LoggedInUser.Id, ((App)Application.Current).CurrentCharacter);
+                try
+                {
+                    if (dynamicCh != (null))
+                    {
+                        dynamic temp = dynamicCh;
+                        var temp2 = temp.character;
+                        JsonSerializerOptions options = new JsonSerializerOptions
+                        {
+                            PropertyNameCaseInsensitive = true
+                        };
+                        ExpandoObject temp3 = JsonSerializer.Deserialize<ExpandoObject>(temp2, options);
+                        dynamic temp4 = temp3;
+                        var race = temp4.Race;
+                        SelectedRace = race;
+                    }
+                }
+                catch (Exception)
+                { }
+                
+                InServerCall = false;
+                OnPropertyChanged("SelectedRace");
+            }
         }
 
         //public async void OnSelectionChanged(object character)
@@ -134,14 +151,22 @@ namespace Orchid.ViewModels
         {
             if (SelectedRace != null)
             {
-                //await OrchidService.RemoveRace(((App)Application.Current).CurrentCharacter);
+                IDictionary<string, object> temp = ((App)Application.Current).CurrentCharacterProperties;
+                if (temp.ContainsKey("race"))
+                {
+                    temp.Remove("race");
+                    ((App)Application.Current).CurrentCharacterProperties = (ExpandoObject)temp;
+                    ((App)Application.Current).CurrentCharacterProperties.TryAdd("Race", SelectedRace.ToString());
+                }
+                else
+                {
+                    ((App)Application.Current).CurrentCharacterProperties.TryAdd("Race", SelectedRace.ToString());
 
+                }
 
-                //Race linkedRace = new(((App)Application.Current).CurrentCharacter.Id, (string)selectedRace);
-                //await OrchidService.AddRace(linkedRace);
+                ////test
+                await OrchidService.StoreCharacter(((App)Application.Current).CurrentCharacterProperties, ((App)Application.Current).CurrentCharacter.Id, ((App)Application.Current).LoggedInUser.Id);
 
-                ////Add goto here to show details
-                ////and edit like in creating a new character 
 
 
             }

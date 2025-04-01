@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Dynamic;
+using System.Text.Json;
 
 namespace Orchid.ViewModels
 {
@@ -97,7 +98,17 @@ namespace Orchid.ViewModels
         {
             if (SelectedChar != null)
             {
+                //from db
                 ((App)Application.Current).CurrentCharacter = (Character)SelectedChar;
+                //from json
+                ExpandoObject dynamicCh = await OrchidService.GetDynamicCharacter(((App)Application.Current).LoggedInUser.Id, ((App)Application.Current).CurrentCharacter);
+                dynamic temp = dynamicCh;
+                var temp2 = temp.character;
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+                ((App)Application.Current).CurrentCharacterProperties = JsonSerializer.Deserialize<ExpandoObject>(temp2, options);
                 //Add goto here to show details
                 //and edit like in creating a new character 
                 await Shell.Current.GoToAsync("//characterCreation/class");
