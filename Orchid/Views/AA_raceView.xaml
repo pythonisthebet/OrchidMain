@@ -10,7 +10,7 @@
         SelectionMode="Single"
         
         ItemsSource="{Binding RaceList}"
-        SelectedItem="{Binding SelectedRace, Mode=TwoWay}"
+        SelectedItem="{Binding SelectedRace}"
         SelectionChangedCommand="{Binding SelectionChangedCommand}"
         SelectionChangedCommandParameter="{Binding}">
 

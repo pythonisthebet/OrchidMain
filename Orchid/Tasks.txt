@@ -1,0 +1,18 @@
+﻿												11 Task to complete for godhood
+									1)copmlete all aa_ views and add all the missing fetures - select level in class etc
+										1a)make it so when tring to select more skills then yo ucan a pop up page apears and blcoks you
+										1b)make it so that only spells you can learn appear
+										1c)add class levels selection
+										1d)ask if they want point buy on the stats screen
+										1e)add scroll view and some order in equipment and spell view like sorted by level/type/school
+									2)add description for every thing - example barberian ------------ press this for description *^* pop up with description 
+									3)clean up the views and remove unessesery views
+									4)comment and fix wrong commanting
+									5)make the image generator using ai (foe premium) and pre selected picturs (no premium) api
+									6)make premium to use the ai and more character slots
+									7)make the json to pdf
+									8)make the archive
+									9)make posts and commants possible like r34 cose me like dizine
+									10)make the readme good file
+									11)disin all the app cose it fugly af
+									12)profite

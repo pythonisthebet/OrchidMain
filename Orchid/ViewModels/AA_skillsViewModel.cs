@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Dynamic;
+using System.Runtime.InteropServices;
+using System.Text.Json;
 
 namespace Orchid.ViewModels
 {
@@ -44,20 +47,6 @@ namespace Orchid.ViewModels
             }
         }
 
-        private int selectedSkillsCount;
-        public int SelectedSkillsCount
-        {
-            get
-            {
-                return this.selectedSkillsCount;
-            }
-            set
-            {
-                this.selectedSkillsCount = value;
-                OnPropertyChanged("SelectedSkillsCount");
-            }
-        }
-
         //private object selectedItem;
         //public object SelectedItem
         //{
@@ -72,6 +61,34 @@ namespace Orchid.ViewModels
         //        OnPropertyChanged("SelectedItem");
         //    }
         //}
+
+        //private Color selected_Color;
+
+        //public Color Selected_Color
+        //{
+        //    get { return selected_Color; }
+
+        //    set
+        //    {
+        //        selected_Color = value;
+        //        OnPropertyChanged("Selected_Color");
+        //    }
+        //}
+
+        private bool isConfiremed;
+        public bool IsConfiremed
+        {
+            get
+            {
+                return this.isConfiremed;
+            }
+            set
+            {
+                this.isConfiremed = value;
+                OnPropertyChanged("IsConfiremed");
+            }
+        }
+
 
         private bool inServerCall;
         public bool InServerCall
@@ -103,6 +120,8 @@ namespace Orchid.ViewModels
         public AA_skillsViewModel(OrchidWebAPIProxy proxy, ExternalService proxy2, IServiceProvider serviceProvider)
         {
             SelectedSkills = new();
+            //selected_Color = Colors.Red;
+            isConfiremed = false;
             this.serviceProvider = serviceProvider;
             InServerCall = false;
             this.OrchidService = proxy;
@@ -111,125 +130,86 @@ namespace Orchid.ViewModels
         #endregion
 
         public ICommand Confirm => new Command(OnConfirm);
-        //public ICommand SelectionChangedCommand => new Command(OnSelectionChanged);
+        public ICommand SelectionChangedCommand => new Command(OnSelectionChanged);
 
 
 
         public async Task InitilizeAsync()
         {
-            //if (SelectedSkills != null)
-            //{
-            //    SelectedSkills = null;
-            //    SelectedSkills = new();
-            //}
-            //List<Class> tempClasslist = await OrchidService.GetAllClasses(((App)Application.Current).CurrentCharacter);
-            //Class selectedClass = tempClasslist.FirstOrDefault();
-
-            //(List<string> list, int count) SkillListpluscount = await ExternalApiService.GetSkills(selectedClass);
-            //SkillList = SkillListpluscount.list;
-            //selectedSkillsCount = SkillListpluscount.count;
-
-            //List<string> templist = await OrchidService.GetAllSkills(((App)Application.Current).CurrentCharacter);
-            //if (templist != null)
-            //{
-            //    foreach (string item in templist)
-            //    {
-            //        SelectedSkills.Add(item);
-            //    }
-            //    OnPropertyChanged("SelectedSkills");
-            //}
+            SelectedSkills.Clear();
+            InServerCall = true;
+            SkillList = await ExternalApiService.GetDynamicList("skills");
+            ExpandoObject dynamicCh = await OrchidService.GetDynamicCharacter(((App)Application.Current).LoggedInUser.Id, ((App)Application.Current).CurrentCharacter);
+            if (dynamicCh != (null))
+            {
+                try
+                {
+                    dynamic temp = dynamicCh;
+                    var temp2 = temp.character;
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    ExpandoObject temp3 = JsonSerializer.Deserialize<ExpandoObject>(temp2, options);
+                    dynamic temp4 = temp3;
+                    var clas = temp4.skill;
+                    List<string> templist = JsonSerializer.Deserialize<List<string>>(clas);
+                    foreach (string item in templist)
+                    {
+                        SelectedSkills.Add(item);
+                    }
+                }
+                catch (Exception e)
+                {
+                }
+            }
+            InServerCall = false;
+            OnPropertyChanged("SelectedSkills");
         }
 
-        //public async void OnSelectionChanged(object character)
-        //{
-        //    OnPropertyChanged("SelectedClasses");
-
-        //    List<Class> templist = await OrchidService.GetAllClasses(((App)Application.Current).CurrentCharacter);
-        //    foreach (Class item in templist)
-        //    {
-        //        SelectedClasses.Add(item.ClassName);
-        //    }
-        //}
+        public async void OnSelectionChanged()
+        {
+            isConfiremed = false;
+            //Selected_Color = Colors.Red;
+        }
 
 
         public async void OnConfirm()
         {
-            //if (SelectedSkills != null)
-            //{
-            //    await OrchidService.RemoveSkills(((App)Application.Current).CurrentCharacter);
-            //    ProficienciesSkill skills = new();
-            //    foreach (string item in SelectedSkills)
-            //    {
-                    
-            //        switch (item.ToLower()) // Case insensitive matching
-            //        {
-            //            case "acrobatics":
-            //                skills.Acrobatics = true;
-            //                break;
-            //            case "animalhandling":
-            //                skills.AnimalHandling = true;
-            //                break;
-            //            case "arcana":
-            //                skills.Arcana = true;
-            //                break;
-            //            case "athletics":
-            //                skills.Athletics = true;
-            //                break;
-            //            case "deception":
-            //                skills.Deception = true;
-            //                break;
-            //            case "history":
-            //                skills.History = true;
-            //                break;
-            //            case "insight":
-            //                skills.Insight = true;
-            //                break;
-            //            case "intimidation":
-            //                skills.Intimidation = true;
-            //                break;
-            //            case "investigation":
-            //                skills.Investigation = true;
-            //                break;
-            //            case "medicine":
-            //                skills.Medicine = true;
-            //                break;
-            //            case "nature":
-            //                skills.Nature = true;
-            //                break;
-            //            case "perception":
-            //                skills.Perception = true;
-            //                break;
-            //            case "performance":
-            //                skills.Performance = true;
-            //                break;
-            //            case "persuasion":
-            //                skills.Persuasion = true;
-            //                break;
-            //            case "religion":
-            //                skills.Religion = true;
-            //                break;
-            //            case "sleightofhand":
-            //                skills.SleightOfHand = true;
-            //                break;
-            //            case "stealth":
-            //                skills.Stealth = true;
-            //                break;
-            //            case "survival":
-            //                skills.Survival = true;
-            //                break;
-            //            default:
-            //                break;
-            //        }
-            //    }
-            //    await OrchidService.AddSkills(((App)Application.Current).CurrentCharacter, skills);
-            //    //Add goto here to show details
-            //    //and edit like in creating a new character 
+            IDictionary<string, object> temp = ((App)Application.Current).CurrentCharacterProperties;
+            List<string> selectedSkills_String = selectedSkills.Select(s => (string)s).ToList();
+            if (temp.ContainsKey("skill"))
+            {
+                temp.Remove("skill");
+                ((App)Application.Current).CurrentCharacterProperties = (ExpandoObject)temp;
+                ((App)Application.Current).CurrentCharacterProperties.TryAdd("skill", selectedSkills_String.ToList());
+            }
+            else
+            {
+                ((App)Application.Current).CurrentCharacterProperties.TryAdd("skill", selectedSkills_String.ToList());
+
+            }
+            //Selected_Color = Colors.LightGreen;
+            isConfiremed = true;
 
 
-            //}
 
-            ////SelectedClasses = null;
-            ////selectedClasses = new();
+            //test
+            await OrchidService.StoreCharacter(((App)Application.Current).CurrentCharacterProperties, ((App)Application.Current).CurrentCharacter.Id, ((App)Application.Current).LoggedInUser.Id);
+
+
+
+            /*if (SelectedClasses != null)
+            {
+                ((App)Application.Current).)
+                items.TryAdd("selectedClasses", SelectedClasses);
+                //need to add the level of each class
+
+
+            }*/
+
+
+
 
         }
     }

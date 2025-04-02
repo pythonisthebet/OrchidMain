@@ -3,12 +3,13 @@ using Orchid.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Dynamic;
 using System.Linq;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Dynamic;
+using System.Runtime.InteropServices;
+using System.Text.Json;
 
 namespace Orchid.ViewModels
 {
@@ -123,8 +124,9 @@ namespace Orchid.ViewModels
                         };
                         ExpandoObject temp3 = JsonSerializer.Deserialize<ExpandoObject>(temp2, options);
                         dynamic temp4 = temp3;
-                        var race = temp4.Race;
-                        SelectedRace = race;
+                        var race = temp4.race;
+                        string stringrace = JsonSerializer.Deserialize<string>(temp4.race, options);
+                        SelectedRace = stringrace;
                     }
                 }
                 catch (Exception)
@@ -156,11 +158,11 @@ namespace Orchid.ViewModels
                 {
                     temp.Remove("race");
                     ((App)Application.Current).CurrentCharacterProperties = (ExpandoObject)temp;
-                    ((App)Application.Current).CurrentCharacterProperties.TryAdd("Race", SelectedRace.ToString());
+                    ((App)Application.Current).CurrentCharacterProperties.TryAdd("race", SelectedRace.ToString());
                 }
                 else
                 {
-                    ((App)Application.Current).CurrentCharacterProperties.TryAdd("Race", SelectedRace.ToString());
+                    ((App)Application.Current).CurrentCharacterProperties.TryAdd("race", SelectedRace.ToString());
 
                 }
 

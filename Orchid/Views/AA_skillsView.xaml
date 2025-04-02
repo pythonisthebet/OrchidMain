@@ -8,19 +8,28 @@
              xmlns:vm="clr-namespace:Orchid.ViewModels"
              x:DataType="vm:AA_skillsViewModel">
     <VerticalStackLayout>
-        <CollectionView
-            x:Name="theCollectionView"
-            ItemsLayout="VerticalList"
-            SelectionMode="Multiple"
-            
-            ItemsSource="{Binding SkillList}"
-            SelectedItems="{Binding SelectedSkills, Mode=TwoWay}">
+        <Grid Margin="10">
+            <CollectionView
+    x:Name="theCollectionView"
+    ItemsLayout="VerticalList"
+    SelectionMode="Multiple"
 
-            <!--SelectedItem="{Binding SelectedItem}"-->
+    ItemsSource="{Binding SkillList}"
+    SelectedItems="{Binding SelectedSkills, Mode=TwoWay}"
+    SelectionChangedCommand="{Binding SelectionChangedCommand}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="5">
+                            <Label
+                    Text="{Binding}"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <!--SelectedItem="{Binding SelectedItem}"-->
 
 
-        </CollectionView>
-
+            </CollectionView>
+        </Grid>
         <Button Text="Confirm" Command="{Binding Confirm}"/>
     </VerticalStackLayout>
 </ContentPage>

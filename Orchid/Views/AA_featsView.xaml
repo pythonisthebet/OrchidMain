@@ -4,9 +4,28 @@
              x:Class="Orchid.Views.AA_featsView"
              Title="AA_featsView">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Grid Margin="10">
+            <CollectionView
+        x:Name="theCollectionView"
+        ItemsLayout="VerticalList"
+        SelectionMode="Multiple"
+    
+        ItemsSource="{Binding FeatList}"
+        SelectedItems="{Binding SelectedFeats, Mode=TwoWay}"
+        SelectionChangedCommand="{Binding SelectionChangedCommand}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="5">
+                            <Label
+                        Text="{Binding}"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <!--SelectedItem="{Binding SelectedItem}"-->
+
+
+            </CollectionView>
+        </Grid>
+        <Button Text="Confirm" Command="{Binding Confirm}"/>
     </VerticalStackLayout>
 </ContentPage>

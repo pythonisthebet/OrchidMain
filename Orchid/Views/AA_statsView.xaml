@@ -1,12 +1,115 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="Orchid.Views.AA_statsView"
              Title="AA_statsView">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:MathExpressionConverter x:Key="MathExpressionConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <!--this one is for alerts-->
+                <RowDefinition Height="*" />
+                <!--last one for the reset and total points 0/27-->
+                <RowDefinition Height="*" /> 
+
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.7*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!--headers-->
+            <Label Grid.Row="0" Grid.Column="0" Text="Attribute" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="0" Grid.Column="1" Text="Ability Score" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="0" Grid.Column="2" Text="Racial Bonus" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="0" Grid.Column="3" Text="Total Score" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="0" Grid.Column="4" Text="Ability Modifier" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="0" Grid.Column="5" Text="Point Cost" HorizontalOptions="Center" VerticalOptions="Center" />
+            <!--footers-->
+            <Label Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="6" Text="{Binding Alert}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Button Grid.Row="8" Grid.Column="1" Text="reset" HorizontalOptions="Center" Command="{Binding Confirm}"/>
+            <Label Grid.Row="8" Grid.Column="4" Text="Total Points" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="8" Grid.Column="5" Text="{Binding PointTotal,StringFormat='{0:0} /27'}" HorizontalOptions="Center" VerticalOptions="Center" />
+
+
+            <!--Attributes-->
+            <Label Grid.Row="1" Grid.Column="0" Text="Strength" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="2" Grid.Column="0" Text="Dexterity" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="3" Grid.Column="0" Text="Constitution" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="4" Grid.Column="0" Text="Intelligence" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="5" Grid.Column="0" Text="Wisdom" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="6" Grid.Column="0" Text="Charisma" HorizontalOptions="Center" VerticalOptions="Center" />
+
+            <!--Ability scores-->
+            <!--<ListView ItemsSource="{Binding Scores}" Grid.Column="1" Grid.Row="1">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Entry Text="{Binding}" HorizontalOptions="Center" VerticalOptions="Center" />
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>-->
+            <Label Grid.Row="1" Grid.Column="1" Text="{Binding Scores[0]}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="2" Grid.Column="1" Text="{Binding Scores[1]}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="3" Grid.Column="1" Text="{Binding Scores[2]}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="4" Grid.Column="1" Text="{Binding Scores[3]}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="5" Grid.Column="1" Text="{Binding Scores[4]}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="6" Grid.Column="1" Text="{Binding Scores[5]}" HorizontalOptions="Center" VerticalOptions="Center" />
+
+            <!--Racial Bonus-->
+            <Label Grid.Row="1" Grid.Column="2" Text="{Binding RacialBoostsScores[0]}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="2" Grid.Column="2" Text="{Binding RacialBoostsScores[1]}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="3" Grid.Column="2" Text="{Binding RacialBoostsScores[2]}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="4" Grid.Column="2" Text="{Binding RacialBoostsScores[3]}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="5" Grid.Column="2" Text="{Binding RacialBoostsScores[4]}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="6" Grid.Column="2" Text="{Binding RacialBoostsScores[5]}" HorizontalOptions="Center" VerticalOptions="Center" />
+
+            <!--Score Total-->
+            <Label Grid.Row="1" Grid.Column="3" Text="{Binding ScoreTotal[0]}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="2" Grid.Column="3" Text="{Binding ScoreTotal[1]}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="3" Grid.Column="3" Text="{Binding ScoreTotal[2]}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="4" Grid.Column="3" Text="{Binding ScoreTotal[3]}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="5" Grid.Column="3" Text="{Binding ScoreTotal[4]}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="6" Grid.Column="3" Text="{Binding ScoreTotal[5]}" HorizontalOptions="Center" VerticalOptions="Center" />
+
+
+
+            <!--Ability Modifier-->
+            <Label Grid.Row="1" Grid.Column="4" Text="{Binding AbilityModifier[0]}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="2" Grid.Column="4" Text="{Binding AbilityModifier[1]}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="3" Grid.Column="4" Text="{Binding AbilityModifier[2]}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="4" Grid.Column="4" Text="{Binding AbilityModifier[3]}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="5" Grid.Column="4" Text="{Binding AbilityModifier[4]}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="6" Grid.Column="4" Text="{Binding AbilityModifier[5]}" HorizontalOptions="Center" VerticalOptions="Center" />
+            
+            
+            <!--Point Cost-->
+            <Label Grid.Row="1" Grid.Column="5" Text="{Binding PointCost[0]}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="2" Grid.Column="5" Text="{Binding PointCost[1]}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="3" Grid.Column="5" Text="{Binding PointCost[2]}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="4" Grid.Column="5" Text="{Binding PointCost[3]}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="5" Grid.Column="5" Text="{Binding PointCost[4]}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="6" Grid.Column="5" Text="{Binding PointCost[5]}" HorizontalOptions="Center" VerticalOptions="Center" />
+
+        </Grid>
+        <Button Text="Confirm" HorizontalOptions="Center" Command="{Binding Confirm}"/>
     </VerticalStackLayout>
 </ContentPage>
