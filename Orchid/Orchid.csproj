@@ -48,6 +48,52 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\AppIcon\appicon.svg" />
+	  <None Remove="Resources\AppIcon\appiconfg.svg" />
+	  <None Remove="Resources\Images\add2.png" />
+	  <None Remove="Resources\Images\dotnet_bot.svg" />
+	  <None Remove="Resources\Images\down.png" />
+	  <None Remove="Resources\Images\game_icon.png" />
+	  <None Remove="Resources\Images\list_icon.png" />
+	  <None Remove="Resources\Images\lock_icon.png" />
+	  <None Remove="Resources\Images\logout_icon.png" />
+	  <None Remove="Resources\Images\pending.png" />
+	  <None Remove="Resources\Images\profile_icon.png" />
+	  <None Remove="Resources\Images\question_mark_icon.png" />
+	  <None Remove="Resources\Images\trash_can.png" />
+	  <None Remove="Resources\Images\trophy.png" />
+	  <None Remove="Resources\Images\up2.png" />
+	  <None Remove="Resources\Images\wait.gif" />
+	  <None Remove="Resources\Splash\splash.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiIcon Include="Resources\AppIcon\appicon.svg" />
+	  <MauiIcon Include="Resources\AppIcon\appiconfg.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiImage Include="Resources\Images\add2.png" />
+	  <MauiImage Include="Resources\Images\dotnet_bot.svg" />
+	  <MauiImage Include="Resources\Images\down.png" />
+	  <MauiImage Include="Resources\Images\game_icon.png" />
+	  <MauiImage Include="Resources\Images\list_icon.png" />
+	  <MauiImage Include="Resources\Images\lock_icon.png" />
+	  <MauiImage Include="Resources\Images\logout_icon.png" />
+	  <MauiImage Include="Resources\Images\pending.png" />
+	  <MauiImage Include="Resources\Images\profile_icon.png" />
+	  <MauiImage Include="Resources\Images\question_mark_icon.png" />
+	  <MauiImage Include="Resources\Images\trash_can.png" />
+	  <MauiImage Include="Resources\Images\trophy.png" />
+	  <MauiImage Include="Resources\Images\up2.png" />
+	  <MauiImage Include="Resources\Images\wait.gif" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiSplashScreen Include="Resources\Splash\splash.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="9.1.1" />
 		<PackageReference Include="CommunityToolkit.Maui.Core" Version="9.1.1" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />

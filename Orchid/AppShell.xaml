@@ -49,13 +49,13 @@
     </FlyoutItem>
     <FlyoutItem x:Name="Profile" FlyoutDisplayOptions="AsSingleItem" Route="tabs" Title="Profile">
         <ShellContent
-          Title="Profile" Icon="list_icon.png"
+          Title="Profile" Icon="profile_icon.png"
           ContentTemplate="{DataTemplate views:ProfileView}"
           Route="Profile" />
     </FlyoutItem>
     <FlyoutItem x:Name="Subscription" FlyoutDisplayOptions="AsSingleItem" Route="tabs" Title="Subscription">
         <ShellContent
-          Title="Subscription" Icon="list_icon.png"
+          Title="Subscription" Icon="trophy.png"
           ContentTemplate="{DataTemplate views:SubscriptionView}"
           Route="Subscription" />
     </FlyoutItem>

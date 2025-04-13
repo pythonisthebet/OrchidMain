@@ -69,23 +69,23 @@
             </ListView>-->
 
             <Label Grid.Row="1" Grid.Column="1" Text="{Binding Scores[0]}" Margin="0,20" HorizontalOptions="Center" VerticalOptions="Center" />
-            <Button Grid.Row="1" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="UpArrow.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="Start" Command="{Binding ChangeValueCommand}" CommandParameter="0,0"/>
-            <Button Grid.Row="1" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="DownArrow.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="End" Command="{Binding ChangeValueCommand}" CommandParameter="0,1"/>
+            <Button Grid.Row="1" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="up2.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="Start" Command="{Binding OnUpDownCommand}" CommandParameter="0,0"/>
+            <Button Grid.Row="1" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="Down.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="End" Command="{Binding OnUpDownCommand}" CommandParameter="0,1"/>
             <Label Grid.Row="2" Grid.Column="1" Text="{Binding Scores[1]}" Margin="0,20" HorizontalOptions="Center" VerticalOptions="Center" />
-            <Button Grid.Row="2" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="UpArrow.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="Start" Command="{Binding ChangeValueCommand}" CommandParameter="0,0"/>
-            <Button Grid.Row="2" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="DownArrow.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="End" Command="{Binding ChangeValueCommand}" CommandParameter="0,1"/>
+            <Button Grid.Row="2" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="up2.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="Start" Command="{Binding OnUpDownCommand}" CommandParameter="1,0"/>
+            <Button Grid.Row="2" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="Down.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="End" Command="{Binding OnUpDownCommand}" CommandParameter="1,1"/>
             <Label Grid.Row="3" Grid.Column="1" Text="{Binding Scores[2]}" Margin="0,20" HorizontalOptions="Center" VerticalOptions="Center" />
-            <Button Grid.Row="3" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="UpArrow.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="Start" Command="{Binding ChangeValueCommand}" CommandParameter="0,0"/>
-            <Button Grid.Row="3" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="DownArrow.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="End" Command="{Binding ChangeValueCommand}" CommandParameter="0,1"/>
+            <Button Grid.Row="3" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="up2.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="Start" Command="{Binding OnUpDownCommand}" CommandParameter="2,0"/>
+            <Button Grid.Row="3" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="Down.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="End" Command="{Binding OnUpDownCommand}" CommandParameter="2,1"/>
             <Label Grid.Row="4" Grid.Column="1" Text="{Binding Scores[3]}" Margin="0,20" HorizontalOptions="Center" VerticalOptions="Center" />
-            <Button Grid.Row="4" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="UpArrow.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="Start" Command="{Binding ChangeValueCommand}" CommandParameter="0,0"/>
-            <Button Grid.Row="4" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="DownArrow.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="End" Command="{Binding ChangeValueCommand}" CommandParameter="0,1"/>
+            <Button Grid.Row="4" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="up2.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="Start" Command="{Binding OnUpDownCommand}" CommandParameter="3,0"/>
+            <Button Grid.Row="4" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="Down.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="End" Command="{Binding OnUpDownCommand}" CommandParameter="3,1"/>
             <Label Grid.Row="5" Grid.Column="1" Text="{Binding Scores[4]}" Margin="0,20" HorizontalOptions="Center" VerticalOptions="Center" />
-            <Button Grid.Row="5" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="UpArrow.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="Start" Command="{Binding ChangeValueCommand}" CommandParameter="0,0"/>
-            <Button Grid.Row="5" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="DownArrow.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="End" Command="{Binding ChangeValueCommand}" CommandParameter="0,1"/>
+            <Button Grid.Row="5" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="up2.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="Start" Command="{Binding OnUpDownCommand}" CommandParameter="4,0"/>
+            <Button Grid.Row="5" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="down.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="End" Command="{Binding OnUpDownCommand}" CommandParameter="4,1"/>
             <Label Grid.Row="6" Grid.Column="1" Text="{Binding Scores[5]}" Margin="0,20" HorizontalOptions="Center" VerticalOptions="Center" />
-            <Button Grid.Row="6" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="UpArrow.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="Start" Command="{Binding ChangeValueCommand}" CommandParameter="0,0"/>
-            <Button Grid.Row="6" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="DownArrow.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="End" Command="{Binding ChangeValueCommand}" CommandParameter="0,1"/>
+            <Button Grid.Row="6" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="Up2.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="Start" Command="{Binding OnUpDownCommand}" CommandParameter="5,0"/>
+            <Button Grid.Row="6" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="Down.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="End" Command="{Binding OnUpDownCommand}" CommandParameter="5,1"/>
             
             <!--Racial Bonus-->
             <Label Grid.Row="1" Grid.Column="2" Text="{Binding RacialBoostsScores[0]}" HorizontalOptions="Center" VerticalOptions="Center" />

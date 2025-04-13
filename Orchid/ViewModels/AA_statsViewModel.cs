@@ -153,6 +153,23 @@ namespace Orchid.ViewModels
         }
         #endregion
 
+        //public ICommand Confirm => new Command(OnConfirm);
+
+        public ICommand OnUpDownCommand => new Command(OnUpDown);
+
+        public void OnUpDown(object obj)
+        {
+            (int location, int updown) tuple = ((int location, int updown))obj;
+            if (tuple.updown == 0)
+            {
+                Scores[tuple.location]++;
+            }
+            else
+            {
+                Scores[tuple.location]--;
+            }
+
+        }
         public void Sum()
         {
             scoreTotal = Scores.Select((x, index) => x + RacialBoostsScores[index]).ToArray();
