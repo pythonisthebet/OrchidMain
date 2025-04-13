@@ -159,14 +159,16 @@ namespace Orchid.ViewModels
 
         public void OnUpDown(object obj)
         {
-            (int location, int updown) tuple = ((int location, int updown))obj;
-            if (tuple.updown == 0)
+            string parameters = obj.ToString();
+            char location = parameters[0];
+            char updown = parameters[1];
+            if (updown == 0)
             {
-                Scores[tuple.location]++;
+                Scores[location] = Scores[location] + 1;
             }
             else
             {
-                Scores[tuple.location]--;
+                Scores[location] = Scores[location] - 1;
             }
 
         }
