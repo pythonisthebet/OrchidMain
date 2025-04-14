@@ -41,12 +41,13 @@
             <Label Grid.Row="0" Grid.Column="2" Text="Racial Bonus" HorizontalOptions="Center" VerticalOptions="Center" />
             <Label Grid.Row="0" Grid.Column="3" Text="Total Score" HorizontalOptions="Center" VerticalOptions="Center" />
             <Label Grid.Row="0" Grid.Column="4" Text="Ability Modifier" HorizontalOptions="Center" VerticalOptions="Center" />
-            <Label Grid.Row="0" Grid.Column="5" Text="Point Cost" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="0" Grid.Column="5" Text="Point Cost" HorizontalOptions="Center" VerticalOptions="Center" IsEnabled="{Binding PointBuy}"/>
             <!--footers-->
             <Label Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="6" Text="{Binding Alert}" HorizontalOptions="Center" VerticalOptions="Center" />
-            <Button Grid.Row="8" Grid.Column="1" Text="reset" Grid.ColumnSpan="2" HorizontalOptions="CenterAndExpand" Command="{Binding Confirm}"/>
-            <Label Grid.Row="8" Grid.Column="4" Text="Total Points" HorizontalOptions="Center" VerticalOptions="Center" />
-            <Label Grid.Row="8" Grid.Column="5" Text="{Binding PointTotal,StringFormat='{0:0} /27'}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Button Grid.Row="8" Grid.Column="0" Text="Point buy" Command="{Binding PointBuyCommand}"/>
+            <Button Grid.Row="8" Grid.Column="1" Text="reset" Grid.ColumnSpan="2" Command="{Binding ResetCommand}"/>
+            <Label Grid.Row="8" Grid.Column="4" Text="Total Points" HorizontalOptions="Center" VerticalOptions="Center" IsEnabled="{Binding PointBuy}"/>
+            <Label Grid.Row="8" Grid.Column="5" Text="{Binding PointTotal,StringFormat='{0:0} /27'}" HorizontalOptions="Center" VerticalOptions="Center" IsEnabled="{Binding PointBuy}"/>
 
 
             <!--Attributes-->
@@ -115,14 +116,14 @@
             
             
             <!--Point Cost-->
-            <Label Grid.Row="1" Grid.Column="5" Text="{Binding PointCost[0]}" HorizontalOptions="Center" VerticalOptions="Center" />
-            <Label Grid.Row="2" Grid.Column="5" Text="{Binding PointCost[1]}" HorizontalOptions="Center" VerticalOptions="Center" />
-            <Label Grid.Row="3" Grid.Column="5" Text="{Binding PointCost[2]}" HorizontalOptions="Center" VerticalOptions="Center" />
-            <Label Grid.Row="4" Grid.Column="5" Text="{Binding PointCost[3]}" HorizontalOptions="Center" VerticalOptions="Center" />
-            <Label Grid.Row="5" Grid.Column="5" Text="{Binding PointCost[4]}" HorizontalOptions="Center" VerticalOptions="Center" />
-            <Label Grid.Row="6" Grid.Column="5" Text="{Binding PointCost[5]}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="1" Grid.Column="5" Text="{Binding PointCost[0]}" HorizontalOptions="Center" VerticalOptions="Center" IsEnabled="{Binding PointBuy}"/>
+            <Label Grid.Row="2" Grid.Column="5" Text="{Binding PointCost[1]}" HorizontalOptions="Center" VerticalOptions="Center" IsEnabled="{Binding PointBuy}"/>
+            <Label Grid.Row="3" Grid.Column="5" Text="{Binding PointCost[2]}" HorizontalOptions="Center" VerticalOptions="Center" IsEnabled="{Binding PointBuy}"/>
+            <Label Grid.Row="4" Grid.Column="5" Text="{Binding PointCost[3]}" HorizontalOptions="Center" VerticalOptions="Center" IsEnabled="{Binding PointBuy}"/>
+            <Label Grid.Row="5" Grid.Column="5" Text="{Binding PointCost[4]}" HorizontalOptions="Center" VerticalOptions="Center" IsEnabled="{Binding PointBuy}"/>
+            <Label Grid.Row="6" Grid.Column="5" Text="{Binding PointCost[5]}" HorizontalOptions="Center" VerticalOptions="Center" IsEnabled="{Binding PointBuy}"/>
 
         </Grid>
-        <Button Text="Confirm" HorizontalOptions="Center" Command="{Binding Confirm}"/>
+        <Button Text="Confirm" HorizontalOptions="Center" Command="{Binding ConfirmCommand}"/>
     </VerticalStackLayout>
 </ContentPage>

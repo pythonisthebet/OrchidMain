@@ -10,9 +10,9 @@ public partial class AA_statsView : ContentPage
         InitializeComponent();
     }
 
-    //protected override async void OnAppearing()
-    //{
-    //    AA_statsViewModel _vm = (BindingContext as AA_statsViewModel);
-    //    await _vm.InitilizeAsync();// you can have some additional logic to cache the result` 
-    //}
+    protected override async void OnAppearing()
+    {
+        AA_statsViewModel _vm = (BindingContext as AA_statsViewModel);
+        await _vm.InitilizeAsync();// you can have some additional logic to cache the result` 
+    }
 }
