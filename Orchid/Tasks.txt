@@ -4,7 +4,7 @@
 										1a)make it so when tring to select more skills then yo ucan a pop up page apears and blcoks you
 										1b)make it so that only spells you can learn appear
 										1c)add class levels selection
-										1d)ask if they want point buy on the stats screen
+										1d)------------------------
 										1e)add scroll view and some order in equipment and spell view like sorted by level/type/school
 									2)add description for every thing - example barberian ------------ press this for description *^* pop up with description 
 									3)clean up the views and remove unessesery views
