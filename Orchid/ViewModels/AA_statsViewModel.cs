@@ -19,7 +19,7 @@ namespace Orchid.ViewModels
         #region Attributes and Properties
         private OrchidWebAPIProxy OrchidService;
         private ExternalService ExternalApiService;
-        private bool inconstractor;
+        private bool inconstractor = false;
 
 
 
@@ -204,6 +204,18 @@ namespace Orchid.ViewModels
                     {
                         Scores[item.Key] = item.Value;
                     }
+                    try
+                    {
+                        Sum();
+                        SumAndTruncade();
+                        PointCF();
+                        PointTF();
+                        OnPropertyChanged("Scores");
+                    }
+                    catch (Exception)
+                    {
+                    }
+
                 }
                 catch (Exception)
                 {

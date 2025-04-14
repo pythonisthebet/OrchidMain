@@ -178,15 +178,68 @@ namespace Orchid.ViewModels
         {
             IDictionary<string, object> temp = ((App)Application.Current).CurrentCharacterProperties;
             List<string> selectedClasses_String = selectedClasses.Select(s => (string)s).ToList();
-            if (temp.ContainsKey("classes"))
+            List<string> selectedClasseslevel_String = new List<string>();
+            int sum = 0;
+            bool selectingLevels = true;
+            bool NoError = true;
+            while (selectingLevels)
             {
-                temp.Remove("classes");
+                foreach (string item in selectedClasses_String)
+                {
+                    NoError = false;
+                    while (NoError == false)
+                    {
+                        try
+                        {
+                            string result = await Application.Current.MainPage.DisplayPromptAsync("Level Selection", "What level for class " + item, initialValue: "1", maxLength: 2, keyboard: Keyboard.Numeric);
+                            int number = int.Parse(result);
+                            if (number > 20 || number < 1) 
+                            {
+                                number = int.Parse("&");
+                            }
+                            sum += number;
+                            selectedClasseslevel_String.Add(result);
+                            NoError = true;
+                        }
+                        catch (Exception)
+                        {
+                            await Application.Current.MainPage.DisplayAlert("Error", $"Please input a number (0-20)", "ok");
+                        }
+
+                    }
+                }
+                if (sum > 20)
+                {
+                    sum = 0;
+                    await Application.Current.MainPage.DisplayAlert("Error", $"sum of levels cannot exceed 20", "ok");
+                    selectedClasseslevel_String.Clear();
+                }
+                else 
+                { 
+                    selectingLevels = false;
+                }
+            }
+
+            if (temp.ContainsKey("Classes"))
+            {
+                temp.Remove("Classes");
                 ((App)Application.Current).CurrentCharacterProperties = (ExpandoObject)temp;
                 ((App)Application.Current).CurrentCharacterProperties.TryAdd("Classes", selectedClasses_String.ToList());
             }
             else
             {
                 ((App)Application.Current).CurrentCharacterProperties.TryAdd("Classes", selectedClasses_String.ToList());
+
+            }
+            if (temp.ContainsKey("ClassLevels"))
+            {
+                temp.Remove("ClassLevels");
+                ((App)Application.Current).CurrentCharacterProperties = (ExpandoObject)temp;
+                ((App)Application.Current).CurrentCharacterProperties.TryAdd("ClassLevels", selectedClasseslevel_String.ToList());
+            }
+            else
+            {
+                ((App)Application.Current).CurrentCharacterProperties.TryAdd("ClassLevels", selectedClasseslevel_String.ToList());
 
             }
             //Selected_Color = Colors.LightGreen;
