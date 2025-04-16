@@ -6,6 +6,7 @@ using System.Text;
 using System.Dynamic;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.Maui.Graphics.Text;
 
 namespace Orchid.Services
 {
@@ -107,10 +108,101 @@ namespace Orchid.Services
             }
         }
 
+        //function
+        //gets the description of which skill proficiancies you can have
+        public async Task<string> GetProficianciesLimits(string selectedMainClass)
+        {
+            string url = ExtAPI + $"api/classes/{selectedMainClass}";
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                string resContent = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode)
+                {
+                    //ClassRootobject result = JsonSerializer.Deserialize<ClassRootobject>(resContent);
+                    ExtApiClass skill = JsonSerializer.Deserialize<ExtApiClass>(resContent);
+                    string desc = skill.proficiency_choices[0].desc;
+                    return desc;
+                }
+                else
+                {
+                    return $"error send error messege in email in info {response}";
+                }
 
+            }
+            catch (Exception ex)
+            {
+                return $"error send error messege in email in info {ex}";
+            }
+        }
 
+        //function
+        //gets the description of which how many skill proficiancies you can have
+        public async Task<int> GetProficianciesLimits2(string selectedMainClass)
+        {
+            string url = ExtAPI + $"api/classes/{selectedMainClass}";
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                string resContent = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode)
+                {
+                    //ClassRootobject result = JsonSerializer.Deserialize<ClassRootobject>(resContent);
+                    ExtApiClass skill = JsonSerializer.Deserialize<ExtApiClass>(resContent);
+                    int count = skill.proficiency_choices[0].choose;
+                    return count;
+                }
+                else
+                {
+                    return 2;
+                }
+            }
+            catch (Exception ex)
+            {
+                return 2;
+            }
+        }
 
-
+        //function
+        //get every skill of a given class
+        public async Task<List<string>?> GetSkills(string item)
+        {
+            List<string> Skilllist = new List<string>();
+            string url = ExtAPI + "api/classes/" + item;
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                string resContent = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode)
+                {
+                    //ClassRootobject result = JsonSerializer.Deserialize<ClassRootobject>(resContent);
+                    ExtApiClass skill = JsonSerializer.Deserialize<ExtApiClass>(resContent);
+                    var options = skill.proficiency_choices[0].from.options;
+                    try
+                    {
+                        int count = 0;
+                        while (true)
+                        {
+                            string temp = options[count].item.name.Substring(7);
+                            Skilllist.Add(temp);
+                            count++;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                    }
+                    return Skilllist;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
 
 
         //function
@@ -317,38 +409,7 @@ namespace Orchid.Services
             }
         }
 
-        //function
-        //get every skill of a given class
-        public async Task<(List<string> list,int count)> GetSkills(Class item)
-        {
-            string url = ExtAPI + "api/classes/" + item.ClassName;
-            try
-            {
-                HttpResponseMessage response = await client.GetAsync(url);
-                string resContent = await response.Content.ReadAsStringAsync();
-                if (response.IsSuccessStatusCode)
-                {
-                    //ClassRootobject result = JsonSerializer.Deserialize<ClassRootobject>(resContent);
-                    ExtApiClass c = JsonSerializer.Deserialize<ExtApiClass>(resContent);
-                    List<Option> partofoptions = c.proficiency_choices.LastOrDefault().from.options.ToList();
-                    List<string> skills = new List<string>();
-                    foreach (Option i in partofoptions)
-                    {
-                        skills.Add(ParseProficiencies(i.item.index));
-                    }
-                    int count = c.proficiency_choices.LastOrDefault().choose;
-                    return (skills,count);
-                }
-                else
-                {
-                    return (null,0);
-                }
-            }
-            catch (Exception ex)
-            {
-                return (null, 0);
-            }
-        }
+        
 
     }
 }

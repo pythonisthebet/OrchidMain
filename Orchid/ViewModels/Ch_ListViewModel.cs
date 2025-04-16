@@ -96,7 +96,7 @@ namespace Orchid.ViewModels
 
         async void OnSingleSelectChar()
         {
-            if (SelectedChar != null)
+            try
             {
                 //from db
                 ((App)Application.Current).CurrentCharacter = (Character)SelectedChar;
@@ -109,6 +109,12 @@ namespace Orchid.ViewModels
                     PropertyNameCaseInsensitive = true
                 };
                 ((App)Application.Current).CurrentCharacterProperties = JsonSerializer.Deserialize<ExpandoObject>(temp2, options);
+            }
+            catch (Exception)
+            { }
+            if (SelectedChar != null)
+            {
+
                 //Add goto here to show details
                 //and edit like in creating a new character 
                 await Shell.Current.GoToAsync("//characterCreation/class");

@@ -30,6 +30,6 @@
 
             </CollectionView>
         </Grid>
-        <Button Text="Confirm" Command="{Binding Confirm}"/>
+        <Button Text="Confirm" Command="{Binding Confirm}" IsEnabled="{Binding IsNotEmpty}"/>
     </VerticalStackLayout>
 </ContentPage>
