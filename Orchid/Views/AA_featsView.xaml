@@ -27,5 +27,6 @@
             </CollectionView>
         </Grid>
         <Button Text="Confirm" Command="{Binding Confirm}"/>
+        <ActivityIndicator IsVisible="{Binding InServerCall}" IsRunning="{Binding InServerCall}" Color="red"></ActivityIndicator>
     </VerticalStackLayout>
 </ContentPage>

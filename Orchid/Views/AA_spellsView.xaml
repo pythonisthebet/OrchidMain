@@ -6,26 +6,26 @@
     <VerticalStackLayout>
         <Grid Margin="10">
             <CollectionView
-    x:Name="theCollectionView"
-    ItemsLayout="VerticalList"
-    SelectionMode="Multiple"
-
-    ItemsSource="{Binding SpellList}"
-    SelectedItems="{Binding SelectedSpells, Mode=TwoWay}"
-    SelectionChangedCommand="{Binding SelectionChangedCommand}">
+                x:Name="theCollectionView"
+                ItemsLayout="VerticalList"
+                SelectionMode="Multiple"
+                ItemsSource="{Binding SpellList}"
+                SelectedItems="{Binding SelectedSpells, Mode=TwoWay}"
+                SelectionChangedCommand="{Binding SelectionChangedCommand}"
+                HeightRequest="800">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid Padding="5">
-                            <Label
-                    Text="{Binding}"/>
+                            <Label Text="{Binding}"/>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-                <!--SelectedItem="{Binding SelectedItem}"-->
+            <!--SelectedItem="{Binding SelectedItem}"-->
 
 
             </CollectionView>
         </Grid>
         <Button Text="Confirm" Command="{Binding Confirm}"/>
+        <ActivityIndicator IsVisible="{Binding InServerCall}" IsRunning="{Binding InServerCall}" Color="red"></ActivityIndicator>
     </VerticalStackLayout>
 </ContentPage>
