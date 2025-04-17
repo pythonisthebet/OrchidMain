@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Dynamic;
 using System.Runtime.InteropServices;
 using System.Text.Json;
+using System.Collections;
 
 namespace Orchid.ViewModels
 {
@@ -74,6 +75,19 @@ namespace Orchid.ViewModels
         //        OnPropertyChanged("Selected_Color");
         //    }
         //}
+        private bool isNotEmpty;
+        public bool IsNotEmpty
+        {
+            get
+            {
+                return this.isNotEmpty;
+            }
+            set
+            {
+                this.isNotEmpty = value;
+                OnPropertyChanged("IsNotEmpty");
+            }
+        }
 
         private bool isConfiremed;
         public bool IsConfiremed
@@ -120,6 +134,7 @@ namespace Orchid.ViewModels
         public AA_spellsViewModel(OrchidWebAPIProxy proxy, ExternalService proxy2, IServiceProvider serviceProvider)
         {
             SelectedSpells = new();
+            SpellList = [];
             //selected_Color = Colors.Red;
             isConfiremed = false;
             this.serviceProvider = serviceProvider;
@@ -136,9 +151,14 @@ namespace Orchid.ViewModels
 
         public async Task InitilizeAsync()
         {
+            IDictionary<int,List<string>> tempSpellListPlusLevel = new Dictionary<int, List<string>>();
             SelectedSpells.Clear();
             InServerCall = true;
-            SpellList = await ExternalApiService.GetDynamicList("spells");
+            List<string> templist = new List<string>();
+            JsonSerializerOptions options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
             ExpandoObject dynamicCh = await OrchidService.GetDynamicCharacter(((App)Application.Current).LoggedInUser.Id, ((App)Application.Current).CurrentCharacter);
             if (dynamicCh != (null))
             {
@@ -146,24 +166,88 @@ namespace Orchid.ViewModels
                 {
                     dynamic temp = dynamicCh;
                     var temp2 = temp.character;
-                    JsonSerializerOptions options = new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = true
-                    };
+
                     ExpandoObject temp3 = JsonSerializer.Deserialize<ExpandoObject>(temp2, options);
                     dynamic temp4 = temp3;
-                    var clas = temp4.spell;
-                    List<string> templist = JsonSerializer.Deserialize<List<string>>(clas);
-                    foreach (string item in templist)
+                    var clas = temp4.Classes;
+                    templist = JsonSerializer.Deserialize<List<string>>(clas);
+                }
+                catch (Exception e)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", $"please select a class first", "ok");
+                }
+                try
+                {
+                    bool isRunning = true;
+                    for (int i = 0; i < 10; i++)
+                    {
+                        tempSpellListPlusLevel.Add(i, new List<string>());
+                    }
+                    while (isRunning)
+                    {
+                        string tempClass = templist.FirstOrDefault();
+                        templist.Remove(tempClass);
+                        ClassSpellsPlusCount tempClassSpells = await ExternalApiService.GetClassSpells(tempClass);
+                        foreach (var tempSpell in tempClassSpells.results)
+                        {
+                            if (!tempSpellListPlusLevel[tempSpell.level].Contains(tempSpell.name))
+                            {
+                                tempSpellListPlusLevel[tempSpell.level].Add(tempSpell.name);
+                            }
+                        }
+                        if (templist.Count == 0)
+                        {
+                            isRunning = false;
+                        }
+                    }
+                    isRunning = true;
+                    for (int i = 0; i < 10; i++)
+                    {
+                        SpellList.Add($"Level {i} -------------------");
+                        SpellList.AddRange(tempSpellListPlusLevel[i]);
+                    }
+
+                }
+                catch (Exception e)
+                {
+                }
+                try
+                {
+                    dynamic temp = dynamicCh;
+                    var temp2 = temp.character;
+
+                    ExpandoObject temp3 = JsonSerializer.Deserialize<ExpandoObject>(temp2, options);
+                    dynamic temp4 = temp3;
+                    var clas = temp4.Spells;
+                    List<string> tempSlist = JsonSerializer.Deserialize<List<string>>(clas);
+                    foreach (string item in tempSlist)
                     {
                         SelectedSpells.Add(item);
                     }
                 }
                 catch (Exception e)
                 {
+                    if (SpellList.Count == 0)
+                    {
+                        IsNotEmpty = false;
+                    }
                 }
             }
+            else
+            {
+
+            }
+            if (spellList.Count == 0)
+            {
+                await Application.Current.MainPage.DisplayAlert("Alert!", $"None of your classes can cast spells", "ok");
+                isNotEmpty = false;
+            }
+            else
+            {
+                IsNotEmpty = true;
+            }
             InServerCall = false;
+            OnPropertyChanged("SpellList");
             OnPropertyChanged("SelectedSpells");
         }
 
@@ -171,6 +255,14 @@ namespace Orchid.ViewModels
         {
             isConfiremed = false;
             //Selected_Color = Colors.Red;
+            if (selectedSpells.Count == 0)
+            {
+                isNotEmpty = false;
+            }
+            else
+            {
+                isNotEmpty = true;
+            }
         }
 
 
@@ -178,33 +270,41 @@ namespace Orchid.ViewModels
         {
             IDictionary<string, object> temp = ((App)Application.Current).CurrentCharacterProperties;
             List<string> selectedSpells_String = selectedSpells.Select(s => (string)s).ToList();
-            if (temp.ContainsKey("spell"))
+            if (!selectedSpells_String.Any(item => item.Contains("level", StringComparison.OrdinalIgnoreCase)))
             {
-                temp.Remove("spell");
-                ((App)Application.Current).CurrentCharacterProperties = (ExpandoObject)temp;
-                ((App)Application.Current).CurrentCharacterProperties.TryAdd("spell", selectedSpells_String.ToList());
+                if (temp.ContainsKey("Spells"))
+                {
+                    temp.Remove("Spells");
+                    ((App)Application.Current).CurrentCharacterProperties = (ExpandoObject)temp;
+                    ((App)Application.Current).CurrentCharacterProperties.TryAdd("Spells", selectedSpells_String.ToList());
+                }
+                else
+                {
+                    ((App)Application.Current).CurrentCharacterProperties.TryAdd("Spells", selectedSpells_String.ToList());
+
+                }
+                //Selected_Color = Colors.LightGreen;
+                isConfiremed = true;
+
+
+
+                //test
+                await OrchidService.StoreCharacter(((App)Application.Current).CurrentCharacterProperties, ((App)Application.Current).CurrentCharacter.Id, ((App)Application.Current).LoggedInUser.Id);
+                //from json
+                ExpandoObject dynamicCh = await OrchidService.GetDynamicCharacter(((App)Application.Current).LoggedInUser.Id, ((App)Application.Current).CurrentCharacter);
+                dynamic temp1 = dynamicCh;
+                var temp2 = temp1.character;
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+                ((App)Application.Current).CurrentCharacterProperties = JsonSerializer.Deserialize<ExpandoObject>(temp2, options);
+                await Application.Current.MainPage.DisplayAlert("Success!", $"Successfuly saved your spells!", "ok");
             }
             else
             {
-                ((App)Application.Current).CurrentCharacterProperties.TryAdd("spell", selectedSpells_String.ToList());
-
+                await Application.Current.MainPage.DisplayAlert("Alert!", $"Please do not select the level indicator!", "ok");
             }
-            //Selected_Color = Colors.LightGreen;
-            isConfiremed = true;
-
-
-
-            //test
-            await OrchidService.StoreCharacter(((App)Application.Current).CurrentCharacterProperties, ((App)Application.Current).CurrentCharacter.Id, ((App)Application.Current).LoggedInUser.Id);
-            //from json
-            ExpandoObject dynamicCh = await OrchidService.GetDynamicCharacter(((App)Application.Current).LoggedInUser.Id, ((App)Application.Current).CurrentCharacter);
-            dynamic temp1 = dynamicCh;
-            var temp2 = temp1.character;
-            JsonSerializerOptions options = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            };
-            ((App)Application.Current).CurrentCharacterProperties = JsonSerializer.Deserialize<ExpandoObject>(temp2, options);
 
 
             /*if (SelectedClasses != null)

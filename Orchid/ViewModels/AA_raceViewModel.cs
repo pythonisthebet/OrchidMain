@@ -47,6 +47,20 @@ namespace Orchid.ViewModels
             }
         }
 
+        private bool isNotEmpty;
+        public bool IsNotEmpty
+        {
+            get
+            {
+                return this.isNotEmpty;
+            }
+            set
+            {
+                this.isNotEmpty = value;
+                OnPropertyChanged("IsNotEmpty");
+            }
+        }
+
         //private object selectedItem;
         //public object SelectedItem
         //{
@@ -100,7 +114,7 @@ namespace Orchid.ViewModels
         #endregion
 
         public ICommand Confirm => new Command(OnConfirm);
-        //public ICommand SelectionChangedCommand => new Command(OnSelectionChanged);
+        public ICommand SelectionChangedCommand => new Command(OnSelectionChanged);
 
 
 
@@ -137,16 +151,17 @@ namespace Orchid.ViewModels
             }
         }
 
-        //public async void OnSelectionChanged(object character)
-        //{
-        //    OnPropertyChanged("SelectedClasses");
-
-        //    List<Class> templist = await OrchidService.GetAllClasses(((App)Application.Current).CurrentCharacter);
-        //    foreach (Class item in templist)
-        //    {
-        //        SelectedClasses.Add(item.ClassName);
-        //    }
-        //}
+        public async void OnSelectionChanged()
+        {
+            if (selectedRace == null)
+            {
+                isNotEmpty = false;
+            }
+            else
+            {
+                isNotEmpty = true;
+            }
+        }
 
 
         public async void OnConfirm()
@@ -177,6 +192,7 @@ namespace Orchid.ViewModels
                     PropertyNameCaseInsensitive = true
                 };
                 ((App)Application.Current).CurrentCharacterProperties = JsonSerializer.Deserialize<ExpandoObject>(temp2, options);
+                await Application.Current.MainPage.DisplayAlert("Success!", $"Successfuly saved your race!", "ok");
 
 
             }

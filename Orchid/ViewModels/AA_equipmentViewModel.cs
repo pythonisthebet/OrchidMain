@@ -47,6 +47,19 @@ namespace Orchid.ViewModels
             }
         }
 
+        private bool isNotEmpty;
+        public bool IsNotEmpty
+        {
+            get
+            {
+                return this.isNotEmpty;
+            }
+            set
+            {
+                this.isNotEmpty = value;
+                OnPropertyChanged("IsNotEmpty");
+            }
+        }
         //private object selectedItem;
         //public object SelectedItem
         //{
@@ -62,18 +75,18 @@ namespace Orchid.ViewModels
         //    }
         //}
 
-        //private Color selected_Color;
+                //private Color selected_Color;
 
-        //public Color Selected_Color
-        //{
-        //    get { return selected_Color; }
+                //public Color Selected_Color
+                //{
+                //    get { return selected_Color; }
 
-        //    set
-        //    {
-        //        selected_Color = value;
-        //        OnPropertyChanged("Selected_Color");
-        //    }
-        //}
+                //    set
+                //    {
+                //        selected_Color = value;
+                //        OnPropertyChanged("Selected_Color");
+                //    }
+                //}
 
         private bool isConfiremed;
         public bool IsConfiremed
@@ -171,6 +184,14 @@ namespace Orchid.ViewModels
         {
             isConfiremed = false;
             //Selected_Color = Colors.Red;
+            if (selectedEquipment.Count == 0)
+            {
+                isNotEmpty = false;
+            }
+            else
+            {
+                isNotEmpty = true;
+            }
         }
 
 
@@ -205,6 +226,7 @@ namespace Orchid.ViewModels
                 PropertyNameCaseInsensitive = true
             };
             ((App)Application.Current).CurrentCharacterProperties = JsonSerializer.Deserialize<ExpandoObject>(temp2, options);
+            await Application.Current.MainPage.DisplayAlert("Success!", $"Successfuly saved your equipment!", "ok");
 
 
             /*if (SelectedClasses != null)

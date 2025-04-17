@@ -364,6 +364,8 @@ namespace Orchid.ViewModels
                 PropertyNameCaseInsensitive = true
             };
             ((App)Application.Current).CurrentCharacterProperties = JsonSerializer.Deserialize<ExpandoObject>(temp2, options);
+            await Application.Current.MainPage.DisplayAlert("Success!", $"Successfuly saved your Stats!", "ok");
+
         }
     }
 }

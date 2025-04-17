@@ -5,8 +5,27 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Orchid.Models
-{    
+{
     //parsed from jsonfrom external api https://www.dnd5eapi.co/api/
+
+
+    //class/spells
+
+    public class ClassSpellsPlusCount
+    {
+        public int count { get; set; }
+        public ClassSpellList[] results { get; set; }
+    }
+
+    public class ClassSpellList
+    {
+        public string index { get; set; }
+        public string name { get; set; }
+        public int level { get; set; }
+        public string url { get; set; }
+    }
+
+    //spells/spell
     public class ExtApiSpellRoot
     {
         public int count { get; set; }

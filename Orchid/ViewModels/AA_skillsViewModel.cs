@@ -203,6 +203,14 @@ namespace Orchid.ViewModels
         {
             isConfiremed = false;
             //Selected_Color = Colors.Red;
+            if (selectedSkills.Count == 0)
+            {
+                isNotEmpty = false;
+            }
+            else
+            {
+                isNotEmpty = true;
+            }
         }
 
 
@@ -255,6 +263,7 @@ namespace Orchid.ViewModels
                     PropertyNameCaseInsensitive = true
                 };
                 ((App)Application.Current).CurrentCharacterProperties = JsonSerializer.Deserialize<ExpandoObject>(temp2, options);
+                await Application.Current.MainPage.DisplayAlert("Success!", $"Successfuly saved your skills!", "ok");
             }
 
         }

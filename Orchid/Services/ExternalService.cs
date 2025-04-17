@@ -204,6 +204,32 @@ namespace Orchid.Services
             }
         }
 
+        //function
+        //get every skill of a given class
+        public async Task<ClassSpellsPlusCount?> GetClassSpells(string item)
+        {
+            ClassSpellsPlusCount SpellsPlusCount = new ClassSpellsPlusCount();
+            string url = ExtAPI + "api/classes/" + item + "/spells";
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                string resContent = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode)
+                {
+                    //ClassRootobject result = JsonSerializer.Deserialize<ClassRootobject>(resContent);
+                    SpellsPlusCount = JsonSerializer.Deserialize<ClassSpellsPlusCount>(resContent);
+                    return SpellsPlusCount;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
 
         //function
         //get every class in the api

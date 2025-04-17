@@ -19,7 +19,7 @@
 
         </CollectionView>
 
-        <Button Text="Confirm" Command="{Binding Confirm}"/>
+        <Button Text="Confirm" Command="{Binding Confirm}" IsEnabled="{Binding IsNotEmpty}"/>
         <ActivityIndicator IsVisible="{Binding InServerCall}" IsRunning="{Binding InServerCall}" Color="red"></ActivityIndicator>
     </VerticalStackLayout>
 </ContentPage>

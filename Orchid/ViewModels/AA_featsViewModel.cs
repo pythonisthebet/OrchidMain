@@ -47,6 +47,20 @@ namespace Orchid.ViewModels
             }
         }
 
+        private bool isNotEmpty;
+        public bool IsNotEmpty
+        {
+            get
+            {
+                return this.isNotEmpty;
+            }
+            set
+            {
+                this.isNotEmpty = value;
+                OnPropertyChanged("IsNotEmpty");
+            }
+        }
+
         //private object selectedItem;
         //public object SelectedItem
         //{
@@ -171,6 +185,14 @@ namespace Orchid.ViewModels
         {
             isConfiremed = false;
             //Selected_Color = Colors.Red;
+            if (selectedFeats.Count == 0)
+            {
+                isNotEmpty = false;
+            }
+            else
+            {
+                isNotEmpty = true;
+            }
         }
 
 
@@ -205,6 +227,7 @@ namespace Orchid.ViewModels
                 PropertyNameCaseInsensitive = true
             };
             ((App)Application.Current).CurrentCharacterProperties = JsonSerializer.Deserialize<ExpandoObject>(temp2, options);
+            await Application.Current.MainPage.DisplayAlert("Success!", $"Successfuly saved your feats!", "ok");
 
 
             /*if (SelectedClasses != null)
