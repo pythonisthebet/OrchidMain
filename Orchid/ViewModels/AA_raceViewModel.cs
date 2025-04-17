@@ -105,6 +105,7 @@ namespace Orchid.ViewModels
         private IServiceProvider serviceProvider;
         public AA_raceViewModel(OrchidWebAPIProxy proxy, ExternalService proxy2, IServiceProvider serviceProvider)
         {
+            IsNotEmpty = false;
             SelectedRace = new();
             this.serviceProvider = serviceProvider;
             InServerCall = false;
@@ -153,13 +154,13 @@ namespace Orchid.ViewModels
 
         public async void OnSelectionChanged()
         {
-            if (selectedRace == null)
+            if (selectedRace == "")
             {
-                isNotEmpty = false;
+                IsNotEmpty = false;
             }
             else
             {
-                isNotEmpty = true;
+                IsNotEmpty = true;
             }
         }
 

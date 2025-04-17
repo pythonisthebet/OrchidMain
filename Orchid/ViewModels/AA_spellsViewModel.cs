@@ -133,6 +133,7 @@ namespace Orchid.ViewModels
         private IServiceProvider serviceProvider;
         public AA_spellsViewModel(OrchidWebAPIProxy proxy, ExternalService proxy2, IServiceProvider serviceProvider)
         {
+            IsNotEmpty = false;
             SelectedSpells = new();
             SpellList = [];
             //selected_Color = Colors.Red;
@@ -240,7 +241,7 @@ namespace Orchid.ViewModels
             if (spellList.Count == 0)
             {
                 await Application.Current.MainPage.DisplayAlert("Alert!", $"None of your classes can cast spells", "ok");
-                isNotEmpty = false;
+                IsNotEmpty = false;
             }
             else
             {
@@ -257,11 +258,11 @@ namespace Orchid.ViewModels
             //Selected_Color = Colors.Red;
             if (selectedSpells.Count == 0)
             {
-                isNotEmpty = false;
+                IsNotEmpty = false;
             }
             else
             {
-                isNotEmpty = true;
+                IsNotEmpty = true;
             }
         }
 

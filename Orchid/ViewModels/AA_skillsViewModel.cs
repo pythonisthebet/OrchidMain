@@ -128,6 +128,7 @@ namespace Orchid.ViewModels
         private IServiceProvider serviceProvider;
         public AA_skillsViewModel(OrchidWebAPIProxy proxy, ExternalService proxy2, IServiceProvider serviceProvider)
         {
+            IsNotEmpty = false;
             SelectedSkills = new();
             //selected_Color = Colors.Red;
             isConfiremed = false;
@@ -205,11 +206,11 @@ namespace Orchid.ViewModels
             //Selected_Color = Colors.Red;
             if (selectedSkills.Count == 0)
             {
-                isNotEmpty = false;
+                IsNotEmpty = false;
             }
             else
             {
-                isNotEmpty = true;
+                IsNotEmpty = true;
             }
         }
 
