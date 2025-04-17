@@ -154,13 +154,20 @@ namespace Orchid.ViewModels
 
         public async void OnSelectionChanged()
         {
-            if (selectedRace == "")
+            try
+            {
+                if (SelectedRace.ToString() == "System.Object")
+                {
+                    IsNotEmpty = false;
+                }
+                else
+                {
+                    IsNotEmpty = true;
+                }
+            }
+            catch (Exception)
             {
                 IsNotEmpty = false;
-            }
-            else
-            {
-                IsNotEmpty = true;
             }
         }
 
