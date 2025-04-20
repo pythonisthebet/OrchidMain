@@ -55,7 +55,6 @@ namespace Orchid.Services
             return $"{OrchidWebAPIProxy.ImageBaseAddress}/profileImages/default.png";
         }
 
-        #region Login
         //This method call the Login web API on the server and return the AppUser object with the given Email and Password
         //or null if the call fails
         public async Task<AppUser?> LoginAsync(LoginInfo userInfo)
@@ -92,10 +91,6 @@ namespace Orchid.Services
             }
         }
 
-
-        #endregion Login
-
-        #region Register
         //This method call the Register web API on the server and return the AppUser object with the given ID
         //or null if the call fails
         public async Task<AppUser?> Register(AppUser user)
@@ -132,9 +127,6 @@ namespace Orchid.Services
             }
         }
 
-        #endregion Register
-
-        #region UpdateUser
         //This method call the updateUser web API on the server and return a boolean if the change was a seccess
         //or null if the call fails
         public async Task<bool> UpdateAppUser(AppUser u)
@@ -168,9 +160,6 @@ namespace Orchid.Services
             }
         }
 
-        #endregion UpdateUser
-
-        #region GetAllUsers
         //This method call the GetAllUsers web API on the server and return a all users in DATA BASE as Model.AppUser
         //or null if the call fails
         public async Task<List<AppUser>> GetAllUsers()
@@ -205,9 +194,6 @@ namespace Orchid.Services
             }
         }
 
-        #endregion GetAllUsers
-
-        #region GetAllCharacters
         //This method call the GetAllCharacters web API on the server and return a all users in DATA BASE as Model.AppUser
         //or null if the call fails
         public async Task<List<Character>> GetAllCharacters(AppUser user)
@@ -243,9 +229,7 @@ namespace Orchid.Services
                 return null;
             }
         }
-        #endregion
 
-        #region CreateCharacter
         //This method call the CreateCharacter web API on the server and return the Character object with the given ID
         //or null if the call fails
         public async Task<Character?> CreateCharacter(Character character)
@@ -281,7 +265,6 @@ namespace Orchid.Services
                 return null;
             }
         }
-        #endregion
 
         //not dynamic
         //#region AddClass
@@ -628,7 +611,6 @@ namespace Orchid.Services
         //}
         //#endregion
 
-        #region StoreCharacter
         //This method call the StoreCharacter web API on the server  and Stores a character expando object there
         public async Task StoreCharacter(ExpandoObject character, int Cid, int Uid)
         {
@@ -668,9 +650,7 @@ namespace Orchid.Services
                 return;
             }
         }
-        #endregion
 
-        #region GetDynamicCharacter
         //This method call the GetDynamicCharacter web API on the server and a json object that of the same ID of the given character
         //or null if the call fails
         public async Task<ExpandoObject> GetDynamicCharacter(int Uid,Character character)
@@ -711,9 +691,6 @@ namespace Orchid.Services
                 return null;
             }
         }
-        #endregion
-
-
 
     }
 }
