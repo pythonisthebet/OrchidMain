@@ -692,5 +692,77 @@ namespace Orchid.Services
             }
         }
 
+
+        //This method call the GetAllFilters web API on the server and return a all Filters in DATA BASE
+        //or null if the call fails
+        public async Task<List<Filter>> GetAllFilters()
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}getAllFilters";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize("");
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    List<Filter>? result = JsonSerializer.Deserialize<List<Filter>>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        //This method call the GetCharactersANDFilters web API on the server and return a all character in DATA BASE
+        //or null if the call fails
+        public async Task<List<Character>> GetCharactersFORFilters(List<Filter> filters)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}getCharactersFORFilters";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(filters);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    List<Character>? result = JsonSerializer.Deserialize<List<Character>>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }
