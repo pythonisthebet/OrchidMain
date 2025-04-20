@@ -48,11 +48,6 @@ namespace Orchid
             builder.Services.AddTransient<BrowseView>();
             builder.Services.AddTransient<Ch_ListView>();
             builder.Services.AddTransient<ChView>();
-            builder.Services.AddTransient<ForumListView>();
-            builder.Services.AddTransient<ForumsView>();
-            builder.Services.AddTransient<PartyListView>();
-            builder.Services.AddTransient<PartyManagerView>();
-            builder.Services.AddTransient<PartyView>();
             builder.Services.AddTransient<PostView>();
             builder.Services.AddTransient<ProfileView>();
             builder.Services.AddTransient<SubscriptionView>();
@@ -94,11 +89,6 @@ namespace Orchid
             builder.Services.AddSingleton<BrowseViewModel>();
             builder.Services.AddSingleton<Ch_ListViewModel>();
             builder.Services.AddSingleton<ChViewModel>();
-            builder.Services.AddSingleton<ForumListViewModel>();
-            builder.Services.AddSingleton<ForumsViewModel>();
-            builder.Services.AddSingleton<PartyListViewModel>();
-            builder.Services.AddSingleton<PartyManagerViewModel>();
-            builder.Services.AddSingleton<PartyViewModel>();
             builder.Services.AddSingleton<PostViewModel>();
             builder.Services.AddSingleton<ProfileViewModel>();
             builder.Services.AddSingleton<SubscriptionViewModel>();
