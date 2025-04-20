@@ -23,8 +23,6 @@ namespace Orchid
             Routing.RegisterRoute("Profile", typeof(ProfileView));
             Routing.RegisterRoute("cheracter", typeof(ChView));
             //Routing.RegisterRoute("AA_classView", typeof(AA_classView));
-            Routing.RegisterRoute("forum", typeof(ForumsView));
-            Routing.RegisterRoute("Party", typeof(PartyView));
             Routing.RegisterRoute("Post", typeof(PostView));
             Routing.RegisterRoute("ViewPost", typeof(ViewPostView));
 

@@ -30,22 +30,6 @@
           Route="Appeal" 
           IsVisible="{Binding IsBanned}"  />
         <!-- normally icon but if Banned it disappear-->
-        <ShellContent
-          Title="Forums" Icon="pending.png"
-          ContentTemplate="{DataTemplate views:ForumListView}"
-          Route="ForumList" 
-          IsVisible="{Binding IsNotBanned}"  />
-    </FlyoutItem>
-    <FlyoutItem x:Name="PartyItems" FlyoutDisplayOptions="AsMultipleItems" Route="tabs" Title="AdminItems">
-        <!--Not Sure about the icon-->
-        <ShellContent
-          Title="PartyList" Icon="list_icon.png"
-          ContentTemplate="{DataTemplate views:PartyListView}"
-          Route="PartyList" />
-        <ShellContent
-          Title="PartManager" Icon="list_icon.png"
-          ContentTemplate="{DataTemplate views:PartyManagerView}"
-          Route="PartManager" />
     </FlyoutItem>
     <FlyoutItem x:Name="Profile" FlyoutDisplayOptions="AsSingleItem" Route="tabs" Title="Profile">
         <ShellContent
