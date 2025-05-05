@@ -202,11 +202,13 @@ namespace Orchid.ViewModels
                         }
                     }
                     isRunning = true;
+                    List<string> temp = new List<string>();
                     for (int i = 0; i < 10; i++)
                     {
-                        SpellList.Add($"Level {i} -------------------");
-                        SpellList.AddRange(tempSpellListPlusLevel[i]);
+                        temp.Add($"Level {i} -------------------");
+                        temp.AddRange(tempSpellListPlusLevel[i]);
                     }
+                    SpellList = temp;
 
                 }
                 catch (Exception e)

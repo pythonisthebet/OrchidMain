@@ -294,6 +294,7 @@ namespace Orchid.ViewModels
         //get the point cost of every attribute
         public void PointCF()
         {
+            bool needAlert = false;
             for (int i = 0; i < 6; i++)
             {
 
@@ -301,22 +302,29 @@ namespace Orchid.ViewModels
                 if (Scores[i] > 15 && PointBuy)
                 {
                     Alert = "Score can be at most 15 in point buy";
+                    needAlert = true;
                 }
                 else if (Scores[i] < 8 && PointBuy)
                 {
                     Alert = "Score needs to be at least 8 in point buy";
+                    needAlert = true;
                 }
                 else
                 {
-                    Alert = "";
+                    if ((Alert == "" || Alert == "Score needs to be at least 8 in point buy" || Alert == "Score can be at most 15 in point buy") && !needAlert)
+                    {
+                        Alert = "";
+                    }
                 }
             }
+            needAlert = false;
 
             OnPropertyChanged("Alert");
             OnPropertyChanged("PointCost");
         }
         public void PointTF()
         {
+            bool needAlert = false;
             PointTotal = 0;
             for (int i = 0; i < 6; i++)
             {
@@ -329,10 +337,14 @@ namespace Orchid.ViewModels
                     Alert += "\n ";
                 }
                 Alert = "you can use at most 27 points in point buy";
+                needAlert = true;
             }
             else
             {
-                Alert = "";
+                if ((Alert == "" || Alert == "you can use at most 27 points in point buy") && !needAlert)
+                {
+                    Alert = "";
+                }
             }
             OnPropertyChanged("Alert");
             OnPropertyChanged("PointTotal");
