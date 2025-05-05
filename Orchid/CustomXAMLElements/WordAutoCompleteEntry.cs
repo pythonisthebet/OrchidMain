@@ -70,28 +70,48 @@ namespace Orchid.CustomXAMLElements
 
             _cursorPosition = CursorPosition;
 
-            // Extract the current word being typed
-            string text = e.NewTextValue;
-            int wordStart = text.LastIndexOf(' ', Math.Max(0, _cursorPosition - 1)) + 1;
-            int wordEnd = text.IndexOf(' ', _cursorPosition);
-            if (wordEnd == -1) wordEnd = text.Length;
-
-            if (wordStart <= wordEnd && wordStart < text.Length)
+            try
             {
-                _currentWord = text.Substring(wordStart, wordEnd - wordStart);
+                // Extract the current word being typed
+                string text = e.NewTextValue;
 
-                // Filter suggestions based on current word
-                if (!string.IsNullOrEmpty(_currentWord))
+                // Ensure cursor position is valid
+                _cursorPosition = Math.Min(_cursorPosition, text.Length);
+
+                // Find the start of the current word
+                int wordStart = -1;
+                if (_cursorPosition > 0)
                 {
-                    var matchingSuggestions = Suggestions
-                        .Where(s => s.StartsWith(_currentWord, StringComparison.OrdinalIgnoreCase))
-                        .Take(5)
-                        .ToList();
+                    wordStart = text.LastIndexOf(' ', Math.Max(0, _cursorPosition - 1));
+                }
+                wordStart += 1; // Move past the space or start at 0
 
-                    if (matchingSuggestions.Any())
+                // Find the end of the current word
+                int wordEnd = text.IndexOf(' ', _cursorPosition);
+                if (wordEnd == -1) wordEnd = text.Length;
+
+                // Check bounds to avoid exceptions
+                if (wordStart >= 0 && wordStart < text.Length && wordStart <= wordEnd)
+                {
+                    _currentWord = text.Substring(wordStart, wordEnd - wordStart);
+
+                    // Filter suggestions based on current word
+                    if (!string.IsNullOrEmpty(_currentWord))
                     {
-                        _suggestionsListView.ItemsSource = matchingSuggestions;
-                        ShowSuggestions();
+                        var matchingSuggestions = Suggestions
+                            .Where(s => s.StartsWith(_currentWord, StringComparison.OrdinalIgnoreCase))
+                            .Take(5)
+                            .ToList();
+
+                        if (matchingSuggestions.Any())
+                        {
+                            _suggestionsListView.ItemsSource = matchingSuggestions;
+                            ShowSuggestions();
+                        }
+                        else
+                        {
+                            HideSuggestions();
+                        }
                     }
                     else
                     {
@@ -103,32 +123,56 @@ namespace Orchid.CustomXAMLElements
                     HideSuggestions();
                 }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in OnTextChanged: {ex.Message}");
+                HideSuggestions();
+            }
         }
 
         private void OnSuggestionSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem != null)
             {
-                string selectedSuggestion = e.SelectedItem.ToString();
-                string currentText = Text ?? string.Empty;
-
-                // Find word boundaries
-                int wordStart = currentText.LastIndexOf(' ', Math.Max(0, _cursorPosition - 1)) + 1;
-                int wordEnd = currentText.IndexOf(' ', _cursorPosition);
-                if (wordEnd == -1) wordEnd = currentText.Length;
-
-                // Replace the current word with the selected suggestion
-                string newText = currentText.Substring(0, wordStart) + selectedSuggestion;
-                if (wordEnd < currentText.Length)
+                try
                 {
-                    newText += currentText.Substring(wordEnd);
+                    string selectedSuggestion = e.SelectedItem.ToString();
+                    string currentText = Text ?? string.Empty;
+
+                    // Ensure cursor position is valid
+                    _cursorPosition = Math.Min(_cursorPosition, currentText.Length);
+
+                    // Find word boundaries
+                    int wordStart = -1;
+                    if (_cursorPosition > 0)
+                    {
+                        wordStart = currentText.LastIndexOf(' ', Math.Max(0, _cursorPosition - 1));
+                    }
+                    wordStart += 1; // Move past the space or start at 0
+
+                    int wordEnd = currentText.IndexOf(' ', _cursorPosition);
+                    if (wordEnd == -1) wordEnd = currentText.Length;
+
+                    // Replace the current word with the selected suggestion
+                    if (wordStart >= 0 && wordStart <= currentText.Length)
+                    {
+                        string newText = currentText.Substring(0, wordStart) + selectedSuggestion;
+                        if (wordEnd < currentText.Length)
+                        {
+                            newText += currentText.Substring(wordEnd);
+                        }
+
+                        Text = newText;
+                        CursorPosition = wordStart + selectedSuggestion.Length;
+                    }
+
+                    HideSuggestions();
+                    _suggestionsListView.SelectedItem = null;
                 }
-
-                Text = newText;
-                CursorPosition = wordStart + selectedSuggestion.Length;
-
-                HideSuggestions();
-                _suggestionsListView.SelectedItem = null;
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error in OnSuggestionSelected: {ex.Message}");
+                }
             }
         }
 
