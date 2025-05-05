@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Orchid.Views.PaymentPage"
+             Title="Payment">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="16" Padding="20">
+            <Label Text="Payment Details" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,0,0,20"/>
+
+            <!-- Payment Method Selection -->
+            <Frame BorderColor="LightGray" Padding="10" HasShadow="True">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Select Payment Method" FontAttributes="Bold"/>
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                        <Button Text="Credit Card" Grid.Column="0"
+                                BackgroundColor="{Binding IsCardPaymentSelected, Converter={StaticResource BoolToColorConverter}, ConverterParameter='#4CAF50,#E0E0E0'}"
+                                Command="{Binding SelectCardPaymentCommand}"/>
+                        <Button Text="PayPal" Grid.Column="1" 
+                                BackgroundColor="{Binding IsPayPalSelected, Converter={StaticResource BoolToColorConverter}, ConverterParameter='#039BE5,#E0E0E0'}"
+                                Command="{Binding SelectPayPalPaymentCommand}"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Payment Amount -->
+            <Frame BorderColor="LightGray" Padding="10" HasShadow="True">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Amount" FontAttributes="Bold"/>
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Label Text="$" VerticalOptions="Center" FontSize="18" Grid.Column="0"/>
+                        <Entry Text="{Binding Amount}" Keyboard="Numeric" Placeholder="0.00" Grid.Column="1" IsEnabled="False"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Credit Card Payment Form -->
+            <Frame BorderColor="LightGray" Padding="10" HasShadow="True" IsVisible="{Binding IsCardPaymentSelected}">
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="Card Details" FontAttributes="Bold"/>
+
+                    <Label Text="Card Number"/>
+                    <Entry Text="{Binding CardNumber}" Placeholder="XXXX XXXX XXXX XXXX" Keyboard="Numeric" MaxLength="19"/>
+
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                        <VerticalStackLayout Grid.Column="0">
+                            <Label Text="Expiry Date"/>
+                            <Entry Text="{Binding ExpiryDate}" Placeholder="MM/YY" MaxLength="5"/>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Column="1">
+                            <Label Text="CVV"/>
+                            <Entry Text="{Binding CVV}" Placeholder="123" Keyboard="Numeric" MaxLength="4" IsPassword="True"/>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <Label Text="Cardholder Name"/>
+                    <Entry Text="{Binding CardholderName}" Placeholder="Name as shown on card"/>
+
+                    <Button Text="Use Test Card" Command="{Binding UseTestCardCommand}" BackgroundColor="#FFA726" TextColor="White" Margin="0,10,0,0"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- PayPal Payment Form -->
+            <Frame BorderColor="LightGray" Padding="10" HasShadow="True" IsVisible="{Binding IsPayPalSelected}">
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="PayPal Details" FontAttributes="Bold"/>
+
+                    <Label Text="PayPal Email"/>
+                    <Entry Text="{Binding PayPalEmail}" Placeholder="email@example.com" Keyboard="Email"/>
+
+                    <Image Source="paypal_logo.png" HeightRequest="40" HorizontalOptions="Center" Margin="0,10,0,0"/>
+                    <Label Text="You will be redirected to PayPal to complete your payment" 
+                           HorizontalOptions="Center" FontSize="12" TextColor="Gray"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Payment Button and Status -->
+            <Button Text="Process Payment" 
+                    Command="{Binding ProcessPaymentCommand}"
+                    IsEnabled="{Binding IsProcessing, Converter={StaticResource InverseBoolConverter}}"
+                    BackgroundColor="#4CAF50" 
+                    TextColor="White"
+                    HeightRequest="50"
+                    Margin="0,10,0,0"/>
+
+            <!-- Loading Indicator -->
+            <ActivityIndicator IsRunning="{Binding IsProcessing}" IsVisible="{Binding IsProcessing}" HorizontalOptions="Center"/>
+
+            <!-- Payment Status -->
+            <Label Text="{Binding PaymentStatus}" 
+                   HorizontalOptions="Center" 
+                   FontAttributes="Bold"
+                   TextColor="{Binding PaymentStatus, Converter={StaticResource StatusToColorConverter}}"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

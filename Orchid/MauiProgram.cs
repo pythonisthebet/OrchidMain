@@ -54,6 +54,7 @@ namespace Orchid
             builder.Services.AddTransient<ViewPostView>();
 
 
+            builder.Services.AddTransient<PaymentPage>();
 
 
 
@@ -93,6 +94,8 @@ namespace Orchid
             builder.Services.AddSingleton<ProfileViewModel>();
             builder.Services.AddSingleton<SubscriptionViewModel>();
             builder.Services.AddSingleton<ViewPostViewModel>();
+
+            builder.Services.AddSingleton<PaymentViewModel>();
             return builder;
         }
     }
