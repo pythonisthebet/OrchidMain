@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Microsoft.Maui.Controls;
+using Orchid.Services;
 
 namespace Orchid.ViewModels
 {
@@ -11,6 +12,8 @@ namespace Orchid.ViewModels
     [QueryProperty(nameof(Amount), "price")]
     public class PaymentViewModel : ViewModelBase
     {
+        // Service
+        private OrchidWebAPIProxy OrchidService;
         // Properties with backing fields
         private string _cardNumber;
         private string _expiryDate;
@@ -174,8 +177,11 @@ namespace Orchid.ViewModels
         public ICommand UseTestCardCommand { get; }
 
         // Constructor
-        public PaymentViewModel()
+        public PaymentViewModel(OrchidWebAPIProxy proxy)
         {
+            //initialize Service
+            this.OrchidService = proxy;
+
             // Initialize default values
             Amount = "0.00";
             PaymentStatus = "Ready";
@@ -208,7 +214,7 @@ namespace Orchid.ViewModels
                 {
                     // Here you would integrate with a real payment gateway
                     PaymentStatus = $"Card payment processed successfully: ${Amount}";
-
+                    updatePremium();
                 }
                 else
                 {
@@ -221,6 +227,7 @@ namespace Orchid.ViewModels
                 {
                     // Here you would integrate with PayPal's API
                     PaymentStatus = $"PayPal payment processed successfully: ${Amount}";
+                    updatePremium();
                 }
                 else
                 {
@@ -229,6 +236,12 @@ namespace Orchid.ViewModels
             }
 
             IsProcessing = false;
+        }
+
+        private async void updatePremium() 
+        {
+            ((App)Application.Current).LoggedInUser.PremiumUntil = DateTime.Now.AddMonths(1);
+            OrchidService.UpdateAppUser(((App)Application.Current).LoggedInUser);
         }
 
         private bool ValidateCardDetails()
