@@ -18,6 +18,8 @@ public class AppUser
 
     public bool IsPremium { get; set; }
 
+    public DateTime PremiumUntil { get; set; }
+
     public bool IsAdmin { get; set; }
 
 }
