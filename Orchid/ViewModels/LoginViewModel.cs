@@ -97,7 +97,6 @@ namespace Orchid.ViewModels
             InServerCall = false;
 
             //Set the application logged in user to be whatever user returned (null or real user)
-            ((App)Application.Current).LoggedInUser = u;
             if (u == null)
             {
 
@@ -106,6 +105,12 @@ namespace Orchid.ViewModels
             else
             {
                 await Application.Current.MainPage.DisplayAlert("Login", $"Login Succeed!", "ok");
+                if (u.PremiumUntil < DateTime.Now) 
+                {
+                    u.IsPremium = false;
+                    await OrchidService.UpdateAppUser(u);
+                }
+                ((App)Application.Current).LoggedInUser = u;
                 u = null;
                 Mail = "";
                 Pass = "";
