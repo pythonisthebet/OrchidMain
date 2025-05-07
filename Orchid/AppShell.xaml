@@ -80,9 +80,13 @@
         <ShellContent
             Title="ImgGenerator" Icon="trophy.png"
             ContentTemplate="{DataTemplate views:AA_imgGeneratorView}"
-            Route="ImgGenerator" />
-        
-        
+            Route="ImgGenerator" /> 
+        <ShellContent
+            Title="Pdf" Icon="trophy.png"
+            ContentTemplate="{DataTemplate views:CharacterSheetPage}"
+            Route="Pdf" />
+
+
 
     </FlyoutItem>
 

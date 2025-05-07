@@ -53,6 +53,7 @@ namespace Orchid
             builder.Services.AddTransient<SubscriptionView>();
             builder.Services.AddTransient<ViewPostView>();
 
+            builder.Services.AddTransient<CharacterSheetPage>();
 
             builder.Services.AddTransient<PaymentPage>();
 
@@ -68,6 +69,9 @@ namespace Orchid
         {
             builder.Services.AddSingleton<OrchidWebAPIProxy>();
             builder.Services.AddSingleton<ExternalService>();
+            builder.Services.AddSingleton<PdfService>();
+            builder.Services.AddSingleton<CharacterService>();
+
 
             return builder;
         }
@@ -96,6 +100,8 @@ namespace Orchid
             builder.Services.AddSingleton<ViewPostViewModel>();
 
             builder.Services.AddSingleton<PaymentViewModel>();
+            builder.Services.AddSingleton<CharacterSheetViewModel>();
+
             return builder;
         }
     }

@@ -692,6 +692,40 @@ namespace Orchid.Services
             }
         }
 
+        //This method call the GetJsonCharacter web API on the server and a json object that of the same ID of the given character
+        //or null if the call fails
+        public async Task<string> GetJsonCharacter(int Uid, int Cid)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}getJsonCharacter";
+            try
+            {
+                //Call the server API
+                ExpandoObject ToSend = new ExpandoObject();
+
+                ToSend.TryAdd("Cid", Cid);
+                ToSend.TryAdd("Uid", Uid);
+                string json = JsonSerializer.Serialize(ToSend);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    return resContent;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
 
         //This method call the GetAllFilters web API on the server and return a all Filters in DATA BASE
         //or null if the call fails

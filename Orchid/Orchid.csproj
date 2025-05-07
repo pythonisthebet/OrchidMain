@@ -64,7 +64,12 @@
 	  <None Remove="Resources\Images\trophy.png" />
 	  <None Remove="Resources\Images\up2.png" />
 	  <None Remove="Resources\Images\wait.gif" />
+	  <None Remove="Resources\PdfTemplate\DnD_5E_CharacterSheet_FormFillable.pdf" />
 	  <None Remove="Resources\Splash\splash.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Resources\PdfTemplate\DnD_5E_CharacterSheet_FormFillable.pdf" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -96,6 +101,7 @@
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="9.1.1" />
 		<PackageReference Include="CommunityToolkit.Maui.Core" Version="9.1.1" />
+		<PackageReference Include="itext7" Version="8.0.5" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
@@ -136,6 +142,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\BrowseView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\CharacterSheetPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\ChView.xaml">
