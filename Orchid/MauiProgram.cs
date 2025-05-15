@@ -22,6 +22,7 @@ namespace Orchid
                 .RegisterPages()
                 .RegisterViewModels();
 
+
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif

@@ -32,5 +32,21 @@ namespace Orchid
 
             MainPage = new NavigationPage(v);
         }
+
+        // Request storage permissions
+        public async Task CheckAndRequestStoragePermission()
+        {
+            PermissionStatus status = await Permissions.CheckStatusAsync<Permissions.StorageRead>();
+            if (status != PermissionStatus.Granted)
+            {
+                status = await Permissions.RequestAsync<Permissions.StorageRead>();
+            }
+
+            PermissionStatus writeStatus = await Permissions.CheckStatusAsync<Permissions.StorageWrite>();
+            if (writeStatus != PermissionStatus.Granted)
+            {
+                writeStatus = await Permissions.RequestAsync<Permissions.StorageWrite>();
+            }
+        }
     }
 }

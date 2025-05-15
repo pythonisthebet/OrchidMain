@@ -9,6 +9,7 @@ using iText.Kernel.Pdf;
 using Microsoft.Maui;
 using Microsoft.Maui.Storage;
 using System.Resources;
+using System.Diagnostics;
 //using GameController;
 //using PdfKit;
 
@@ -34,89 +35,107 @@ namespace Orchid.Services
 
         public async Task<string> FillCharacterSheet(CharacterData characterData)
         {
+            await ((App)Application.Current).CheckAndRequestStoragePermission();
+            // Create cache directory if it doesn't exist
+            if (!Directory.Exists(FileSystem.AppDataDirectory))
+            {
+                Directory.CreateDirectory(FileSystem.AppDataDirectory);
+            }
             // Path to your template PDF (you would need to include this in your app resources)
-            string templatePath = @"Orchid\Resources\PdfTemplate\DnD_5E_CharacterSheet_FormFillable.pdf";
+            string templatePath = await ExtractPdfTemplateToAccessibleLocation();
 
             // Path for the filled PDF
-            string outputPath = Path.Combine(FileSystem.CacheDirectory, "character_sheet.pdf");
+            string outputPath = Path.Combine(FileSystem.AppDataDirectory, "character_sheet.pdf");
 
-            // If we're on a platform where the template isn't embedded as a resource, create a placeholder
-            if (!File.Exists(templatePath))
+            // Make sure any existing file is deleted to avoid conflicts
+            if (File.Exists(outputPath))
             {
-                // In a real application, you'd bundle the template with your app
-                await LoadTemplateFromResources(templatePath);
+                File.Delete(outputPath);
             }
+            //// If we're on a platform where the template isn't embedded as a resource, create a placeholder
+            //if (!File.Exists(templatePath))
+            //{
+            //    // In a real application, you'd bundle the template with your app
+            //    await LoadTemplateFromResources(templatePath);
+            //}
+
+
 
             // Fill the PDF with character data
             using (PdfReader reader = new PdfReader(templatePath))
             {
-                using (PdfWriter writer = new PdfWriter(outputPath))
-                {
-                    using (iText.Kernel.Pdf.PdfDocument pdf = new iText.Kernel.Pdf.PdfDocument(reader, writer))
+                //using (var fileStream = new FileStream(outputPath, FileMode.Create, FileAccess.Write))
+                //{
+                    using (var writer = new PdfWriter(outputPath))
                     {
-                        PdfAcroForm form = PdfAcroForm.GetAcroForm(pdf, true);
-
-                        // Character class and level
-                        string classAndLevel = "";
-                        for (int i = 0; i < characterData.character.Classes.Count; i++)
+                        using (iText.Kernel.Pdf.PdfDocument pdf = new iText.Kernel.Pdf.PdfDocument(reader, writer))
                         {
-                            classAndLevel += $"{characterData.character.Classes[i]} {characterData.character.ClassLevels[i]}";
-                            if (i < characterData.character.Classes.Count - 1)
-                                classAndLevel += ", ";
-                        }
-                        SetFieldValue(form, "ClassLevel", classAndLevel);
+                            PdfAcroForm form = PdfAcroForm.GetAcroForm(pdf, true);
 
-                        // Ability scores
-                        foreach (var score in characterData.character.Scores)
-                        {
-                            if (_abilityScores.TryGetValue(score.Key, out string abilityName))
+                            // Character class and level
+                            string classAndLevel = "";
+                            for (int i = 0; i < characterData.character.Classes.Count; i++)
                             {
-                                string PdfAbilityName = abilityName.Length >= 3 ? abilityName.Substring(0, 3).ToUpper() : abilityName.ToUpper();
-                                SetFieldValue(form, PdfAbilityName, score.Value.ToString());
-                                // Also calculate and fill the modifier
-                                int modifier = (score.Value - 10) / 2;
-                                SetFieldValue(form, $"{PdfAbilityName}mod", modifier.ToString(modifier >= 0 ? "+#" : "#"));
+                                classAndLevel += $"{characterData.character.Classes[i]} {characterData.character.ClassLevels[i]}";
+                                if (i < characterData.character.Classes.Count - 1)
+                                    classAndLevel += ", ";
                             }
-                        }
+                            SetFieldValue(form, "ClassLevel", classAndLevel);
 
-                        // Equipment - combine into a single string
-                        string equipment = string.Join(", ", characterData.character.equipment);
-                        SetFieldValue(form, "Equipment", equipment);
-
-                        // Spells - combine into a single string
-                        bool isAddingSpells = true;
-                        int startingId = 1016;
-                        int FirstFiveCount = 5;
-                        int index = 0;
-                        while (isAddingSpells)
-                        {
-                            if (FirstFiveCount == 0)
+                            // Ability scores
+                            foreach (var score in characterData.character.Scores)
                             {
-                                startingId += 3;
+                                if (_abilityScores.TryGetValue(score.Key, out string abilityName))
+                                {
+                                    string PdfAbilityName = abilityName.Length >= 3 ? abilityName.Substring(0, 3).ToUpper() : abilityName.ToUpper();
+                                    SetFieldValue(form, PdfAbilityName, score.Value.ToString());
+                                    // Also calculate and fill the modifier
+                                    int modifier = (score.Value - 10) / 2;
+                                    SetFieldValue(form, $"{PdfAbilityName}mod", modifier.ToString(modifier >= 0 ? "+#" : "#"));
+                                }
                             }
 
-                            SetFieldValue(form, $"Spells {startingId}", characterData.character.Spells[index]);
-                            index++;
-                            FirstFiveCount--;
-                            startingId++;
-                            if (characterData.character.Spells.Count <= index + 1)
-                            {
-                                isAddingSpells = false;
-                            }
-                        }
-                        Orchid.Services.OrchidWebAPIProxy temp = new OrchidWebAPIProxy();
-                        List<AppUser> temp2 = await temp.GetAllUsers();
-                        AppUser temp3 = temp2.First(u => u.Id == characterData.Uid);
-                        List<Character> character = await temp.GetAllCharacters(temp3);
-                        Character realcharacter = character.First(u => u.Id == characterData.Cid);
-                        string name = realcharacter.CharacterName;
+                            // Equipment - combine into a single string
+                            string equipment = string.Join(", ", characterData.character.equipment);
+                            SetFieldValue(form, "Equipment", equipment);
 
-                        // Character ID
-                        SetFieldValue(form, "CharacterName", $"{name}");
+                            // Spells - combine into a single string
+                            bool isAddingSpells = true;
+                            int startingId = 1016;
+                            int FirstFiveCount = 5;
+                            int index = 0;
+                            while (isAddingSpells)
+                            {
+                                if (FirstFiveCount == 0)
+                                {
+                                    startingId += 3;
+                                }
+                                List<string> spells = characterData.character.Spells;
+                                if (spells.Count != 0)
+                                {
+                                    SetFieldValue(form, $"Spells {startingId}", characterData.character.Spells[index]);
+                                }
+                                index++;
+                                FirstFiveCount--;
+                                startingId++;
+                                if (characterData.character.Spells.Count <= index + 1)
+                                {
+                                    isAddingSpells = false;
+                                }
+                            }
+                            Orchid.Services.OrchidWebAPIProxy temp = new OrchidWebAPIProxy();
+                            List<AppUser> temp2 = await temp.GetAllUsers();
+                            AppUser temp3 = temp2.First(u => u.Id == characterData.Uid);
+                            List<Character> character = await temp.GetAllCharacters(temp3);
+                            Character realcharacter = character.First(u => u.Id == characterData.Cid);
+                            string name = realcharacter.CharacterName;
+
+                            // Character ID
+                            SetFieldValue(form, "CharacterName", $"{name}");
+                        }
                     }
                 }
-            }
-
+            //}
             return outputPath;
         }
 
@@ -141,6 +160,41 @@ namespace Orchid.Services
             {
                 // If that fails, create a simple placeholder PDF
                 CreatePlaceholderPdf(targetPath);
+            }
+        }
+
+        // Helper method to extract the embedded template to a usable location
+        async Task<string> ExtractPdfTemplateToAccessibleLocation()
+        {
+            try
+            {
+                // Define where the template will be extracted to
+                string extractedTemplatePath = Path.Combine(FileSystem.AppDataDirectory, "template.pdf");
+
+                // If we already extracted it previously, just return the path
+                if (File.Exists(extractedTemplatePath))
+                    return extractedTemplatePath;
+
+                // Get the embedded resource as a stream
+                // Note: The path format has changed to reflect the standard MauiAsset path
+                using (Stream resourceStream = await FileSystem.OpenAppPackageFileAsync("DnD_5E_CharacterSheet_FormFillable.pdf"))
+                {
+                    if (resourceStream == null)
+                        return null;
+
+                    // Create the file we'll copy to
+                    using (FileStream fileStream = File.Create(extractedTemplatePath))
+                    {
+                        await resourceStream.CopyToAsync(fileStream);
+                    }
+
+                    return extractedTemplatePath;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Failed to extract template: {ex.Message}");
+                return null;
             }
         }
 
