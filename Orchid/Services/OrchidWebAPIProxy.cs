@@ -798,5 +798,41 @@ namespace Orchid.Services
                 return null;
             }
         }
+
+        //This method call the GetUserId web API on the server and return a a user api based on a cheracter
+        //or null if the call fails
+        public async Task<int> GetUserId(Character character)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}getUserId";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(character);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    int result = JsonSerializer.Deserialize<int>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
     }
 }

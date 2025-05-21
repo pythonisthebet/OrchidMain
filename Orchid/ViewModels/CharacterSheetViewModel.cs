@@ -14,6 +14,7 @@ namespace Orchid.ViewModels
     {
         private readonly IPdfService _pdfService;
         private readonly ICharacterService _characterService;
+        private readonly FileSaverImplementation _fileSaver;
 
         private CharacterData _characterData;
         private string _pdfPath;
@@ -23,11 +24,14 @@ namespace Orchid.ViewModels
         private bool _canPrint;
         private bool _isDataLoaded;
 
+
         public CharacterSheetViewModel()
         {
             // Initialize services
+
             _pdfService = new PdfService();
             _characterService = new CharacterService();
+            _fileSaver = new FileSaverImplementation();
 
             // Initialize commands
             GeneratePdfCommand = new Command(async () => await GeneratePdfAsync());
@@ -135,7 +139,13 @@ namespace Orchid.ViewModels
                 _pdfPath = await _pdfService.FillCharacterSheet(CharacterData);
 
                 // Update file URI for the WebView
-                PdfFileUri = new Uri($"file://{_pdfPath}");
+
+                using (FileStream pdfStream = new FileStream(_pdfPath,FileMode.Open))
+                {
+                    bool success = await _fileSaver.SaveFileAsync(pdfStream, "Document.pdf");
+                    // Show appropriate success/failure message
+                }
+                //PdfFileUri = new Uri($"file://{_pdfPath}");
 
                 // Now we can print
                 CanPrint = true;

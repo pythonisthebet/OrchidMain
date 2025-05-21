@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Orchid.Models;
 using Orchid.Services;
+using Orchid.Views;
 
 namespace Orchid.ViewModels
 {
@@ -54,6 +55,20 @@ namespace Orchid.ViewModels
                 OnPropertyChanged("SelectedFilters");
             }
         }
+
+        private Character selectedChar;
+        public Character SelectedChar
+        {
+            get
+            {
+                return this.selectedChar;
+            }
+            set
+            {
+                this.selectedChar = value;
+                OnPropertyChanged("SelectedChar");
+            }
+        }
         #endregion
 
         #region constractor
@@ -67,7 +82,20 @@ namespace Orchid.ViewModels
 
         public async void OnSelect()
         {
+            //from db
+            ((App)Application.Current).CurrentCharacter = (Character)SelectedChar;
+            //from json
+            Character tempch = ((App)Application.Current).CurrentCharacter;
+            ExpandoObject dynamicCh = await OrchidService.GetDynamicCharacter(await OrchidService.GetUserId(tempch), tempch);
+            dynamic temp = dynamicCh;
+            var temp2 = temp.character;
+            JsonSerializerOptions options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+            ((App)Application.Current).CurrentCharacterProperties = JsonSerializer.Deserialize<ExpandoObject>(temp2, options);
 
+            await ((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<CharacterSheetPage>());
         }
         public async Task<List<string>> InitilizeAsync()
         {

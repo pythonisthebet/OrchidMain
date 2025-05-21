@@ -3,6 +3,7 @@ using Orchid.Services;
 using Orchid.ViewModels;
 using Orchid.Views;
 using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.Storage;
 
 namespace Orchid
 {
@@ -72,8 +73,7 @@ namespace Orchid
             builder.Services.AddSingleton<ExternalService>();
             builder.Services.AddSingleton<PdfService>();
             builder.Services.AddSingleton<CharacterService>();
-
-
+            builder.Services.AddSingleton<Orchid.Services.FileSaverImplementation>();
             return builder;
         }
         public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder builder)

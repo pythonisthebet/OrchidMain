@@ -48,6 +48,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Platforms\Android\xml\file_paths.xml" />
 	  <None Remove="Resources\AppIcon\appicon.svg" />
 	  <None Remove="Resources\AppIcon\appiconfg.svg" />
 	  <None Remove="Resources\Images\add2.png" />
@@ -65,6 +66,10 @@
 	  <None Remove="Resources\Images\up2.png" />
 	  <None Remove="Resources\Images\wait.gif" />
 	  <None Remove="Resources\Splash\splash.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <AndroidResource Include="Platforms\Android\xml\file_paths.xml" />
 	</ItemGroup>
 
 	<ItemGroup>
