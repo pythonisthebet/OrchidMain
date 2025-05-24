@@ -69,6 +69,22 @@ namespace Orchid.ViewModels
                 OnPropertyChanged("SelectedChar");
             }
         }
+
+        public List<Character> characterList;
+
+        public List<Character> CharacterList
+        {
+            get
+            {
+                return this.characterList;
+            }
+            set
+            {
+                this.characterList = value;
+                OnPropertyChanged("CharacterList");
+            }
+        }
+
         #endregion
 
         #region constractor
@@ -76,12 +92,43 @@ namespace Orchid.ViewModels
         {
             this.serviceProvider = serviceProvider;
             this.OrchidService = proxy;
+            this.CharacterList = new List<Character>();
         }
         #endregion
+        public ICommand Search => new Command(OnSearch);
+
         public ICommand Select => new Command(OnSelect);
 
+        public async void OnSearch()
+        {
+            InServerCall = true;
+            //from db
+            ((App)Application.Current).CurrentCharacter = (Character)SelectedChar;
+            //from json
+            this.CharacterList.Clear();
+            List<Filter> filters = await OrchidService.GetAllFilters();
+            List<Filter> filtered = new List<Filter>(filters);
+
+            if (SelectedFilters == null)
+            {
+                filters.Clear();
+            }
+            else
+            {
+                foreach (Filter filter in filters)
+                {
+                    if (!SelectedFilters.Contains(filter.Fname))
+                    {
+                        filtered.Remove(filter);
+                    }
+                }
+            }
+            this.CharacterList = await OrchidService.GetCharactersFORFilters(filtered);
+            InServerCall = false;
+        }
         public async void OnSelect()
         {
+            InServerCall = true;
             //from db
             ((App)Application.Current).CurrentCharacter = (Character)SelectedChar;
             //from json
@@ -94,7 +141,7 @@ namespace Orchid.ViewModels
                 PropertyNameCaseInsensitive = true
             };
             ((App)Application.Current).CurrentCharacterProperties = JsonSerializer.Deserialize<ExpandoObject>(temp2, options);
-
+            InServerCall = false;
             await ((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<CharacterSheetPage>());
         }
         public async Task<List<string>> InitilizeAsync()

@@ -7,15 +7,19 @@
     <VerticalStackLayout Padding="20">
         <Label Text="Type something (word-by-word autocomplete):" />
         <ContentView x:Name="AutoCompleteContainer"/>
-        <Button Text="Search" Command="{Binding Search}"/>
+        <Button Text="Search" Command="{Binding Search}" IsEnabled="{Binding NotInServerCall}"/>
+        
         <ActivityIndicator IsVisible="{Binding InServerCall}" IsRunning="{Binding InServerCall}" Color="red"></ActivityIndicator>
 
-        <!--<CollectionView ItemsSource="{Binding Monkeys}">
+        <CollectionView ItemsSource="{Binding CharacterList}" 
+                        SelectedItem="{Binding SelectedChar}"
+                        SelectionMode="Single"
+                        HeightRequest="500">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical" Span="2" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:ChPlusFilters">
+                <DataTemplate>
                     <Grid Padding="10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -25,23 +29,30 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <Image Grid.Row="0"
+                        <!--<Image Grid.Row="0"
                        Source="{Binding ImageUrl}"
                        Aspect="AspectFill"
                        HeightRequest="60"
-                       WidthRequest="60" />
+                       WidthRequest="60" />-->
                         <Label Grid.Column="1"
-                       Text="{Binding Name}"
+                       Text="{Binding CharacterName}"
                        FontAttributes="Bold" />
-                        <CollectionView ItemsSource="{Binding Filters}">
+                        <!--<CollectionView ItemsSource="{Binding Filters}">
                             <CollectionView.ItemsLayout>
                                 <GridItemsLayout Orientation="Vertical" Span="2" />
                             </CollectionView.ItemsLayout>
-                        </CollectionView>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Label Text="{Binding Fname}"/>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>-->
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
-        </CollectionView>-->
+        </CollectionView>
+        <Button Text="select" Command="{Binding Select}" IsEnabled="{Binding NotInServerCall}"/>
+        <ActivityIndicator IsVisible="{Binding InServerCall}" IsRunning="{Binding InServerCall}" Color="red"></ActivityIndicator>
 
 
     </VerticalStackLayout>

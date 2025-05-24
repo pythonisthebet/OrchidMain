@@ -31,7 +31,9 @@ public partial class BrowseView : ContentPage
             Placeholder = "Type to search...",
             Suggestions = _filters
         };
-        _autoCompleteEntry.SetBinding(Label.TextProperty, "SelectedFilters", BindingMode.TwoWay);
+        //_autoCompleteEntry.SetBinding(Label.TextProperty, "SelectedFilters", BindingMode.TwoWay);
+        _autoCompleteEntry.SetBinding(InputView.TextProperty, "SelectedFilters", BindingMode.TwoWay);
+
 
         // Add the container grid (which includes both entry and suggestions list)
         AutoCompleteContainer.Content = _autoCompleteEntry.GetContainerGrid();
