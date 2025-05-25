@@ -30,18 +30,6 @@ namespace Orchid.ViewModels
         #region attributes and paramaters
         //private bool isMaster; from trivia clean
         private bool isAdmin;
-        //public bool IsMaster from trivia clean
-        //{
-        //    get
-        //    {
-        //        if ((App)Application.Current == null)
-        //            return true;
-        //        else if (((App)Application.Current).LoggedInUser.Rank > 0)
-        //            return true; 
-        //        else
-        //            return false;
-        //    }
-        //}
         public bool IsAdmin
         {
             get
@@ -49,6 +37,20 @@ namespace Orchid.ViewModels
                 if ((App)Application.Current == null)
                     return true;
                 else if (((App)Application.Current).LoggedInUser.IsAdmin == true)
+                    return true;
+                else
+                    return false;
+            }
+        }
+
+        private bool isBanned;
+        public bool IsBanned
+        {
+            get
+            {
+                if ((App)Application.Current == null)
+                    return true;
+                else if (((App)Application.Current).LoggedInUser.IsBanned == true)
                     return true;
                 else
                     return false;

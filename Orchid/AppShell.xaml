@@ -12,17 +12,13 @@
         <ShellContent
          Title="Character List" Icon="game_icon.png"
          ContentTemplate="{DataTemplate views:Ch_ListView}"
-         Route="Game" />
-    <ShellContent
+         Route="CHList" />
+        <ShellContent
          Title="Browse content" Icon="trophy.png"
          ContentTemplate="{DataTemplate views:BrowseView}"
-         Route="Leaderboard" />
-    <ShellContent
-        Title="Add Content" Icon="trophy.png"
-        ContentTemplate="{DataTemplate views:AddContentView}"
-        Route="AddContent" />
+         Route="Browse" />
     </FlyoutItem>
-    <FlyoutItem x:Name="ForumItems" FlyoutDisplayOptions="AsMultipleItems" Route="tabs" Title="ForumItems"  >
+    <FlyoutItem x:Name="BannedItems" FlyoutDisplayOptions="AsMultipleItems" Route="tabs" Title="ForumItems"  >
         <!-- normally no icon but if Banned it appears-->
         <ShellContent
           Title="Appeal" Icon="pending.png"

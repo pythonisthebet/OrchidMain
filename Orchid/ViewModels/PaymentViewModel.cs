@@ -240,8 +240,16 @@ namespace Orchid.ViewModels
 
         private async void updatePremium() 
         {
-            ((App)Application.Current).LoggedInUser.PremiumUntil = DateTime.Now.AddMonths(1);
-            OrchidService.UpdateAppUser(((App)Application.Current).LoggedInUser);
+            if (((App)Application.Current).LoggedInUser.IsPremium)
+            {
+                ((App)Application.Current).LoggedInUser.PremiumUntil = ((App)Application.Current).LoggedInUser.PremiumUntil.AddMonths(1);
+            }
+            else
+            {
+                ((App)Application.Current).LoggedInUser.IsPremium = true;
+                ((App)Application.Current).LoggedInUser.PremiumUntil = DateTime.Now.AddMonths(1);
+            }
+            await OrchidService.UpdateAppUser(((App)Application.Current).LoggedInUser);
         }
 
         private bool ValidateCardDetails()
