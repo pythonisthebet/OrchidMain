@@ -58,10 +58,6 @@
             ContentTemplate="{DataTemplate views:AA_statsView}"
             Route="Stats" />
         <ShellContent
-            Title="Subclass" Icon="trophy.png"
-            ContentTemplate="{DataTemplate views:AA_subclassView}"
-            Route="Subclass" />
-        <ShellContent
             Title="Feats" Icon="trophy.png"
             ContentTemplate="{DataTemplate views:AA_featsView}"
             Route="Feats" />
@@ -78,9 +74,9 @@
             ContentTemplate="{DataTemplate views:AA_equipmentView}"
             Route="Equipment" />
         <ShellContent
-            Title="ImgGenerator" Icon="trophy.png"
-            ContentTemplate="{DataTemplate views:AA_imgGeneratorView}"
-            Route="ImgGenerator" /> 
+            Title="Filters" Icon="trophy.png"
+            ContentTemplate="{DataTemplate views:AA_filtersView}"
+            Route="Filters" /> 
         <ShellContent
             Title="Pdf" Icon="trophy.png"
             ContentTemplate="{DataTemplate views:CharacterSheetPage}"

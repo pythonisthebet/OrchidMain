@@ -8,13 +8,15 @@ namespace Orchid.Models
 {
     public class ChPlusFilters
     {
-        public int Id { get; set; }
-        public string CharacterName { get; set; } = null!;
-        public int? UserId { get; set; }
-        public int LevelValue { get; set; }
-        public string? ImgId { get; set; }
+        public Character Character { get; set; }
 
-        public List<string> Filters { get; set; }
+        public List<Filter> Filters { get; set; }
+
+        public ChPlusFilters(Character character, List<Filter> LFilters) 
+        {
+            Character = character;
+            Filters = LFilters;
+        }
 
     }
 }
