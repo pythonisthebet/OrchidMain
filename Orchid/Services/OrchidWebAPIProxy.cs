@@ -867,5 +867,182 @@ namespace Orchid.Services
                 return false;
             }
         }
+
+        //This method call the GetAppeal web API on the server and return an Appeal of the given user
+        //or null if the call fails
+        public async Task<string> GetAppeal(AppUser user)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}getAppeal";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(user);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string result = resContent;
+                    return result;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
+        }
+
+        //This method call the GetBanReason web API on the server and return an BanReason of the given user
+        //or null if the call fails
+        public async Task<string> GetBanReason(AppUser user)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}getBanReason";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(user);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string result = resContent;
+                    return result;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
+        }
+
+        //This method call the UnbanUser web API on the server and return a boolean if the change was a seccess
+        //or null if the call fails
+        public async Task<bool> UnbanUser(AppUser u)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}unbanUser";
+            try
+            {
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+                string json = JsonSerializer.Serialize<AppUser>(u, options);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await this.client.PostAsync(url, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
+
+        //This method call the SetBanReason web API on the server and return the BanReason object with the given ID
+        //or null if the call fails
+        public async Task<BanReason?> SetBanReason(BanReason banReason)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}setBanReason";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(banReason);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    BanReason? result = JsonSerializer.Deserialize<BanReason>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        //This method call the SetAppeal web API on the server and return the AppUser object with the given ID
+        //or null if the call fails
+        public async Task<Appeal?> SetAppeal(Appeal appeal)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}setAppeal";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(appeal);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    Appeal? result = JsonSerializer.Deserialize<Appeal>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }

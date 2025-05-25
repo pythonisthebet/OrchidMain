@@ -5,8 +5,66 @@
              Title="AppealView">
     <VerticalStackLayout>
         <Label 
-            Text="Welcome to .NET MAUI!"
+            Text="You have been banned!"
             VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+            HorizontalOptions="Center" 
+            FontSize="Header"
+            IsVisible="{Binding NotIsAdmin}"/>
+        <Grid IsVisible="{Binding NotIsAdmin}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Text="Reason for your ban:" Grid.Column="0" 
+                   VerticalOptions="Center" 
+                   HorizontalOptions="Center"/>
+            <Label Text="{Binding BanReason}" 
+                   Grid.Column="1" VerticalOptions="Center" 
+                   HorizontalOptions="Center"/>
+        </Grid>
+        <Label 
+            Text="If you wish to be unbanned please submit your appeal below"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" IsVisible="{Binding NotIsAdmin}"/>
+        <Entry Placeholder="Reason for appeal..." Text="{Binding Appeal}" IsEnabled="{Binding NotInServerCall}" IsVisible="{Binding NotIsAdmin}"/>
+        <Button Text="Submit" Command="{Binding SubmitCommand}" IsEnabled="{Binding NotInServerCall}" IsVisible="{Binding NotIsAdmin}"/>
+
+        <Label 
+        Text="You have been banned!"
+        VerticalOptions="Center" 
+        HorizontalOptions="Center" 
+        FontSize="Header"
+        IsVisible="{Binding IsAdmin}"/>
+        <Grid IsVisible="{Binding IsAdmin}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Text="Reason for your ban:" Grid.Column="0" 
+               VerticalOptions="Center" 
+               HorizontalOptions="Center"/>
+            <Label Text="{Binding BanReason}" 
+               Grid.Column="1" VerticalOptions="Center" 
+               HorizontalOptions="Center" Grid.Row="1"/>
+            <Label Text="Reason for your Appeal:" Grid.Column="0" 
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" Grid.Row="1"/>
+            <Label Text="{Binding Appeal}" 
+   Grid.Column="1" VerticalOptions="Center" 
+   HorizontalOptions="Center"/>
+        </Grid>
+        <Label 
+        Text="If you wish to be unbanned please click below"
+        VerticalOptions="Center" 
+        HorizontalOptions="Center" IsVisible="{Binding IsAdmin}"/>
+        <Button Text="Submit" Command="{Binding UnbanCommand}" IsEnabled="{Binding InServerCall}" IsVisible="{Binding IsAdmin}"/>
     </VerticalStackLayout>
+
 </ContentPage>

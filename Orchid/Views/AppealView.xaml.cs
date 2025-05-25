@@ -9,4 +9,10 @@ public partial class AppealView : ContentPage
         this.BindingContext = vm;
         InitializeComponent();
     }
+
+    protected override async void OnAppearing()
+    {
+        AppealViewModel _vm = (BindingContext as AppealViewModel);
+        await _vm.InitilizeAsync();// you can have some additional logic to cache the result` 
+    }
 }

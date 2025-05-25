@@ -13,6 +13,8 @@ namespace Orchid
 
         //this is the current user that is logged in
         public AppUser LoggedInUser { get; set; }
+        public AppUser ReviewUser { get; set; }
+
         public Character CurrentCharacter { get; set; }
         public ExpandoObject CurrentCharacterProperties {  get; set; }
 
@@ -26,6 +28,7 @@ namespace Orchid
             LoggedInUser = new();
             CurrentCharacter = new();
             CurrentCharacterProperties = new();
+            ReviewUser = new();
             InitializeComponent();
             Login = v;
 
