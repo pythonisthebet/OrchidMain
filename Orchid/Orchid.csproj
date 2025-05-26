@@ -145,9 +145,6 @@
 	  <MauiXaml Update="Views\AA_subclassView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\AddContentView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Views\AppealView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
