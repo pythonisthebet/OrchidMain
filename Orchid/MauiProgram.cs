@@ -44,16 +44,12 @@ namespace Orchid
             builder.Services.AddTransient<AA_skillsView>();
             builder.Services.AddTransient<AA_spellsView>();
             builder.Services.AddTransient<AA_statsView>();
-            builder.Services.AddTransient<AA_subclassView>();
             builder.Services.AddTransient<AA_filtersView>();
             builder.Services.AddTransient<AppealView>();
             builder.Services.AddTransient<BrowseView>();
             builder.Services.AddTransient<Ch_ListView>();
-            builder.Services.AddTransient<ChView>();
-            builder.Services.AddTransient<PostView>();
             builder.Services.AddTransient<ProfileView>();
             builder.Services.AddTransient<SubscriptionView>();
-            builder.Services.AddTransient<ViewPostView>();
 
             builder.Services.AddTransient<CharacterSheetPage>();
 
@@ -89,16 +85,12 @@ namespace Orchid
             builder.Services.AddSingleton<AA_skillsViewModel>();
             builder.Services.AddSingleton<AA_spellsViewModel>();
             builder.Services.AddSingleton<AA_statsViewModel>();
-            builder.Services.AddSingleton<AA_subclassViewModel>();
             builder.Services.AddSingleton<AA_filtersViewModel>();
             builder.Services.AddSingleton<AppealViewModel>();
             builder.Services.AddSingleton<BrowseViewModel>();
             builder.Services.AddSingleton<Ch_ListViewModel>();
-            builder.Services.AddSingleton<ChViewModel>();
-            builder.Services.AddSingleton<PostViewModel>();
             builder.Services.AddSingleton<ProfileViewModel>();
             builder.Services.AddSingleton<SubscriptionViewModel>();
-            builder.Services.AddSingleton<ViewPostViewModel>();
             builder.Services.AddSingleton<PaymentViewModel>();
             builder.Services.AddSingleton<CharacterSheetViewModel>();
 

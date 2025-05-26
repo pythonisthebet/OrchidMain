@@ -21,11 +21,8 @@ namespace Orchid
             Routing.RegisterRoute("connectingToServer", typeof(ConnectingToServerView));
             Routing.RegisterRoute("Ch_List", typeof(Ch_ListView));
             Routing.RegisterRoute("Profile", typeof(ProfileView));
-            Routing.RegisterRoute("cheracter", typeof(ChView));
             Routing.RegisterRoute("Payment", typeof(PaymentPage));
             //Routing.RegisterRoute("AA_classView", typeof(AA_classView));
-            Routing.RegisterRoute("Post", typeof(PostView));
-            Routing.RegisterRoute("ViewPost", typeof(ViewPostView));
 
         }
     }
