@@ -52,7 +52,7 @@
 
             <!-- Admin Section -->
             <Label 
-                Text="You have been banned!"
+                Text="Review Appeal"
                 FontSize="Title"
                 HorizontalOptions="Center"
                 IsVisible="{Binding IsAdmin}" />
@@ -69,7 +69,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Label Text="Reason for your ban:" 
+                <Label Text="Reason for ban:" 
                        Grid.Row="0"
                        Grid.Column="0"
                        VerticalOptions="Center" />
@@ -78,7 +78,7 @@
                        Grid.Column="1"
                        VerticalOptions="Center" />
 
-                <Label Text="Reason for your appeal:" 
+                <Label Text="Reason for appeal:" 
                        Grid.Row="1"
                        Grid.Column="0"
                        VerticalOptions="Center" />
@@ -97,7 +97,7 @@
 
             <Button Text="Unban User"
                     Command="{Binding UnbanCommand}"
-                    IsEnabled="{Binding InServerCall}"
+                    IsEnabled="{Binding NotInServerCall}"
                     IsVisible="{Binding IsAdmin}"
                     BackgroundColor="#4CAF50"
                     TextColor="White"

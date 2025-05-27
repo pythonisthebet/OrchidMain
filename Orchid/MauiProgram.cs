@@ -45,6 +45,7 @@ namespace Orchid
             builder.Services.AddTransient<AA_spellsView>();
             builder.Services.AddTransient<AA_statsView>();
             builder.Services.AddTransient<AA_filtersView>();
+            builder.Services.AddTransient<AppealListAView>();
             builder.Services.AddTransient<AppealView>();
             builder.Services.AddTransient<BrowseView>();
             builder.Services.AddTransient<Ch_ListView>();
@@ -86,6 +87,7 @@ namespace Orchid
             builder.Services.AddSingleton<AA_spellsViewModel>();
             builder.Services.AddSingleton<AA_statsViewModel>();
             builder.Services.AddSingleton<AA_filtersViewModel>();
+            builder.Services.AddSingleton<AppealListAViewModel>();
             builder.Services.AddSingleton<AppealViewModel>();
             builder.Services.AddSingleton<BrowseViewModel>();
             builder.Services.AddSingleton<Ch_ListViewModel>();
