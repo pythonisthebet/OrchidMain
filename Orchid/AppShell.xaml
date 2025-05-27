@@ -29,11 +29,11 @@
          ContentTemplate="{DataTemplate views:UserListAView}"
          Route="UserList" 
         IsVisible="{Binding IsAdmin}"/>
-        <!--<ShellContent
-         Title="Browse content" Icon="trophy.png"
-         ContentTemplate="{DataTemplate views:BrowseView}"
-         Route="Browse" 
-         IsVisible="{Binding IsAdmin}"/>-->
+        <ShellContent
+         Title="Character List" Icon="trophy.png"
+         ContentTemplate="{DataTemplate views:CharacterListAView}"
+         Route="CharacterList" 
+         IsVisible="{Binding IsAdmin}"/>
     </FlyoutItem>
     <FlyoutItem x:Name="BannedItems" FlyoutDisplayOptions="AsMultipleItems" Route="tabs" Title="ForumItems"  >
         <!-- normally no icon but if Banned it appears-->

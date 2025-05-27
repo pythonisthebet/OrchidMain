@@ -57,6 +57,8 @@ namespace Orchid
 
             builder.Services.AddTransient<AppealListAView>();
             builder.Services.AddTransient<UserListAView>();
+            builder.Services.AddTransient<CharacterListAView>();
+
 
 
 
@@ -100,6 +102,8 @@ namespace Orchid
 
             builder.Services.AddSingleton<AppealListAViewModel>();
             builder.Services.AddSingleton<UserListAViewModel>();
+            builder.Services.AddSingleton<CharacterListAViewModel>();
+
 
 
             return builder;

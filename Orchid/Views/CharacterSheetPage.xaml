@@ -52,6 +52,15 @@
                     HeightRequest="45" />
         </Grid>
 
+        <!-- Ban User Button (admin) -->
+        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+            <Button Text="Delete Character"
+                                Command="{Binding DeleteCommand}"
+                                IsEnabled="{Binding IsEnabled}" 
+                        Grid.Column="1" 
+                        IsVisible="{Binding IsAdmin}"/>
+        </Grid>
+
         <!-- Loading Indicator -->
         <Grid Grid.RowSpan="3" 
               BackgroundColor="#80000000"

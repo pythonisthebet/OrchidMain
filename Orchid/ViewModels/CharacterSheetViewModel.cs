@@ -12,6 +12,7 @@ namespace Orchid.ViewModels
 {
     public class CharacterSheetViewModel : BaseViewModel
     {
+        private OrchidWebAPIProxy Orchidservice = new OrchidWebAPIProxy();
         private readonly IPdfService _pdfService;
         private readonly ICharacterService _characterService;
         private readonly FileSaverImplementation _fileSaver;
@@ -24,6 +25,19 @@ namespace Orchid.ViewModels
         private bool _canPrint;
         private bool _isDataLoaded;
 
+        private bool isAdmin;
+        public bool IsAdmin
+        {
+            get
+            {
+                return ((App)Application.Current).LoggedInUser.IsAdmin;
+            }
+            set
+            {
+                this.isAdmin = value;
+                OnPropertyChanged("IsAdmin");
+            }
+        }
 
         public CharacterSheetViewModel()
         {
@@ -92,6 +106,8 @@ namespace Orchid.ViewModels
 
         public ICommand GeneratePdfCommand { get; }
         public ICommand PrintPdfCommand { get; }
+        public ICommand DeleteCommand => new Command(OnDeleteCommand);
+
 
         #endregion
 
@@ -237,6 +253,12 @@ namespace Orchid.ViewModels
         private async Task ShowErrorAsync(string message)
         {
             await Shell.Current.DisplayAlert("Error", message, "OK");
+        }
+
+        async void OnDeleteCommand(object param)
+        {
+            await Orchidservice.DeleteCharacter(((App)Application.Current).CurrentCharacter);
+            await Shell.Current.GoToAsync("..");
         }
 
         #endregion

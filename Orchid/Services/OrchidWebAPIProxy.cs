@@ -1144,5 +1144,40 @@ namespace Orchid.Services
                 return false;
             }
         }
+
+        public async Task<List<Character>> GetAllCharacters()
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}getAllCharacters";
+            try
+            {
+                //Call the server API
+                HttpResponseMessage response = await client.GetAsync(url);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    List<Character>? result = JsonSerializer.Deserialize<List<Character>>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        //This method call the GetCharactersANDFilters web API on the server and return a all character in DATA BASE
+        //or null if the call fails
     }
 }
