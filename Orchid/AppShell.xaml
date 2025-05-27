@@ -24,11 +24,11 @@
          ContentTemplate="{DataTemplate views:AppealListAView}"
          Route="AppAppeal" 
          IsVisible="{Binding IsAdmin}"/>
-        <!--<ShellContent
-         Title="Character List" Icon="game_icon.png"
-         ContentTemplate="{DataTemplate views:Ch_ListView}"
-         Route="CHList" 
-        IsVisible="{Binding IsAdmin}"/>-->
+        <ShellContent
+         Title="User List" Icon="game_icon.png"
+         ContentTemplate="{DataTemplate views:UserListAView}"
+         Route="UserList" 
+        IsVisible="{Binding IsAdmin}"/>
         <!--<ShellContent
          Title="Browse content" Icon="trophy.png"
          ContentTemplate="{DataTemplate views:BrowseView}"

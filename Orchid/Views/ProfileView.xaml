@@ -70,10 +70,20 @@
             </Frame>
 
             <!-- Ban User Button (admin) -->
-
-            <Button Text="Ban User"
+            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                <Entry Text="{Binding BanReason}" 
+                               Placeholder="Enter Ban Reason"
+                               FontAttributes="Bold"
+                               IsEnabled="{Binding IsEnabled}" IsVisible="{Binding IsAdmin}" Grid.Column="0"/>
+                <Button Text="Ban User"
                                 Command="{Binding BanCommand}"
-                                IsEnabled="{Binding IsEnabled}" Grid.Column="1" IsVisible="{Binding IsAdmin}"/>
+                                IsEnabled="{Binding IsEnabled}" 
+                        Grid.Column="1" 
+                        IsVisible="{Binding IsAdmin}"/>
+            </Grid>
+
+
+
             <!-- Updating Indicator -->
             <Label Text="Updating Data..."
                    IsVisible="{Binding IsVisible}"

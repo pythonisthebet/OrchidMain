@@ -27,8 +27,8 @@ namespace Orchid.ViewModels
                 }
                 else
                 {
-                    return ((App)Application.Current).ReviewUser;
                     IsAdmin = true;
+                    return ((App)Application.Current).ReviewUser;
                 }
             }
             set
@@ -51,6 +51,21 @@ namespace Orchid.ViewModels
                 OnPropertyChanged("IsAdmin");
             }
         }
+
+        private string banReason = "";
+        public string BanReason
+        {
+            get
+            {
+                return this.banReason;
+            }
+            set
+            {
+                this.banReason = value;
+                OnPropertyChanged("BanReason");
+            }
+        }
+
         private string newEmail;
         public string NewEmail
         {
@@ -248,11 +263,23 @@ namespace Orchid.ViewModels
 
         async void OnBanCommand(object param)
         {
-            InServerCall = true;
-            await Orchidservice.BanUser(CurrentUser);
-            ((App)Application.Current).ReviewUser = new();
-            InServerCall = false;
-            await Shell.Current.GoToAsync("..");
+            if (BanReason != null)
+            {
+                if (BanReason != "")
+                {
+                    InServerCall = true;
+                    await Orchidservice.BanUser(CurrentUser);
+                    BanReason banReason = new BanReason();
+                    banReason.UserId = ((App)Application.Current).ReviewUser.Id;
+                    banReason.Reason = BanReason;
+                    await Orchidservice.SetBanReason(banReason);
+                    ((App)Application.Current).ReviewUser = new();
+                    InServerCall = false;
+                    await Shell.Current.GoToAsync("..");
+                }
+            }
+            await Shell.Current.DisplayAlert("Ban Reason", $"Ban Reason is Empty! Please set ban reason!", "ok");
+
         }
         #endregion
     }

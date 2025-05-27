@@ -13,11 +13,11 @@ namespace Orchid.Models
         public int? UserId { get; set; }
         public string Reason { get; set; } = null!;
 
-        public BanReason(int id, int userId, string reason)
-        {
-            Id = id;
-            UserId = userId;
-            Reason = reason;
-        }
+        //public BanReason(int id, int userId, string reason)
+        //{
+        //    Id = id;
+        //    UserId = userId;
+        //    Reason = reason;
+        //}
     }
 }

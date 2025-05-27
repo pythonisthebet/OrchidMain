@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Orchid.Views.UserListAView"
+             Title="UserListAView">
+    <VerticalStackLayout>
+        <ScrollView>
+            <VerticalStackLayout Spacing="16" Padding="20">
+
+                <!-- Instruction Label -->
+                <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+                    <Label Text="Tap a User to review it"
+                FontAttributes="Bold"
+                FontSize="14"
+                HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+
+                <!-- Character List -->
+                <CollectionView
+                    x:Name="theCollectionView"
+                    ItemsLayout="VerticalList"
+                    ItemsSource="{Binding UserList}"
+                    SelectedItem="{Binding SelectedUser}"
+                    SelectionChangedCommand="{Binding SingleSelectCommand}"
+                    SelectionMode="Single">
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                        Padding="15"
+                        Margin="0,5"
+                        BackgroundColor="White"
+                        Stroke="#ddd"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 10,10,10,10">
+
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroupList>
+                                        <VisualStateGroup x:Name="CommonStates">
+                                            <VisualState x:Name="Normal"/>
+                                            <VisualState x:Name="Selected">
+                                                <VisualState.Setters>
+                                                    <!-- Light gray background when selected -->
+                                                    <Setter Property="BackgroundColor" Value="#e0e0e0"/>
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateGroupList>
+                                </VisualStateManager.VisualStateGroups>
+
+                                <Grid RowSpacing="5" ColumnSpacing="10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- User Name -->
+                                    <Label Grid.Row="0"
+                                Grid.Column="1"
+                                Text="{Binding UserName}"
+                                FontAttributes="Bold"
+                                FontSize="Medium" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </VerticalStackLayout>
+</ContentPage>
