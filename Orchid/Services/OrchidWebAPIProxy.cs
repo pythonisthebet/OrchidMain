@@ -50,9 +50,9 @@ namespace Orchid.Services
             return OrchidWebAPIProxy.ImageBaseAddress;
         }
 
-        public string GetDefaultProfilePhotoUrl()
+        public string GetDefaultCharacterImageUrl()
         {
-            return $"{OrchidWebAPIProxy.ImageBaseAddress}/profileImages/default.png";
+            return $"{OrchidWebAPIProxy.ImageBaseAddress}/CharacterImages/default.png";
         }
 
         //This method call the Login web API on the server and return the AppUser object with the given Email and Password
