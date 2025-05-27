@@ -973,6 +973,39 @@ namespace Orchid.Services
             }
         }
 
+        //This method call the BanUser web API on the server and return a boolean if the change was a seccess
+        //or null if the call fails
+        public async Task<bool> BanUser(AppUser u)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}banUser";
+            try
+            {
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+                string json = JsonSerializer.Serialize<AppUser>(u, options);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await this.client.PostAsync(url, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
+
         //This method call the SetBanReason web API on the server and return the BanReason object with the given ID
         //or null if the call fails
         public async Task<BanReason?> SetBanReason(BanReason banReason)

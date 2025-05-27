@@ -28,12 +28,27 @@ namespace Orchid.ViewModels
                 else
                 {
                     return ((App)Application.Current).ReviewUser;
+                    IsAdmin = true;
                 }
             }
             set
             {
                 this.currentUser = value;
                 OnPropertyChanged();
+            }
+        }
+
+        private bool isAdmin = false;
+        public bool IsAdmin
+        {
+            get
+            {
+                return this.isAdmin;
+            }
+            set
+            {
+                this.isAdmin = value;
+                OnPropertyChanged("IsAdmin");
             }
         }
         private string newEmail;
@@ -127,6 +142,9 @@ namespace Orchid.ViewModels
         #region changeUserDetails
         //on pressing change on any of the proparties in view
         public ICommand ChangeCommand => new Command(OnChangeCommand);
+
+        public ICommand BanCommand => new Command(OnBanCommand);
+
         #region validations
         private bool ValidateEmail(string Email)
         {
@@ -226,6 +244,15 @@ namespace Orchid.ViewModels
                 CurrentUser = (((App)Application.Current).LoggedInUser);
             }
 
+        }
+
+        async void OnBanCommand(object param)
+        {
+            InServerCall = true;
+            await Orchidservice.BanUser(CurrentUser);
+            ((App)Application.Current).ReviewUser = new();
+            InServerCall = false;
+            await Shell.Current.GoToAsync("..");
         }
         #endregion
     }

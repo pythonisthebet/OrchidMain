@@ -69,6 +69,11 @@
                 </VerticalStackLayout>
             </Frame>
 
+            <!-- Ban User Button (admin) -->
+
+            <Button Text="Ban User"
+                                Command="{Binding BanCommand}"
+                                IsEnabled="{Binding IsEnabled}" Grid.Column="1" IsVisible="{Binding IsAdmin}"/>
             <!-- Updating Indicator -->
             <Label Text="Updating Data..."
                    IsVisible="{Binding IsVisible}"

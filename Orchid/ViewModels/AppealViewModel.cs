@@ -117,6 +117,7 @@ namespace Orchid.ViewModels
             else
             {
                 IsAdmin = true;
+                BanReason = await OrchidService.GetBanReason(((App)Application.Current).ReviewUser);
                 Appeal = await OrchidService.GetAppeal(((App)Application.Current).ReviewUser);
             }
 
@@ -141,7 +142,9 @@ namespace Orchid.ViewModels
             //from db
             await OrchidService.UnbanUser(((App)Application.Current).ReviewUser);
             await Application.Current.MainPage.DisplayAlert("Success!", $"Successfuly Unbanned the user!", "ok");
+            ((App)Application.Current).ReviewUser = new();
             InServerCall = false;
+            await Shell.Current.GoToAsync("..");
         }
     }
 }
