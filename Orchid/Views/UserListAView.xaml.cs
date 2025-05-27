@@ -14,4 +14,9 @@ public partial class UserListAView : ContentPage
         UserListAViewModel _vm = (BindingContext as UserListAViewModel);
         await _vm.InitilizeAsync();// you can have some additional logic to cache the result` 
     }
+
+    protected override async void OnDisappearing()
+    {
+        ((App)Application.Current).ReviewUser = ((App)Application.Current).ReviewUserDefault;
+    }
 }
