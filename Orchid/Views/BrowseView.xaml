@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Orchid.Views.BrowseView"
              xmlns:local="clr-namespace:Orchid.Views"
-             Title="BrowseView">
-    <VerticalStackLayout Padding="20">
-        <Label Text="Type something (word-by-word autocomplete):" />
-        <ContentView x:Name="AutoCompleteContainer"/>
-        <Button Text="Search" Command="{Binding Search}" IsEnabled="{Binding NotInServerCall}"/>
-        
-        <ActivityIndicator IsVisible="{Binding InServerCall}" IsRunning="{Binding InServerCall}" Color="red"></ActivityIndicator>
+             x:Class="Orchid.Views.BrowseView"
+             Title="Browse">
 
-        <CollectionView ItemsSource="{Binding CharacterList}" 
-                        SelectedItem="{Binding SelectedChar}"
-                        SelectionMode="Single"
-                        HeightRequest="500">
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" Span="2" />
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid Padding="10">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <!--<Image Grid.Row="0"
-                       Source="{Binding ImageUrl}"
-                       Aspect="AspectFill"
-                       HeightRequest="60"
-                       WidthRequest="60" />-->
-                        <Label Grid.Column="1"
-                       Text="{Binding CharacterName}"
-                       FontAttributes="Bold" />
-                        <!--<CollectionView ItemsSource="{Binding Filters}">
-                            <CollectionView.ItemsLayout>
-                                <GridItemsLayout Orientation="Vertical" Span="2" />
-                            </CollectionView.ItemsLayout>
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <Label Text="{Binding Fname}"/>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>-->
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-        <Button Text="select" Command="{Binding Select}" IsEnabled="{Binding NotInServerCall}"/>
-        <ActivityIndicator IsVisible="{Binding InServerCall}" IsRunning="{Binding InServerCall}" Color="red"></ActivityIndicator>
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16">
 
+            <!-- Autocomplete -->
+            <Label Text="Type something (word-by-word autocomplete):" FontAttributes="Bold" />
+            <Border Stroke="#ccc" StrokeThickness="1" StrokeShape="RoundRectangle 10,10,10,10" Padding="10">
+                <ContentView x:Name="AutoCompleteContainer" />
+            </Border>
 
-    </VerticalStackLayout>
+            <!-- Search Button -->
+            <Button Text="Search" 
+                    Command="{Binding Search}" 
+                    IsEnabled="{Binding NotInServerCall}" 
+                    BackgroundColor="#58CCED"
+                    TextColor="White"
+                    CornerRadius="10" />
+
+            <!-- Character Collection -->
+            <CollectionView ItemsSource="{Binding CharacterList}" 
+                            SelectedItem="{Binding SelectedChar}"
+                            SelectionMode="Single">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10" BackgroundColor="#F4F4F4" Margin="5">
+                            <Label Text="{Binding CharacterName}" 
+                                   FontAttributes="Bold" 
+                                   HorizontalOptions="Center" 
+                                   VerticalOptions="Center" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Select Button -->
+            <Button Text="Select" 
+                    Command="{Binding Select}" 
+                    IsEnabled="{Binding NotInServerCall}" 
+                    BackgroundColor="#4CAF50" 
+                    TextColor="White"
+                    CornerRadius="10" />
+
+            <!-- Loading Indicator Again -->
+            <ActivityIndicator IsVisible="{Binding InServerCall}" 
+                               IsRunning="{Binding InServerCall}" 
+                               Color="Red" />
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

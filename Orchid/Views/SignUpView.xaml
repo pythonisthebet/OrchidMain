@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Orchid.Views.SignUpView"
-             Title="SignUpView">
+             Title="Sign Up">
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="labelNameStyle" TargetType="Label">
@@ -15,67 +16,72 @@
             </Style>
             <Style x:Key="entryStyle" TargetType="Entry">
                 <Setter Property="HorizontalOptions" Value="Fill" />
+                <Setter Property="BackgroundColor" Value="#F5F5F5" />
+                <Setter Property="TextColor" Value="Black" />
             </Style>
-
         </ResourceDictionary>
     </ContentPage.Resources>
-    <StackLayout Padding="0,20,0,0">
-        <!-- name -->
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Label Text="Nickname" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
-            <Label Text="{Binding NameError}" IsVisible="{Binding ShowNameError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
-        </Grid>
-        <Entry Placeholder="Enter your name" Text="{Binding Name}" Style="{StaticResource entryStyle}"/>
-        
-        <!-- Email -->
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Label Text="Email" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
-            <Label Text="{Binding EmailError}" IsVisible="{Binding ShowEmailError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
-        </Grid>
-        <Entry Placeholder="Enter your Email" Text="{Binding Email}" Style="{StaticResource entryStyle}"/>
-        
-        <!-- Password -->
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Label Text="Password" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
-            <Label Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
-        </Grid>
-        <Entry Placeholder="Enter your Password" Text="{Binding Password}" Style="{StaticResource entryStyle}"/>
 
-        <!-- Private Policy -->
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Label Text="private policy" Grid.Column="0" Style="{StaticResource labelNameStyle}"/>
-            <Label Text="{Binding CheckBoxError}" IsVisible="{Binding ShowCheckBoxError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}"/>
-        </Grid>
-        <CheckBox Color="#58CCEd" IsChecked="{Binding CheckBox}"/>
+    <ScrollView>
+        <VerticalStackLayout Spacing="16" Padding="20">
 
-        <Button Text="שמור נתונים" Command="{Binding SaveDataCommand}"></Button>
-    </StackLayout>
+            <Label Text="Create Account"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,20"/>
+
+            <!-- Name -->
+            <Frame BorderColor="LightGray" Padding="10" HasShadow="True">
+                <VerticalStackLayout Spacing="5">
+                    <Grid ColumnDefinitions="*,*">
+                        <Label Text="Nickname" Grid.Column="0" Style="{StaticResource labelNameStyle}" />
+                        <Label Text="{Binding NameError}" IsVisible="{Binding ShowNameError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
+                    </Grid>
+                    <Entry Placeholder="Enter your name" Text="{Binding Name}" Style="{StaticResource entryStyle}" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Email -->
+            <Frame BorderColor="LightGray" Padding="10" HasShadow="True">
+                <VerticalStackLayout Spacing="5">
+                    <Grid ColumnDefinitions="*,*">
+                        <Label Text="Email" Grid.Column="0" Style="{StaticResource labelNameStyle}" />
+                        <Label Text="{Binding EmailError}" IsVisible="{Binding ShowEmailError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
+                    </Grid>
+                    <Entry Placeholder="Enter your Email" Text="{Binding Email}" Style="{StaticResource entryStyle}" Keyboard="Email" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Password -->
+            <Frame BorderColor="LightGray" Padding="10" HasShadow="True">
+                <VerticalStackLayout Spacing="5">
+                    <Grid ColumnDefinitions="*,*">
+                        <Label Text="Password" Grid.Column="0" Style="{StaticResource labelNameStyle}" />
+                        <Label Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
+                    </Grid>
+                    <Entry Placeholder="Enter your Password" Text="{Binding Password}" Style="{StaticResource entryStyle}" IsPassword="True" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Private Policy -->
+            <Frame BorderColor="LightGray" Padding="10" HasShadow="True">
+                <VerticalStackLayout Spacing="5">
+                    <Grid ColumnDefinitions="*,*">
+                        <Label Text="Private Policy" Grid.Column="0" Style="{StaticResource labelNameStyle}" />
+                        <Label Text="{Binding CheckBoxError}" IsVisible="{Binding ShowCheckBoxError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
+                    </Grid>
+                    <CheckBox Color="#58CCED" IsChecked="{Binding CheckBox}" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Submit Button -->
+            <Button Text="Register"
+                    Command="{Binding SaveDataCommand}"
+                    BackgroundColor="#4CAF50"
+                    TextColor="White"
+                    HeightRequest="50"
+                    Margin="0,10,0,0"/>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

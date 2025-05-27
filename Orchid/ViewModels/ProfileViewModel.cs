@@ -21,7 +21,14 @@ namespace Orchid.ViewModels
         {
             get
             {
-                return ((App)Application.Current).LoggedInUser;
+                if (((App)Application.Current).ReviewUser == new AppUser())
+                {
+                    return ((App)Application.Current).LoggedInUser;
+                }
+                else
+                {
+                    return ((App)Application.Current).ReviewUser;
+                }
             }
             set
             {
@@ -152,6 +159,11 @@ namespace Orchid.ViewModels
                 case "email"://change email and check if the same one already esit
                     foreach (AppUser user in users)
                     {
+                        if (newEmail == null)
+                        {
+                            await Shell.Current.DisplayAlert("Email", $"Email change failed! there is a problem with the email", "ok");
+                            return;
+                        }
                         if (!ValidateEmail(newEmail))
                         {
                             await Shell.Current.DisplayAlert("Email", $"Email change failed! there is a problem with the email", "ok");
@@ -167,6 +179,11 @@ namespace Orchid.ViewModels
                     await Shell.Current.DisplayAlert("Email", $"Email change succeeded! reload the page to loke at your new profile", "ok");
                     break;
                 case "pass"://change password
+                    if (newPass == null)
+                    {
+                        await Shell.Current.DisplayAlert("Password", $"Password change failed! the password must be 8 letters log and include at least 1 letter", "ok");
+                        return;
+                    }
                     if (!ValidatePassword(newPass))
                     {
                         await Shell.Current.DisplayAlert("Password", $"Password change failed! the password must be 8 letters log and include at least 1 letter", "ok");

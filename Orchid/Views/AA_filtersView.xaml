@@ -6,25 +6,43 @@
     <VerticalStackLayout>
         <Grid Margin="10">
             <CollectionView
-     x:Name="theCollectionView"
-     ItemsLayout="VerticalList"
-     SelectionMode="Multiple"
-     ItemsSource="{Binding FilterList}"
-     SelectedItems="{Binding SelectedFilters, Mode=TwoWay}">
+                x:Name="theCollectionView"
+                ItemsLayout="VerticalList"
+                SelectionMode="Multiple"
+                ItemsSource="{Binding FilterList}"
+                SelectedItems="{Binding SelectedFilters, Mode=TwoWay}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Padding="5">
+                        <Border
+                            Padding="12"
+                            Margin="4"
+                            BackgroundColor="White"
+                            Stroke="#ccc"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 10,10,10,10">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroupList>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="#e0e0e0" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateGroupList>
+                            </VisualStateManager.VisualStateGroups>
                             <Label
-                     Text="{Binding}"/>
-                        </Grid>
+                                Text="{Binding}"
+                                FontSize="Medium"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Start" />
+                        </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-                <!--SelectedItem="{Binding SelectedItem}"-->
-
-
             </CollectionView>
         </Grid>
-        <Button Text="Confirm" Command="{Binding Confirm}" IsEnabled="{Binding NotInServerCall}"/>
-        <ActivityIndicator IsVisible="{Binding InServerCall}" IsRunning="{Binding InServerCall}" Color="red"></ActivityIndicator>
+        <Button Text="Confirm" Command="{Binding Confirm}" IsEnabled="{Binding NotInServerCall}" />
+        <ActivityIndicator IsVisible="{Binding InServerCall}" IsRunning="{Binding InServerCall}" Color="red" />
     </VerticalStackLayout>
 </ContentPage>

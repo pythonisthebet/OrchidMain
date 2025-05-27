@@ -3,29 +3,66 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Orchid.Views.AA_equipmentView"
              Title="AA_equipmentView">
-    <VerticalStackLayout>
-        <Grid Margin="10">
-            <CollectionView
-                x:Name="theCollectionView"
-                ItemsLayout="VerticalList"
-                SelectionMode="Multiple"
-                ItemsSource="{Binding EquipmentList}"
-                SelectedItems="{Binding SelectedEquipment, Mode=TwoWay}"
-                SelectionChangedCommand="{Binding SelectionChangedCommand}"
-                HeightRequest="600">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Padding="5">
-                            <Label Text="{Binding}"/>
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-                <!--SelectedItem="{Binding SelectedItem}"-->
 
+    <VerticalStackLayout Padding="20" Spacing="16">
 
-            </CollectionView>
-        </Grid>
-        <Button Text="Confirm" Command="{Binding Confirm}" IsEnabled="{Binding IsNotEmpty}"/>
-        <ActivityIndicator IsVisible="{Binding InServerCall}" IsRunning="{Binding InServerCall}" Color="red"></ActivityIndicator>
+        <Label Text="Select Equipment:"
+               FontSize="Title"
+               FontAttributes="Bold"
+               HorizontalOptions="Center" />
+
+        <CollectionView
+            x:Name="theCollectionView"
+            ItemsLayout="VerticalList"
+            SelectionMode="Multiple"
+            ItemsSource="{Binding EquipmentList}"
+            SelectedItems="{Binding SelectedEquipment, Mode=TwoWay}"
+            SelectionChangedCommand="{Binding SelectionChangedCommand}"
+            HeightRequest="600">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border
+                        Padding="12"
+                        Margin="4"
+                        BackgroundColor="White"
+                        Stroke="#ccc"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 10,10,10,10">
+
+                        <!-- Visual state for selection -->
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroupList>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="#e0e0e0" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateGroupList>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Label Text="{Binding}"
+                               FontSize="Medium"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Start" />
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Text="Confirm"
+                Command="{Binding Confirm}"
+                IsEnabled="{Binding IsNotEmpty}"
+                BackgroundColor="#4CAF50"
+                TextColor="White"
+                CornerRadius="10"
+                FontAttributes="Bold" />
+
+        <ActivityIndicator IsVisible="{Binding InServerCall}"
+                           IsRunning="{Binding InServerCall}"
+                           Color="Red" />
     </VerticalStackLayout>
 </ContentPage>

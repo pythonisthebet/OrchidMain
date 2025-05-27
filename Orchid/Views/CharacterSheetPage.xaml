@@ -11,24 +11,20 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!-- Character Info Header -->
-        <StackLayout Grid.Row="0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-            <Label Text="{Binding CharacterName}" 
-                   FontSize="24" 
-                   FontAttributes="Bold"
-                   HorizontalOptions="StartAndExpand" />
-
-            <Label Text="{Binding ClassAndLevel}" 
+        <!-- Info Label -->
+        <Frame Grid.Row="1"
+               BackgroundColor="#f0f0f0"
+               CornerRadius="10"
+               Padding="15"
+               HorizontalOptions="FillAndExpand"
+               VerticalOptions="CenterAndExpand"
+               Margin="0,20">
+            <Label Text="Your PDF has been successfully generated and saved on your device."
                    FontSize="18"
-                   HorizontalOptions="End"
-                   VerticalOptions="Center" />
-        </StackLayout>
-
-        <!-- PDF Viewer -->
-        <WebView Grid.Row="1"
-                 Source="{Binding PdfFileUri}"
-                 HorizontalOptions="FillAndExpand"
-                 VerticalOptions="FillAndExpand" />
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center"
+                   TextColor="#333333" />
+        </Frame>
 
         <!-- Action Buttons -->
         <Grid Grid.Row="2" ColumnSpacing="15">
@@ -42,14 +38,18 @@
                     Command="{Binding GeneratePdfCommand}"
                     IsEnabled="{Binding IsNotBusy}"
                     BackgroundColor="#3498db"
-                    TextColor="White" />
+                    TextColor="White"
+                    CornerRadius="8"
+                    HeightRequest="45" />
 
             <Button Grid.Column="1"
                     Text="Print PDF"
                     Command="{Binding PrintPdfCommand}"
                     IsEnabled="{Binding CanPrint}"
                     BackgroundColor="#2ecc71"
-                    TextColor="White" />
+                    TextColor="White"
+                    CornerRadius="8"
+                    HeightRequest="45" />
         </Grid>
 
         <!-- Loading Indicator -->

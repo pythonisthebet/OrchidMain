@@ -2,98 +2,81 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Orchid.Views.ProfileView"
-             Title="ProfileView"
-              Shell.FlyoutBehavior="Flyout">
-    <VerticalStackLayout>
-        <Border 
-                   Stroke="gold"
-                   StrokeThickness="4"
-                   StrokeShape="RoundRectangle 20,20,20,20"
-                   Padding="16,8">
-            <Grid Padding="10" HorizontalOptions="FillAndExpand" VerticalOptions="Start" RowSpacing="30" IsEnabled="{Binding IsEnabled}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+             Title="Profile"
+             Shell.FlyoutBehavior="Flyout">
 
-                <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
-                   Text="{Binding CurrentUser.UserName}" HorizontalOptions="Center" Style="{StaticResource LabelStyle}"
-                   FontAttributes="Bold"/>
-                <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
-                   Text="{Binding CurrentUser.UserEmail}" Style="{StaticResource LabelStyle}"
-                   FontAttributes="Bold" HorizontalOptions="Center"/>
-                <Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"
-                   Text="{Binding CurrentUser.UserPassword}" Style="{StaticResource LabelStyle}"
-                   FontAttributes="Bold" HorizontalOptions="Center"/>
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16">
 
+            <Frame BorderColor="Gold" Padding="20" HasShadow="True" CornerRadius="20">
+                <VerticalStackLayout Spacing="16" HorizontalOptions="FillAndExpand">
 
+                    <!-- User Info -->
+                    <Label Text="{Binding CurrentUser.UserName}" 
+                           FontAttributes="Bold" 
+                           FontSize="20"
+                           HorizontalOptions="Center" />
 
-                <Label Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Style="{StaticResource LabelStyle}"
-                   Text="{Binding CurrentUser.AddedQuestions}"
-                   HorizontalOptions="Center"/>
+                    <Label Text="{Binding CurrentUser.UserEmail}" 
+                           FontAttributes="Bold" 
+                           FontSize="16"
+                           HorizontalOptions="Center" />
 
-                <Entry Grid.Column="0" Grid.Row="4" 
-                FontAttributes="Bold"
-                IsEnabled="{Binding IsEnabled}"
-                Placeholder="enter new email"
-                Text="{Binding NewEmail}"
-                HorizontalOptions="Center"/>
+                    <Label Text="{Binding CurrentUser.UserPassword}" 
+                           FontAttributes="Bold" 
+                           FontSize="16"
+                           HorizontalOptions="Center" />
 
-                <Button Grid.Column="1" Grid.Row="4" 
-                 FontAttributes="Bold"
-                IsEnabled="{Binding IsEnabled}"
-                Text="change email"
-                Command="{Binding ChangeCommand}"
-                CommandParameter="email"
-            />
+                    <!-- Update Email -->
+                    <Label Text="Change Email" FontAttributes="Bold" />
+                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                        <Entry Text="{Binding NewEmail}" 
+                               Placeholder="Enter new email"
+                               FontAttributes="Bold"
+                               IsEnabled="{Binding IsEnabled}" Grid.Column="0"/>
+                        <Button Text="Update"
+                                Command="{Binding ChangeCommand}"
+                                CommandParameter="email"
+                                IsEnabled="{Binding IsEnabled}" Grid.Column="1"/>
+                    </Grid>
 
-                <Entry Grid.Column="0" Grid.Row="5"
-                IsEnabled="{Binding IsEnabled}"
-                FontAttributes="Bold"
-                Placeholder="enter new password"
-                Text="{Binding NewPass}"
-                HorizontalOptions="Center"/>
+                    <!-- Update Password -->
+                    <Label Text="Change Password" FontAttributes="Bold" />
+                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                        <Entry Text="{Binding NewPass}" 
+                               Placeholder="Enter new password"
+                               FontAttributes="Bold"
+                               IsEnabled="{Binding IsEnabled}" Grid.Column="0"/>
+                        <Button Text="Update"
+                                Command="{Binding ChangeCommand}"
+                                CommandParameter="pass"
+                                IsEnabled="{Binding IsEnabled}" Grid.Column="1"/>
+                    </Grid>
 
-                <Button Grid.Column="1" Grid.Row="5"
-                IsEnabled="{Binding IsEnabled}"
-                FontAttributes="Bold"
-                Text="change password"
-                Command="{Binding ChangeCommand}"
-                CommandParameter="pass"
-                />
+                    <!-- Update Name -->
+                    <Label Text="Change Nickname" FontAttributes="Bold" />
+                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                        <Entry Text="{Binding NewName}" 
+                               Placeholder="Enter new nickname"
+                               FontAttributes="Bold"
+                               IsEnabled="{Binding IsEnabled}" Grid.Column="0"/>
+                        <Button Text="Update"
+                                Command="{Binding ChangeCommand}"
+                                CommandParameter="name"
+                                IsEnabled="{Binding IsEnabled}" Grid.Column="1"/>
+                    </Grid>
 
-                <Entry Grid.Column="0" Grid.Row="6"
-                FontAttributes="Bold"
-                IsEnabled="{Binding IsEnabled}"
-                Placeholder="enter new nickname"
-                Text="{Binding NewName}"
-                HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Frame>
 
-                <Button Grid.Column="1" Grid.Row="6"
-                FontAttributes="Bold"
-                IsEnabled="{Binding IsEnabled}"
-                Text="change name"
-                Command="{Binding ChangeCommand}"
-                CommandParameter="name"
-                />
-            </Grid>
-        </Border>
-        <Label 
-            IsVisible="{Binding IsVisible}"
-            HorizontalOptions="Center"
-            VerticalOptions="FillAndExpand" 
-            FontSize="Large"
-            Text="Updating Data..."
-            />
-    </VerticalStackLayout>
+            <!-- Updating Indicator -->
+            <Label Text="Updating Data..."
+                   IsVisible="{Binding IsVisible}"
+                   HorizontalOptions="Center"
+                   FontSize="Large"
+                   FontAttributes="Bold"
+                   TextColor="DarkGray" />
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

@@ -2,57 +2,73 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Orchid.Views.AA_classView"
-             Title="AA_classView"
+             Title="Select Classes"
              xmlns:viewmodel="clr-namespace:Orchid.ViewModels"
              xmlns:models="clr-namespace:Orchid.Models"
              xmlns:vm="clr-namespace:Orchid.ViewModels"
              x:DataType="vm:AA_classViewModel">
 
-    <!--<ContentPage.Resources>
-        <Style TargetType="Grid">
-            <Setter Property="VisualStateManager.VisualStateGroups">
-                <VisualStateGroupList>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualState x:Name="Normal" />
-                        <VisualState x:Name="Selected">
-                            <VisualState.StateTriggers>
-                                <StateTrigger IsActive="{Binding IsConfiremed}" />
-                            </VisualState.StateTriggers>
-                            <VisualState.Setters>
-                                <Setter Property="BackgroundColor"
-                                        Value="Green" />
-                            </VisualState.Setters>
-                            
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateGroupList>
-            </Setter>
-        </Style>
-    </ContentPage.Resources>-->
-    <VerticalStackLayout>
-        <Grid Margin="10">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16">
+
+            <Label Text="Choose Your Classes:"
+                   FontSize="Title"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
+
             <CollectionView
                 x:Name="theCollectionView"
                 ItemsLayout="VerticalList"
                 SelectionMode="Multiple"
-            
                 ItemsSource="{Binding ClassList}"
                 SelectedItems="{Binding SelectedClasses, Mode=TwoWay}"
                 SelectionChangedCommand="{Binding SelectionChangedCommand}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Padding="5">
-                            <Label
-                                Text="{Binding}"/>
-                        </Grid>
+                        <Border
+                            Padding="12"
+                            Margin="4"
+                            BackgroundColor="White"
+                            Stroke="#ccc"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 10,10,10,10">
+
+                            <!-- Visual State for Selected Items -->
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroupList>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal"/>
+                                        <VisualState x:Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="#e0e0e0"/>
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateGroupList>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <Label Text="{Binding}"
+                               FontSize="Medium"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Start" />
+                        </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-                <!--SelectedItem="{Binding SelectedItem}"-->
-
 
             </CollectionView>
-        </Grid>
-        <Button Text="Confirm" Command="{Binding Confirm}" IsEnabled="{Binding IsNotEmpty}"/>
-        <ActivityIndicator IsVisible="{Binding InServerCall}" IsRunning="{Binding InServerCall}" Color="red"></ActivityIndicator>
-    </VerticalStackLayout>
+
+            <Button Text="Confirm Selection"
+                    Command="{Binding Confirm}"
+                    IsEnabled="{Binding IsNotEmpty}"
+                    BackgroundColor="#4CAF50"
+                    TextColor="White"
+                    CornerRadius="10"
+                    FontAttributes="Bold" />
+
+            <ActivityIndicator IsVisible="{Binding InServerCall}"
+                               IsRunning="{Binding InServerCall}"
+                               Color="Red" />
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

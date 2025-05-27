@@ -69,25 +69,57 @@
                 </ListView.ItemTemplate>
             </ListView>-->
 
-            <Label Grid.Row="1" Grid.Column="1" Text="{Binding Scores[0]}" Margin="0,20" HorizontalOptions="Center" VerticalOptions="Center" />
-            <Button Grid.Row="1" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="up2.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="Start" Command="{Binding OnUpDownCommand}" CommandParameter="00"/>
-            <Button Grid.Row="1" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="Down.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="End" Command="{Binding OnUpDownCommand}" CommandParameter="01"/>
-            <Label Grid.Row="2" Grid.Column="1" Text="{Binding Scores[1]}" Margin="0,20" HorizontalOptions="Center" VerticalOptions="Center" />
-            <Button Grid.Row="2" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="up2.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="Start" Command="{Binding OnUpDownCommand}" CommandParameter="10"/>
-            <Button Grid.Row="2" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="Down.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="End" Command="{Binding OnUpDownCommand}" CommandParameter="11"/>
-            <Label Grid.Row="3" Grid.Column="1" Text="{Binding Scores[2]}" Margin="0,20" HorizontalOptions="Center" VerticalOptions="Center" />
-            <Button Grid.Row="3" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="up2.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="Start" Command="{Binding OnUpDownCommand}" CommandParameter="20"/>
-            <Button Grid.Row="3" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="Down.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="End" Command="{Binding OnUpDownCommand}" CommandParameter="21"/>
-            <Label Grid.Row="4" Grid.Column="1" Text="{Binding Scores[3]}" Margin="0,20" HorizontalOptions="Center" VerticalOptions="Center" />
-            <Button Grid.Row="4" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="up2.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="Start" Command="{Binding OnUpDownCommand}" CommandParameter="30"/>
-            <Button Grid.Row="4" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="Down.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="End" Command="{Binding OnUpDownCommand}" CommandParameter="31"/>
-            <Label Grid.Row="5" Grid.Column="1" Text="{Binding Scores[4]}" Margin="0,20" HorizontalOptions="Center" VerticalOptions="Center" />
-            <Button Grid.Row="5" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="up2.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="Start" Command="{Binding OnUpDownCommand}" CommandParameter="40"/>
-            <Button Grid.Row="5" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="down.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="End" Command="{Binding OnUpDownCommand}" CommandParameter="41"/>
-            <Label Grid.Row="6" Grid.Column="1" Text="{Binding Scores[5]}" Margin="0,20" HorizontalOptions="Center" VerticalOptions="Center" />
-            <Button Grid.Row="6" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="Up2.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="Start" Command="{Binding OnUpDownCommand}" CommandParameter="50"/>
-            <Button Grid.Row="6" Grid.Column="1" WidthRequest="20" HeightRequest="20" ImageSource="Down.png" Margin="0,10" HorizontalOptions="Start" VerticalOptions="End" Command="{Binding OnUpDownCommand}" CommandParameter="51"/>
-            
+            <!--Ability scores with visible and styled up/down arrows-->
+            <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                <StackLayout Orientation="Vertical" VerticalOptions="Center" Spacing="2">
+                    <Button WidthRequest="30" HeightRequest="30" Text="▲" FontSize="20" Padding="0" BackgroundColor="Transparent" TextColor="Black" Command="{Binding OnUpDownCommand}" CommandParameter="00"/>
+                    <Button WidthRequest="30" HeightRequest="30" Text="▼" FontSize="20" Padding="0" BackgroundColor="Transparent" TextColor="Black" Command="{Binding OnUpDownCommand}" CommandParameter="01"/>
+                </StackLayout>
+                <Label Text="{Binding Scores[0]}" VerticalOptions="Center" FontSize="20" HorizontalOptions="Center"/>
+            </StackLayout>
+
+            <StackLayout Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                <StackLayout Orientation="Vertical" VerticalOptions="Center" Spacing="2">
+                    <Button WidthRequest="30" HeightRequest="30" Text="▲" FontSize="20" Padding="0" BackgroundColor="Transparent" TextColor="Black" Command="{Binding OnUpDownCommand}" CommandParameter="10"/>
+                    <Button WidthRequest="30" HeightRequest="30" Text="▼" FontSize="20" Padding="0" BackgroundColor="Transparent" TextColor="Black" Command="{Binding OnUpDownCommand}" CommandParameter="11"/>
+                </StackLayout>
+                <Label Text="{Binding Scores[1]}" VerticalOptions="Center" FontSize="20" HorizontalOptions="Center"/>
+            </StackLayout>
+
+            <StackLayout Grid.Row="3" Grid.Column="1" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                <StackLayout Orientation="Vertical" VerticalOptions="Center" Spacing="2">
+                    <Button WidthRequest="30" HeightRequest="30" Text="▲" FontSize="20" Padding="0" BackgroundColor="Transparent" TextColor="Black" Command="{Binding OnUpDownCommand}" CommandParameter="20"/>
+                    <Button WidthRequest="30" HeightRequest="30" Text="▼" FontSize="20" Padding="0" BackgroundColor="Transparent" TextColor="Black" Command="{Binding OnUpDownCommand}" CommandParameter="21"/>
+                </StackLayout>
+                <Label Text="{Binding Scores[2]}" VerticalOptions="Center" FontSize="20" HorizontalOptions="Center"/>
+            </StackLayout>
+
+            <StackLayout Grid.Row="4" Grid.Column="1" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                <StackLayout Orientation="Vertical" VerticalOptions="Center" Spacing="2">
+                    <Button WidthRequest="30" HeightRequest="30" Text="▲" FontSize="20" Padding="0" BackgroundColor="Transparent" TextColor="Black" Command="{Binding OnUpDownCommand}" CommandParameter="30"/>
+                    <Button WidthRequest="30" HeightRequest="30" Text="▼" FontSize="20" Padding="0" BackgroundColor="Transparent" TextColor="Black" Command="{Binding OnUpDownCommand}" CommandParameter="31"/>
+                </StackLayout>
+                <Label Text="{Binding Scores[3]}" VerticalOptions="Center" FontSize="20" HorizontalOptions="Center"/>
+            </StackLayout>
+
+            <StackLayout Grid.Row="5" Grid.Column="1" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                <StackLayout Orientation="Vertical" VerticalOptions="Center" Spacing="2">
+                    <Button WidthRequest="30" HeightRequest="30" Text="▲" FontSize="20" Padding="0" BackgroundColor="Transparent" TextColor="Black" Command="{Binding OnUpDownCommand}" CommandParameter="40"/>
+                    <Button WidthRequest="30" HeightRequest="30" Text="▼" FontSize="20" Padding="0" BackgroundColor="Transparent" TextColor="Black" Command="{Binding OnUpDownCommand}" CommandParameter="41"/>
+                </StackLayout>
+                <Label Text="{Binding Scores[4]}" VerticalOptions="Center" FontSize="20" HorizontalOptions="Center"/>
+            </StackLayout>
+
+            <StackLayout Grid.Row="6" Grid.Column="1" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                <StackLayout Orientation="Vertical" VerticalOptions="Center" Spacing="2">
+                    <Button WidthRequest="30" HeightRequest="30" Text="▲" FontSize="20" Padding="0" BackgroundColor="Transparent" TextColor="Black" Command="{Binding OnUpDownCommand}" CommandParameter="50"/>
+                    <Button WidthRequest="30" HeightRequest="30" Text="▼" FontSize="20" Padding="0" BackgroundColor="Transparent" TextColor="Black" Command="{Binding OnUpDownCommand}" CommandParameter="51"/>
+                </StackLayout>
+                <Label Text="{Binding Scores[5]}" VerticalOptions="Center" FontSize="20" HorizontalOptions="Center"/>
+            </StackLayout>
+
+
+
             <!--Racial Bonus-->
             <Label Grid.Row="1" Grid.Column="2" Text="{Binding RacialBoostsScores[0]}" HorizontalOptions="Center" VerticalOptions="Center" />
             <Label Grid.Row="2" Grid.Column="2" Text="{Binding RacialBoostsScores[1]}" HorizontalOptions="Center" VerticalOptions="Center" />

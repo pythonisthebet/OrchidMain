@@ -5,67 +5,102 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:models="clr-namespace:Orchid.Models"
     xmlns:vm="clr-namespace:Orchid.ViewModels"
-    Title="Ch_ListView">
-    <VerticalStackLayout>
+    Title="Characters">
 
-        <Border
-            Margin="10"
-            Padding="30"
-            BackgroundColor="LightGray"
-            HorizontalOptions="Fill"
-            StrokeShape="RoundRectangle 10,10,10,10">
+    <ScrollView>
+        <VerticalStackLayout Spacing="16" Padding="20">
 
-            <Button
-                Command="{Binding SingleSelectCommand}"
-                HorizontalOptions="Center"
-                ImageSource="add2.png" />
-        </Border>
+            <!-- Instruction Label and Add Button -->
+            <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+                <Label Text="Tap to create a new character"
+                       FontAttributes="Bold"
+                       FontSize="14"
+                       HorizontalOptions="Center"/>
+                <Button
+                    Command="{Binding SingleSelectCommand}"
+                    ImageSource="add2.png"
+                    WidthRequest="40"
+                    HeightRequest="40"
+                    BackgroundColor="#4CAF50"
+                    CornerRadius="20"
+                    Padding="0"
+                    HorizontalOptions="Center"/>
+            </VerticalStackLayout>
 
+            <!-- Character List -->
+            <CollectionView
+                x:Name="theCollectionView"
+                ItemsLayout="VerticalList"
+                ItemsSource="{Binding ChList}"
+                SelectedItem="{Binding SelectedChar}"
+                SelectionChangedCommand="{Binding SingleSelectCommand}"
+                SelectionMode="Single">
 
-        <CollectionView
-            x:Name="theCollectionView"
-            ItemsLayout="VerticalList"
-            ItemsSource="{Binding ChList}"
-            SelectedItem="{Binding SelectedChar}"
-            SelectionChangedCommand="{Binding SingleSelectCommand}"
-            SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+        Padding="15"
+        Margin="0,5"
+        BackgroundColor="White"
+        Stroke="#ddd"
+        StrokeThickness="1"
+        StrokeShape="RoundRectangle 10,10,10,10">
 
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid
-                        Padding="20"
-                        HorizontalOptions="FillAndExpand"
-                        VerticalOptions="Start">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Image
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            Source="{Binding ImgId}" />
-                        <Label
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            FontAttributes="Bold"
-                            Text="{Binding CharacterName}" />
-                        <Label
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            FontAttributes="Bold"
-                            Text="{Binding Classes}" />
-                        <Label
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            FontAttributes="Bold"
-                            Text="{Binding LevelValue}" />
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </VerticalStackLayout>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroupList>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal"/>
+                                        <VisualState x:Name="Selected">
+                                            <VisualState.Setters>
+                                                <!-- Light gray background when selected -->
+                                                <Setter Property="BackgroundColor" Value="#e0e0e0"/>
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateGroupList>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <Grid RowSpacing="5" ColumnSpacing="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Character Image -->
+                                <Image Grid.RowSpan="2"
+                   Grid.Column="0"
+                   Source="{Binding ImgId}"
+                   HeightRequest="60"
+                   WidthRequest="60"
+                   Aspect="AspectFill"
+                   Margin="5"/>
+
+                                <!-- Character Name -->
+                                <Label Grid.Row="0"
+                   Grid.Column="1"
+                   Text="{Binding CharacterName}"
+                   FontAttributes="Bold"
+                   FontSize="Medium" />
+
+                                <!-- Class and Level -->
+                                <HorizontalStackLayout Grid.Row="1"
+                                   Grid.Column="1"
+                                   Spacing="10">
+                                    <Label Text="Class:" FontAttributes="Bold"/>
+                                    <Label Text="{Binding Classes}" />
+                                    <Label Text="Level:" FontAttributes="Bold"/>
+                                    <Label Text="{Binding LevelValue}" />
+                                </HorizontalStackLayout>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
