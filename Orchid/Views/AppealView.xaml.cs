@@ -15,4 +15,9 @@ public partial class AppealView : ContentPage
         AppealViewModel _vm = (BindingContext as AppealViewModel);
         await _vm.InitilizeAsync();// you can have some additional logic to cache the result` 
     }
+
+    protected override async void OnDisappearing()
+    {
+        ((App)Application.Current).ReviewUser = ((App)Application.Current).ReviewUserDefault;
+    }
 }

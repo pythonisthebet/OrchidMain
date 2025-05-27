@@ -142,7 +142,7 @@ namespace Orchid.ViewModels
             //from db
             await OrchidService.UnbanUser(((App)Application.Current).ReviewUser);
             await Application.Current.MainPage.DisplayAlert("Success!", $"Successfuly Unbanned the user!", "ok");
-            ((App)Application.Current).ReviewUser = new();
+            ((App)Application.Current).ReviewUser = ((App)Application.Current).ReviewUserDefault;
             InServerCall = false;
             await Shell.Current.GoToAsync("..");
         }

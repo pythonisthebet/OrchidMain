@@ -9,4 +9,8 @@ public partial class ProfileView : ContentPage
         this.BindingContext = vm;
         InitializeComponent();
     }
+    protected override async void OnDisappearing()
+    {
+        ((App)Application.Current).ReviewUser = ((App)Application.Current).ReviewUserDefault;
+    }
 }

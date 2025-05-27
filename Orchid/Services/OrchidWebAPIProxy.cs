@@ -1111,5 +1111,38 @@ namespace Orchid.Services
                 return null;
             }
         }
+
+        //This method call the DeleteCharacter web API on the server and return a boolean if the change was a seccess
+        //or null if the call fails
+        public async Task<bool> DeleteCharacter(Character u)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}deleteCharacter";
+            try
+            {
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+                string json = JsonSerializer.Serialize<Character>(u, options);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await this.client.PostAsync(url, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
     }
 }

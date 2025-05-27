@@ -21,7 +21,7 @@ namespace Orchid.ViewModels
         {
             get
             {
-                if (((App)Application.Current).ReviewUser == new AppUser())
+                if (((App)Application.Current).ReviewUser == ((App)Application.Current).ReviewUserDefault)
                 {
                     return ((App)Application.Current).LoggedInUser;
                 }
@@ -273,7 +273,7 @@ namespace Orchid.ViewModels
                     banReason.UserId = ((App)Application.Current).ReviewUser.Id;
                     banReason.Reason = BanReason;
                     await Orchidservice.SetBanReason(banReason);
-                    ((App)Application.Current).ReviewUser = new();
+                    ((App)Application.Current).ReviewUser = ((App)Application.Current).ReviewUserDefault;
                     InServerCall = false;
                     await Shell.Current.GoToAsync("..");
                 }
