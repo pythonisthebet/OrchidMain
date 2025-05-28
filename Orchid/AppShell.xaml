@@ -89,7 +89,11 @@
         <ShellContent
             Title="Filters" Icon="trophy.png"
             ContentTemplate="{DataTemplate views:AA_filtersView}"
-            Route="Filters" /> 
+            Route="Filters" />
+        <ShellContent
+            Title="Image Generator" Icon="trophy.png"
+            ContentTemplate="{DataTemplate views:AA_imgGeneratorView}"
+            Route="Image" />
         <ShellContent
             Title="Pdf" Icon="trophy.png"
             ContentTemplate="{DataTemplate views:CharacterSheetPage}"

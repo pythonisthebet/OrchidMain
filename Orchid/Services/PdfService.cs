@@ -10,6 +10,10 @@ using Microsoft.Maui;
 using Microsoft.Maui.Storage;
 using System.Resources;
 using System.Diagnostics;
+using iText.IO.Image;
+using iText.Kernel.Pdf.Canvas;
+using iText.Kernel.Geom;
+using static iText.IO.Codec.TiffWriter;
 //using GameController;
 //using PdfKit;
 
@@ -45,7 +49,7 @@ namespace Orchid.Services
             string templatePath = await ExtractPdfTemplateToAccessibleLocation();
 
             // Path for the filled PDF
-            string outputPath = Path.Combine(FileSystem.AppDataDirectory, "character_sheet.pdf");
+            string outputPath = System.IO.Path.Combine(FileSystem.AppDataDirectory, "character_sheet.pdf");
 
             // Make sure any existing file is deleted to avoid conflicts
             if (File.Exists(outputPath))
@@ -66,77 +70,128 @@ namespace Orchid.Services
             {
                 //using (var fileStream = new FileStream(outputPath, FileMode.Create, FileAccess.Write))
                 //{
-                    using (var writer = new PdfWriter(outputPath))
+                using (var writer = new PdfWriter(outputPath))
+                {
+                    using (iText.Kernel.Pdf.PdfDocument pdf = new iText.Kernel.Pdf.PdfDocument(reader, writer))
                     {
-                        using (iText.Kernel.Pdf.PdfDocument pdf = new iText.Kernel.Pdf.PdfDocument(reader, writer))
+                        PdfAcroForm form = PdfAcroForm.GetAcroForm(pdf, true);
+
+                        // Character class and level
+                        string classAndLevel = "";
+                        for (int i = 0; i < characterData.character.Classes.Count; i++)
                         {
-                            PdfAcroForm form = PdfAcroForm.GetAcroForm(pdf, true);
+                            classAndLevel += $"{characterData.character.Classes[i]} {characterData.character.ClassLevels[i]}";
+                            if (i < characterData.character.Classes.Count - 1)
+                                classAndLevel += ", ";
+                        }
+                        SetFieldValue(form, "ClassLevel", classAndLevel);
 
-                            // Character class and level
-                            string classAndLevel = "";
-                            for (int i = 0; i < characterData.character.Classes.Count; i++)
+                        // Ability scores
+                        foreach (var score in characterData.character.Scores)
+                        {
+                            if (_abilityScores.TryGetValue(score.Key, out string abilityName))
                             {
-                                classAndLevel += $"{characterData.character.Classes[i]} {characterData.character.ClassLevels[i]}";
-                                if (i < characterData.character.Classes.Count - 1)
-                                    classAndLevel += ", ";
+                                string PdfAbilityName = abilityName.Length >= 3 ? abilityName.Substring(0, 3).ToUpper() : abilityName.ToUpper();
+                                SetFieldValue(form, PdfAbilityName, score.Value.ToString());
+                                // Also calculate and fill the modifier
+                                int modifier = (score.Value - 10) / 2;
+                                SetFieldValue(form, $"{PdfAbilityName}mod", modifier.ToString(modifier >= 0 ? "+#" : "#"));
                             }
-                            SetFieldValue(form, "ClassLevel", classAndLevel);
+                        }
 
-                            // Ability scores
-                            foreach (var score in characterData.character.Scores)
+                        // Equipment - combine into a single string
+                        string equipment = string.Join(", ", characterData.character.equipment);
+                        SetFieldValue(form, "Equipment", equipment);
+
+                        // Spells - combine into a single string
+                        bool isAddingSpells = true;
+                        int startingId = 1016;
+                        int FirstFiveCount = 5;
+                        int index = 0;
+                        while (isAddingSpells)
+                        {
+                            if (FirstFiveCount == 0)
                             {
-                                if (_abilityScores.TryGetValue(score.Key, out string abilityName))
-                                {
-                                    string PdfAbilityName = abilityName.Length >= 3 ? abilityName.Substring(0, 3).ToUpper() : abilityName.ToUpper();
-                                    SetFieldValue(form, PdfAbilityName, score.Value.ToString());
-                                    // Also calculate and fill the modifier
-                                    int modifier = (score.Value - 10) / 2;
-                                    SetFieldValue(form, $"{PdfAbilityName}mod", modifier.ToString(modifier >= 0 ? "+#" : "#"));
-                                }
+                                startingId += 3;
                             }
-
-                            // Equipment - combine into a single string
-                            string equipment = string.Join(", ", characterData.character.equipment);
-                            SetFieldValue(form, "Equipment", equipment);
-
-                            // Spells - combine into a single string
-                            bool isAddingSpells = true;
-                            int startingId = 1016;
-                            int FirstFiveCount = 5;
-                            int index = 0;
-                            while (isAddingSpells)
+                            List<string> spells = characterData.character.Spells;
+                            if (spells.Count != 0)
                             {
-                                if (FirstFiveCount == 0)
-                                {
-                                    startingId += 3;
-                                }
-                                List<string> spells = characterData.character.Spells;
-                                if (spells.Count != 0)
-                                {
-                                    SetFieldValue(form, $"Spells {startingId}", characterData.character.Spells[index]);
-                                }
-                                index++;
-                                FirstFiveCount--;
-                                startingId++;
-                                if (characterData.character.Spells.Count <= index + 1)
-                                {
-                                    isAddingSpells = false;
-                                }
+                                SetFieldValue(form, $"Spells {startingId}", characterData.character.Spells[index]);
                             }
-                            Orchid.Services.OrchidWebAPIProxy temp = new OrchidWebAPIProxy();
-                            List<AppUser> temp2 = await temp.GetAllUsers();
-                            AppUser temp3 = temp2.First(u => u.Id == characterData.Uid);
-                            List<Character> character = await temp.GetAllCharacters(temp3);
-                            Character realcharacter = character.First(u => u.Id == characterData.Cid);
-                            string name = realcharacter.CharacterName;
+                            index++;
+                            FirstFiveCount--;
+                            startingId++;
+                            if (characterData.character.Spells.Count <= index + 1)
+                            {
+                                isAddingSpells = false;
+                            }
+                        }
+                        Orchid.Services.OrchidWebAPIProxy temp = new OrchidWebAPIProxy();
+                        List<AppUser> temp2 = await temp.GetAllUsers();
+                        AppUser temp3 = temp2.First(u => u.Id == characterData.Uid);
+                        List<Character> character = await temp.GetAllCharacters(temp3);
+                        Character realcharacter = character.First(u => u.Id == characterData.Cid);
+                        string name = realcharacter.CharacterName;
 
-                            // Character ID
-                            SetFieldValue(form, "CharacterName", $"{name}");
+                        // Character ID
+                        SetFieldValue(form, "CharacterName", $"{name}");
+                        if (form != null && ((App)Application.Current).CurrentCharacter.ImgId != "")
+                        {
+                            var field = form.GetField("CHARACTER IMAGE");
+
+                            if (field != null)
+                            {
+                                // Load image
+                                var imageData = ImageDataFactory.Create($"{((App)Application.Current).CurrentCharacter.ImgId}");
+                                // Get field rectangle and page
+                                // Get field rectangle and convert to Rectangle object
+                                var fieldWidget = field.GetWidgets().First();
+                                var fieldRectArray = fieldWidget.GetRectangle();
+
+                                // Convert PdfArray to Rectangle
+                                var fieldRect = new Rectangle(
+                                    fieldRectArray.GetAsNumber(0).FloatValue(), // x
+                                    fieldRectArray.GetAsNumber(1).FloatValue(), // y
+                                    fieldRectArray.GetAsNumber(2).FloatValue() - fieldRectArray.GetAsNumber(0).FloatValue(), // width
+                                    fieldRectArray.GetAsNumber(3).FloatValue() - fieldRectArray.GetAsNumber(1).FloatValue()  // height
+                                );
+
+                                // Get the page containing the field
+                                var page = fieldWidget.GetPage();
+
+                                // Calculate image dimensions to fit in field
+                                float fieldWidth = fieldRect.GetWidth();
+                                float fieldHeight = fieldRect.GetHeight();
+
+                                float imageWidth = imageData.GetWidth();
+                                float imageHeight = imageData.GetHeight();
+
+                                float scaleX = fieldWidth / imageWidth;
+                                float scaleY = fieldHeight / imageHeight;
+                                float scale = Math.Min(scaleX, scaleY);
+
+                                float scaledWidth = imageWidth * scale;
+                                float scaledHeight = imageHeight * scale;
+
+                                // Center the image in the field
+                                float x = fieldRect.GetX() + (fieldWidth - scaledWidth) / 2;
+                                float y = fieldRect.GetY() + (fieldHeight - scaledHeight) / 2;
+
+                                // Create canvas for the page and add image
+                                var canvas = new PdfCanvas(page);
+                                canvas.AddImageFittedIntoRectangle(imageData,
+                                    new Rectangle(x, y, scaledWidth, scaledHeight), false);
+
+                                // Optional: Make field read-only
+                                field.SetReadOnly(true);
+                            }
                         }
                     }
                 }
-            //}
-            return outputPath;
+                //}
+                return outputPath;
+            }
         }
 
         private void SetFieldValue(PdfAcroForm form, string fieldName, string value)
@@ -169,7 +224,7 @@ namespace Orchid.Services
             try
             {
                 // Define where the template will be extracted to
-                string extractedTemplatePath = Path.Combine(FileSystem.AppDataDirectory, "template.pdf");
+                string extractedTemplatePath = System.IO.Path.Combine(FileSystem.AppDataDirectory, "template.pdf");
 
                 // If we already extracted it previously, just return the path
                 if (File.Exists(extractedTemplatePath))

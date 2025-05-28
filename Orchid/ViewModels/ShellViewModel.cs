@@ -64,6 +64,11 @@ namespace Orchid.ViewModels
         public void OnLogout()
         {
             ((App)Application.Current).LoggedInUser = null;
+            ((App)Application.Current).LoggedInUser = new();
+            ((App)Application.Current).CurrentCharacter = new();
+            ((App)Application.Current).CurrentCharacterProperties = new();
+            ((App)Application.Current).ReviewUserDefault = new();
+            ((App)Application.Current).ReviewUser = ((App)Application.Current).ReviewUserDefault;
 
             ((App)Application.Current).MainPage = new NavigationPage(serviceProvider.GetService<LoginView>());
         }
