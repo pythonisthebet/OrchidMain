@@ -10,27 +10,27 @@
 
     <FlyoutItem x:Name="UserItems" FlyoutDisplayOptions="AsMultipleItems" Route="tabs" Title="UserItems" >
         <ShellContent
-         Title="Character List" Icon="game_icon.png"
+         Title="Character List" Icon="list.png"
          ContentTemplate="{DataTemplate views:Ch_ListView}"
          Route="CHList" />
         <ShellContent
-         Title="Browse content" Icon="trophy.png"
+         Title="Browse content" Icon="browse.png"
          ContentTemplate="{DataTemplate views:BrowseView}"
          Route="Browse" />
     </FlyoutItem>
     <FlyoutItem x:Name="AdminItems" FlyoutDisplayOptions="AsMultipleItems" Route="tabs" Title="AdminItems">
         <ShellContent
-         Title="Approve Appeals" Icon="trophy.png"
+         Title="Approve Appeals" Icon="appeals.png"
          ContentTemplate="{DataTemplate views:AppealListAView}"
          Route="AppAppeal" 
          IsVisible="{Binding IsAdmin}"/>
         <ShellContent
-         Title="User List" Icon="game_icon.png"
+         Title="User List" Icon="users_list.png"
          ContentTemplate="{DataTemplate views:UserListAView}"
          Route="UserList" 
         IsVisible="{Binding IsAdmin}"/>
         <ShellContent
-         Title="Character List" Icon="trophy.png"
+         Title="Character List" Icon="list_icon.png"
          ContentTemplate="{DataTemplate views:CharacterListAView}"
          Route="CharacterList" 
          IsVisible="{Binding IsAdmin}"/>
@@ -38,36 +38,35 @@
     <FlyoutItem x:Name="BannedItems" FlyoutDisplayOptions="AsMultipleItems" Route="tabs" Title="ForumItems"  >
         <!-- normally no icon but if Banned it appears-->
         <ShellContent
-          Title="Appeal" Icon="pending.png"
+          Title="Appeal" Icon="appeals.png"
           ContentTemplate="{DataTemplate views:AppealView}"
           Route="Appeal" 
           IsVisible="{Binding IsBanned}"  />
         <!-- normally icon but if Banned it disappear-->
     </FlyoutItem>
-    <FlyoutItem x:Name="Profile" FlyoutDisplayOptions="AsSingleItem" Route="tabs" Title="Profile">
+
+    <FlyoutItem x:Name="ProfileItems" FlyoutDisplayOptions="AsMultipleItems" Route="tabs" Title="ProfileItems" >
         <ShellContent
           Title="Profile" Icon="profile_icon.png"
           ContentTemplate="{DataTemplate views:ProfileView}"
           Route="Profile" />
-    </FlyoutItem>
-    <FlyoutItem x:Name="Subscription" FlyoutDisplayOptions="AsSingleItem" Route="tabs" Title="Subscription">
         <ShellContent
-          Title="Subscription" Icon="trophy.png"
+          Title="Subscription" Icon="subscribe.png"
           ContentTemplate="{DataTemplate views:SubscriptionView}"
           Route="Subscription" />
     </FlyoutItem>
 
     <FlyoutItem x:Name="CharacterItems" FlyoutDisplayOptions="AsMultipleItems" Route="characterCreation" Title="UserItems" FlyoutItemIsVisible="False">
         <ShellContent
-            Title="Class" Icon="game_icon.png"
+            Title="Class" Icon="c_lass.png"
             ContentTemplate="{DataTemplate views:AA_classView}"
             Route="class" />
         <ShellContent
-            Title="Race" Icon="trophy.png"
+            Title="Race" Icon="race.png"
             ContentTemplate="{DataTemplate views:AA_raceView}"
             Route="Race" />
         <ShellContent
-            Title="Stats" Icon="trophy.png"
+            Title="Stats" Icon="stats.png"
             ContentTemplate="{DataTemplate views:AA_statsView}"
             Route="Stats" />
         <ShellContent
@@ -75,27 +74,27 @@
             ContentTemplate="{DataTemplate views:AA_featsView}"
             Route="Feats" />
         <ShellContent
-            Title="Skills" Icon="trophy.png"
+            Title="Skills" Icon="skills.png"
             ContentTemplate="{DataTemplate views:AA_skillsView}"
             Route="Skills" />
         <ShellContent
-            Title="Spells" Icon="trophy.png"
+            Title="Spells" Icon="spells.png"
             ContentTemplate="{DataTemplate views:AA_spellsView}"
             Route="Spells" />
         <ShellContent
-            Title="Equipment" Icon="trophy.png"
+            Title="Equipment" Icon="equipment.png"
             ContentTemplate="{DataTemplate views:AA_equipmentView}"
             Route="Equipment" />
         <ShellContent
-            Title="Filters" Icon="trophy.png"
+            Title="Filters" Icon="filter.png"
             ContentTemplate="{DataTemplate views:AA_filtersView}"
             Route="Filters" />
         <ShellContent
-            Title="Image Generator" Icon="trophy.png"
+            Title="Image Generator" Icon="add_image.png"
             ContentTemplate="{DataTemplate views:AA_imgGeneratorView}"
             Route="Image" />
         <ShellContent
-            Title="Pdf" Icon="trophy.png"
+            Title="Pdf" Icon="page.png"
             ContentTemplate="{DataTemplate views:CharacterSheetPage}"
             Route="Pdf" />
 

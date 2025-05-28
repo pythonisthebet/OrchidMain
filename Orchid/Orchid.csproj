@@ -52,18 +52,36 @@
 	  <None Remove="Resources\AppIcon\appicon.svg" />
 	  <None Remove="Resources\AppIcon\appiconfg.svg" />
 	  <None Remove="Resources\Images\add2.png" />
+	  <None Remove="Resources\Images\add_image.png" />
+	  <None Remove="Resources\Images\appeals.png" />
+	  <None Remove="Resources\Images\browse.png" />
+	  <None Remove="Resources\Images\dnd_image.png" />
+	  <None Remove="Resources\Images\dnd_signup.png" />
 	  <None Remove="Resources\Images\dotnet_bot.svg" />
 	  <None Remove="Resources\Images\down.png" />
+	  <None Remove="Resources\Images\equipment.png" />
+	  <None Remove="Resources\Images\feats.png" />
+	  <None Remove="Resources\Images\filter.png" />
 	  <None Remove="Resources\Images\game_icon.png" />
+	  <None Remove="Resources\Images\list.png" />
 	  <None Remove="Resources\Images\list_icon.png" />
 	  <None Remove="Resources\Images\lock_icon.png" />
 	  <None Remove="Resources\Images\logout_icon.png" />
+	  <None Remove="Resources\Images\member_list.png" />
+	  <None Remove="Resources\Images\page.png" />
 	  <None Remove="Resources\Images\pending.png" />
 	  <None Remove="Resources\Images\profile_icon.png" />
 	  <None Remove="Resources\Images\question_mark_icon.png" />
+	  <None Remove="Resources\Images\race.png" />
+	  <None Remove="Resources\Images\skill.png" />
+	  <None Remove="Resources\Images\skills.png" />
+	  <None Remove="Resources\Images\spells.png" />
+	  <None Remove="Resources\Images\stats.png" />
+	  <None Remove="Resources\Images\subscribe.png" />
 	  <None Remove="Resources\Images\trash_can.png" />
 	  <None Remove="Resources\Images\trophy.png" />
 	  <None Remove="Resources\Images\up2.png" />
+	  <None Remove="Resources\Images\users_list.png" />
 	  <None Remove="Resources\Images\wait.gif" />
 	  <None Remove="Resources\Splash\splash.svg" />
 	</ItemGroup>
@@ -79,18 +97,37 @@
 
 	<ItemGroup>
 	  <MauiImage Include="Resources\Images\add2.png" />
+	  <MauiImage Include="Resources\Images\add_image.png" />
+	  <MauiImage Include="Resources\Images\appeals.png" />
+	  <MauiImage Include="Resources\Images\browse.png" />
+	  <MauiImage Include="Resources\Images\c_lass.png" />
+	  <MauiImage Include="Resources\Images\dnd_image.png" />
+	  <MauiImage Include="Resources\Images\dnd_signup.png" />
 	  <MauiImage Include="Resources\Images\dotnet_bot.svg" />
 	  <MauiImage Include="Resources\Images\down.png" />
+	  <MauiImage Include="Resources\Images\equipment.png" />
+	  <MauiImage Include="Resources\Images\feats.png" />
+	  <MauiImage Include="Resources\Images\filter.png" />
 	  <MauiImage Include="Resources\Images\game_icon.png" />
+	  <MauiImage Include="Resources\Images\list.png" />
 	  <MauiImage Include="Resources\Images\list_icon.png" />
 	  <MauiImage Include="Resources\Images\lock_icon.png" />
 	  <MauiImage Include="Resources\Images\logout_icon.png" />
+	  <MauiImage Include="Resources\Images\member_list.png" />
+	  <MauiImage Include="Resources\Images\page.png" />
 	  <MauiImage Include="Resources\Images\pending.png" />
 	  <MauiImage Include="Resources\Images\profile_icon.png" />
 	  <MauiImage Include="Resources\Images\question_mark_icon.png" />
+	  <MauiImage Include="Resources\Images\race.png" />
+	  <MauiImage Include="Resources\Images\skill.png" />
+	  <MauiImage Include="Resources\Images\skills.png" />
+	  <MauiImage Include="Resources\Images\spells.png" />
+	  <MauiImage Include="Resources\Images\stats.png" />
+	  <MauiImage Include="Resources\Images\subscribe.png" />
 	  <MauiImage Include="Resources\Images\trash_can.png" />
 	  <MauiImage Include="Resources\Images\trophy.png" />
 	  <MauiImage Include="Resources\Images\up2.png" />
+	  <MauiImage Include="Resources\Images\users_list.png" />
 	  <MauiImage Include="Resources\Images\wait.gif" />
 	</ItemGroup>
 
