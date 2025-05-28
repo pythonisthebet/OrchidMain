@@ -106,7 +106,7 @@ namespace Orchid.ViewModels
         public ICommand SubmitCommand => new Command(OnSubmit);
         public ICommand UnbanCommand => new Command(OnUnban);
 
-
+        //loads data from the database
         public async Task InitilizeAsync()
         {
             if (((App)Application.Current).LoggedInUser.IsBanned)
@@ -124,6 +124,8 @@ namespace Orchid.ViewModels
                 OnPropertyChanged("BanReason");
             OnPropertyChanged("Appeal");
         }
+
+        //loads the explanation for the appeal in the database
         public async void OnSubmit()
         {
             InServerCall = true;
@@ -136,6 +138,7 @@ namespace Orchid.ViewModels
             InServerCall = false;
         }
 
+        //(admin functions) unbans a user
         public async void OnUnban()
         {
             InServerCall = true;

@@ -21,6 +21,7 @@ namespace Orchid.ViewModels
         {
             get
             {
+                //if an admin reviews a user use the reviewed user instead of the logged in one
                 if (((App)Application.Current).ReviewUser == ((App)Application.Current).ReviewUserDefault)
                 {
                     return ((App)Application.Current).LoggedInUser;
@@ -180,7 +181,7 @@ namespace Orchid.ViewModels
         }
         #endregion
         //on ChangeCommand and getting with param (command parameter)
-        //changes properties and update the DB
+        //changes user properties and update the DataBase
         async void OnChangeCommand(object param)
         {
             InServerCall = true;
@@ -261,6 +262,7 @@ namespace Orchid.ViewModels
 
         }
 
+        //this bans the reviewed user (admin command)
         async void OnBanCommand(object param)
         {
             if (BanReason != null)

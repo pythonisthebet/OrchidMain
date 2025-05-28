@@ -37,6 +37,7 @@ namespace Orchid.Services
             { 5, "Charisma" }
         };
 
+        //creates a pdf file from the DnD_5E_CharacterSheet_FormFillable and fills it with the data of a character
         public async Task<string> FillCharacterSheet(CharacterData characterData)
         {
             await ((App)Application.Current).CheckAndRequestStoragePermission();

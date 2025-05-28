@@ -149,7 +149,7 @@ namespace Orchid.ViewModels
         public ICommand SelectionChangedCommand => new Command(OnSelectionChanged);
 
 
-
+        //load from the External API
         public async Task InitilizeAsync()
         {
             IDictionary<int,List<string>> tempSpellListPlusLevel = new Dictionary<int, List<string>>();
@@ -254,6 +254,7 @@ namespace Orchid.ViewModels
             OnPropertyChanged("SelectedSpells");
         }
 
+        //disable or enable the confirm button
         public async void OnSelectionChanged()
         {
             isConfiremed = false;
@@ -268,7 +269,7 @@ namespace Orchid.ViewModels
             }
         }
 
-
+        //save the selected data to characters json file on the server
         public async void OnConfirm()
         {
             IDictionary<string, object> temp = ((App)Application.Current).CurrentCharacterProperties;

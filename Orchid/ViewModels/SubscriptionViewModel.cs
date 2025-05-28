@@ -18,6 +18,7 @@ namespace Orchid.ViewModels
         }
         public Command PayCommand { protected set; get; }
 
+        //go to paymentpage with the amount to pay
         private async void GoToPayment(string price)
         {
             var navParam = new Dictionary<string, object>()

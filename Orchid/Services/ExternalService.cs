@@ -21,7 +21,6 @@ namespace Orchid.Services
             this.client = new HttpClient(handler);
         }
 
-        //function
         //removes ' and spaces in text to fine the appropriate table or column in the db
         public static string ConverterToDb(string text)
         {
@@ -30,7 +29,6 @@ namespace Orchid.Services
             return text;
         }
 
-        //function
         //turn a string, Example:"skill-arcana" to a list of Proficiencies
         public static string ParseProficiencies(string text)
         {
@@ -41,7 +39,6 @@ namespace Orchid.Services
         }
 
 
-        //function
         //get every item in api dynamicly in the api
         public async Task<List<string>> GetDynamicList(string type)
         {
@@ -83,8 +80,7 @@ namespace Orchid.Services
             }
         }
 
-        //function
-        //get a specific item in api dynamicly
+        //get any specific item in api dynamicly as an ExpandoObject
         public async Task<ExpandoObject> GetDynamicItem(string type)
         {
             string url = ExtAPI + $"api/{type}";
@@ -108,7 +104,6 @@ namespace Orchid.Services
             }
         }
 
-        //function
         //gets the description of which skill proficiancies you can have
         public async Task<string> GetProficianciesLimits(string selectedMainClass)
         {
@@ -136,7 +131,6 @@ namespace Orchid.Services
             }
         }
 
-        //function
         //gets the description of which how many skill proficiancies you can have
         public async Task<int> GetProficianciesLimits2(string selectedMainClass)
         {
@@ -163,7 +157,6 @@ namespace Orchid.Services
             }
         }
 
-        //function
         //get every skill of a given class
         public async Task<List<string>?> GetSkills(string item)
         {
@@ -204,8 +197,7 @@ namespace Orchid.Services
             }
         }
 
-        //function
-        //get every skill of a given class
+        //get every spell of a given class
         public async Task<ClassSpellsPlusCount?> GetClassSpells(string item)
         {
             ClassSpellsPlusCount SpellsPlusCount = new ClassSpellsPlusCount();
@@ -231,7 +223,6 @@ namespace Orchid.Services
             }
         }
 
-        //function
         //get every class in the api
         public async Task<List<string>> GetClasses()
         {
@@ -262,7 +253,6 @@ namespace Orchid.Services
             }
         }
 
-        //function
         //get every Race in the api
         public async Task<List<string>> GetRaces()
         {
@@ -295,7 +285,6 @@ namespace Orchid.Services
 
 
 
-        //function
         //get the details of a given class
         public async Task<ExtApiClass> GetClassDetails(string Class)
         {
@@ -321,7 +310,6 @@ namespace Orchid.Services
         }
 
 
-        //function
         //get every feat in the api
         public async Task<List<string>> GetFeats()
         {
@@ -352,7 +340,6 @@ namespace Orchid.Services
             }
         }
 
-        //function
         //get the details of a given feat
         public async Task<ExtApifeat> GetFeatDetails(string feat)
         {
@@ -377,7 +364,7 @@ namespace Orchid.Services
             }
         }
 
-
+        //gets every spell in the api as an MyExtApiSpell
         public async Task<List<MyExtApiSpell>> GetSpells()
         {
             string url = ExtAPI + "api/spells/";
@@ -412,6 +399,8 @@ namespace Orchid.Services
                 return null;
             }
         }
+
+        //gets the description of a given spell
         public async Task<string> GetSpellDesc(string url)
         {
             string _url = ExtAPI + url;

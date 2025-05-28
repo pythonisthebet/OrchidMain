@@ -146,6 +146,7 @@ namespace Orchid.ViewModels
         public ICommand Confirm => new Command(OnConfirm);
         public ICommand SelectionChangedCommand => new Command(OnSelectionChanged);
 
+        //enable or disable the confirm button
         public async void OnSelectionChanged()
         {
             isConfiremed = false;
@@ -160,6 +161,8 @@ namespace Orchid.ViewModels
             //Selected_Color = Colors.Red;
         }
 
+
+        //loads data from the external api
         public async Task InitilizeAsync()
         {
             SelectedClasses.Clear();
@@ -193,9 +196,9 @@ namespace Orchid.ViewModels
             OnPropertyChanged("SelectedClasses");
         }
 
-        
 
 
+        //save the selected data to characters json file on the server
         public async void OnConfirm()
         {
             IDictionary<string, object> temp = ((App)Application.Current).CurrentCharacterProperties;

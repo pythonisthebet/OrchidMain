@@ -10,6 +10,7 @@ public partial class AA_filtersView : ContentPage
         InitializeComponent();
 	}
 
+    //Calls the InitilizeAsync function on page appearence to load data
     protected override async void OnAppearing()
     {
         AA_filtersViewModel _vm = (BindingContext as AA_filtersViewModel);

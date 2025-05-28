@@ -17,12 +17,16 @@ public partial class BrowseView : ContentPage
         this.BindingContext = vm;
         InitializeComponent();
     }
+
+    //Calls the InitilizeAsync function on page appearence to load data
     protected override async void OnAppearing()
     {
         BrowseViewModel _vm = (BindingContext as BrowseViewModel);
         List<string> _filters = await _vm.InitilizeAsync();// you can have some additional logic to cache the result` 
         SetupAutoComplete(_filters);
     }
+
+    //set up the custom XAML element _autoCompleteEntry that auto complete each word individually
     private void SetupAutoComplete(List<string> _filters)
     {
         _autoCompleteEntry = new WordAutoCompleteEntry

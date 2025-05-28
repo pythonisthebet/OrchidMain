@@ -13,6 +13,7 @@ public partial class AA_raceView : ContentPage
         InitializeComponent();
     }
 
+    //Calls the InitilizeAsync function on page appearence to load data
     protected override async void OnAppearing()
     {
         AA_raceViewModel _vm = (BindingContext as AA_raceViewModel);

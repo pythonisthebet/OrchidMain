@@ -17,7 +17,7 @@ namespace Orchid.ViewModels
     public class SignUpViewModel: ViewModelBase
     {
         #region FormValidation
-        #region שם
+        #region name
         private bool showNameError;
 
         public bool ShowNameError
@@ -54,6 +54,8 @@ namespace Orchid.ViewModels
                 OnPropertyChanged("NameError");
             }
         }
+
+        //checks if name is empty
         private void ValidateName()
         {
             this.ShowNameError = string.IsNullOrEmpty(Name);
@@ -96,6 +98,8 @@ namespace Orchid.ViewModels
                 OnPropertyChanged("PasswordError");
             }
         }
+
+        //checks if pass is empty, to short, too long or does not have a letter
         private void ValidatePassword()
         {
             this.ShowPasswordError = (Password == null) || Password.Length < 8 || Password.Length > 12 || !Password.Any(x => char.IsLetter(x)); // need to inclode one letter  
@@ -138,6 +142,8 @@ namespace Orchid.ViewModels
                 OnPropertyChanged("EmailError");
             }
         }
+
+        //checks if email is writen like a real email
         private void ValidateEmail()
         {
             Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
@@ -190,6 +196,8 @@ namespace Orchid.ViewModels
                 OnPropertyChanged("CheckBoxError");
             }
         }
+
+        //check if check box is pressed
         private void ValidateCheckBox()
         {
             if(CheckBox == true)
@@ -240,8 +248,7 @@ namespace Orchid.ViewModels
             return true;
         }
 
-        //method 
-        // if the data is valid (accepted by ValidateForm) then register the user in the DB via the servise 
+        //if the data is valid (accepted by ValidateForm) then register the user in the DataBase via the servise 
         private async void SaveData()
         {
             if (ValidateForm())

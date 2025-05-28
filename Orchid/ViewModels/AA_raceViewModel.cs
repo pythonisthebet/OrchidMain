@@ -118,7 +118,7 @@ namespace Orchid.ViewModels
         public ICommand SelectionChangedCommand => new Command(OnSelectionChanged);
 
 
-
+        //load data from the external api
         public async Task InitilizeAsync()
 
         {
@@ -152,6 +152,7 @@ namespace Orchid.ViewModels
             }
         }
 
+        //enable or diable the confirm button
         public async void OnSelectionChanged()
         {
             try
@@ -171,7 +172,7 @@ namespace Orchid.ViewModels
             }
         }
 
-
+        //save the selected data to characters json file on the server
         public async void OnConfirm()
         {
             if (SelectedRace != null)

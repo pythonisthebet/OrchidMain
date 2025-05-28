@@ -148,6 +148,7 @@ namespace Orchid.ViewModels
         public ICommand Confirm => new Command(OnConfirm);
         public ICommand SelectionChangedCommand => new Command(OnSelectionChanged);
 
+        //loads data from the database
         public async Task InitilizeAsync()
         {
             SelectedFilters.Clear();
@@ -164,6 +165,7 @@ namespace Orchid.ViewModels
             OnPropertyChanged("SelectedFilters");
         }
 
+        //enable or disables the confirm button
         public async void OnSelectionChanged()
         {
             isConfiremed = false;
@@ -178,6 +180,7 @@ namespace Orchid.ViewModels
             }
         }
 
+        //saves the filters to the database for the current character
         public async void OnConfirm()
         {
             InServerCall = true;

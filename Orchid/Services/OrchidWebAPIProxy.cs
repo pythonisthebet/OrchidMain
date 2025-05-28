@@ -45,11 +45,13 @@ namespace Orchid.Services
             this.baseUrl = BaseAddress;
         }
 
+        //gets the location of the CharacterImages folder
         public string GetImagesBaseAddress()
         {
             return OrchidWebAPIProxy.ImageBaseAddress;
         }
 
+        //gets the location of the default character image
         public string GetDefaultCharacterImageUrl()
         {
             return $"{OrchidWebAPIProxy.ImageBaseAddress}/CharacterImages/default.png";
@@ -228,7 +230,7 @@ namespace Orchid.Services
             }
         }
 
-        //This method call the GetAllCharacters web API on the server and return a all users in DATA BASE as Model.AppUser
+        //This method call the GetAllCharacters web API on the server and return a all characters of a given user in DATA BASE
         //or null if the call fails
         public async Task<List<Character>> GetAllCharacters(AppUser user)
         {
@@ -300,6 +302,7 @@ namespace Orchid.Services
             }
         }
 
+        #region removed
         //not dynamic
         //#region AddClass
         ////This method call the CreateCharacter web API on the server and return the Character object with the given ID
@@ -606,7 +609,7 @@ namespace Orchid.Services
         //    }
         //}
         //#endregion
-        
+
         //#region GetRace
         ////This method call the GetRace web API on the server and return a all users in DATA BASE as Model.AppUser
         ////or null if the call fails
@@ -643,9 +646,9 @@ namespace Orchid.Services
         //        return null;
         //    }
         //}
-        //#endregion
+        #endregion
 
-        //This method call the StoreCharacter web API on the server  and Stores a character expando object there
+        //This method call the StoreCharacter web API on the server and Stores a character expando object
         public async Task StoreCharacter(ExpandoObject character, int Cid, int Uid)
         {
             //Set URI to the specific function API
@@ -726,7 +729,7 @@ namespace Orchid.Services
             }
         }
 
-        //This method call the GetJsonCharacter web API on the server and a json object that of the same ID of the given character
+        //This method call the GetJsonCharacter web API on the server and gets a json object that has the given user and character id
         //or null if the call fails
         public async Task<string> GetJsonCharacter(int Uid, int Cid)
         {
@@ -797,7 +800,7 @@ namespace Orchid.Services
             }
         }
 
-        //This method call the GetCharactersANDFilters web API on the server and return a all character in DATA BASE
+        //This method call the GetCharactersFORFilters web API on the server and return a all character that follow spesific filters in DATA BASE
         //or null if the call fails
         public async Task<List<Character>> GetCharactersFORFilters(List<Filter> filters)
         {
@@ -833,7 +836,7 @@ namespace Orchid.Services
             }
         }
 
-        //This method call the GetUserId web API on the server and return a a user api based on a cheracter
+        //This method call the GetUserId web API on the server and return a the userId api based on a cheracter they have
         //or null if the call fails
         public async Task<int> GetUserId(Character character)
         {
@@ -1040,7 +1043,7 @@ namespace Orchid.Services
             }
         }
 
-        //This method call the SetBanReason web API on the server and return the BanReason object with the given ID
+        //This method call the SetBanReason web API on the server and return the BanReason object
         //or null if the call fails
         public async Task<BanReason?> SetBanReason(BanReason banReason)
         {
@@ -1076,7 +1079,7 @@ namespace Orchid.Services
             }
         }
 
-        //This method call the SetAppeal web API on the server and return the AppUser object with the given ID
+        //This method call the SetAppeal web API on the server and return the Appeal object
         //or null if the call fails
         public async Task<Appeal?> SetAppeal(Appeal appeal)
         {
@@ -1112,7 +1115,7 @@ namespace Orchid.Services
             }
         }
 
-        //This method call the GetBannedUsers web API on the server and return the AppUser objects That Are Banned
+        //This method call the GetBannedUsers web API on the server and return the Users That Are Banned
         //or null if the call fails
         public async Task<List<AppUser>> GetBannedUsers()
         {

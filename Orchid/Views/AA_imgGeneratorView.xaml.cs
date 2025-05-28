@@ -9,6 +9,8 @@ public partial class AA_imgGeneratorView : ContentPage
         this.BindingContext = vm;
         InitializeComponent();
     }
+
+    //Calls the InitilizeAsync function on page appearence to load data
     protected override async void OnAppearing()
     {
         AA_imgGeneratorViewModel _vm = (BindingContext as AA_imgGeneratorViewModel);

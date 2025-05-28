@@ -10,6 +10,7 @@ public partial class AA_spellsView : ContentPage
         InitializeComponent();
     }
 
+    //Calls the InitilizeAsync function on page appearence to load data
     protected override async void OnAppearing()
     {
         AA_spellsViewModel _vm = (BindingContext as AA_spellsViewModel);

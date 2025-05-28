@@ -35,11 +35,13 @@ namespace Orchid.CustomViewModelBase
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        //this acts as an event that gets called when a property's data changes so that the page update
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        //this changes the value of a property
         protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
         {
             if (EqualityComparer<T>.Default.Equals(storage, value))

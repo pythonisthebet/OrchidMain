@@ -86,6 +86,8 @@ namespace Orchid.ViewModels
         }
         #endregion
 
+        //load data from server
+
         public async Task InitilizeAsync()
         {
             InServerCall = true;
@@ -95,6 +97,7 @@ namespace Orchid.ViewModels
         }
         public ICommand SingleSelectCommand => new Command(OnSingleSelectUser);
 
+        //sends to profile page of selected user
         public async void OnSingleSelectUser()
         {
             ((App)Application.Current).ReviewUser = (AppUser)selectedUser;

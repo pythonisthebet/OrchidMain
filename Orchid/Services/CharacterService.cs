@@ -16,6 +16,7 @@ namespace Orchid.Services
     {
         private const string CharacterFileName = "character_data.json";
 
+        //gets the character data from the json file in server
         public async Task<CharacterData> GetCharacterDataAsync()
         {
             try

@@ -112,7 +112,7 @@ namespace Orchid.ViewModels
         #endregion
 
         #region Methods
-
+        //loads character data from the server
         public async Task InitializeAsync()
         {
             try
@@ -141,6 +141,7 @@ namespace Orchid.ViewModels
             }
         }
 
+        //generate the (character sheet) pdf using _pdfService
         private async Task GeneratePdfAsync()
         {
             if (CharacterData == null)
@@ -177,6 +178,7 @@ namespace Orchid.ViewModels
             }
         }
 
+        //show the user the apps they can use to print/share the pdf
         private async Task PrintPdfAsync()
         {
             if (string.IsNullOrEmpty(_pdfPath) || !File.Exists(_pdfPath))
@@ -221,6 +223,7 @@ namespace Orchid.ViewModels
         }
 #endif
 
+        //shows the apps the user can use to prinf/share the pdf
         private async Task SharePdf(string pdfPath)
         {
             // On mobile, use the share capability which often includes print options
@@ -231,6 +234,7 @@ namespace Orchid.ViewModels
             });
         }
 
+        //removed
         private void UpdateCharacterDisplay()
         {
             if (CharacterData?.character == null)

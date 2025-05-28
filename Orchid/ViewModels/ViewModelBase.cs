@@ -13,7 +13,7 @@ namespace Orchid.ViewModels
         #region INotifyPropertyChanged
 
         public event PropertyChangedEventHandler PropertyChanged;
-
+        //this acts as an event that gets called when a property's data changes so that the page update
         protected void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

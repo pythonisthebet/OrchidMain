@@ -182,6 +182,8 @@ namespace Orchid.ViewModels
             OnPropertyChanged("Scores");
         }
         #endregion
+
+        //loads data from the database
         public async Task InitilizeAsync()
         {
             //InServerCall = true;
@@ -232,10 +234,13 @@ namespace Orchid.ViewModels
         public ICommand PointBuyCommand => new Command(OnPointBuy);
 
 
+        //hide or reveal the point buy counter and coulmn
         public void OnPointBuy(object obj)
         {
             PointBuy = !PointBuy;
         }
+
+        //reset the stat scores to thier base value
         public void OnReset()
         {
             Scores[0] = 8;
@@ -251,6 +256,7 @@ namespace Orchid.ViewModels
             OnPropertyChanged("Scores");
         }
 
+        //increase or decrease a score by 1
         public void OnUpDown(object obj)
         {
             string parameters = obj.ToString();
@@ -271,6 +277,8 @@ namespace Orchid.ViewModels
             OnPropertyChanged("Scores");
 
         }
+
+        //adds any racial booost to stats if any are loaded
         public void Sum()
         {
             foreach (var item in Scores)
@@ -280,6 +288,8 @@ namespace Orchid.ViewModels
             OnPropertyChanged("ScoreTotal");
 
         }
+
+        //changes the score sto modfiers (for example 12 -> +1) its important for dnd
         public void SumAndTruncade()
         {
             foreach (var item in Scores)
@@ -290,8 +300,7 @@ namespace Orchid.ViewModels
 
         }
 
-        //function
-        //get the point cost of every attribute
+        //get the point cost of every attribute (for point buy)
         public void PointCF()
         {
             bool needAlert = false;
@@ -322,6 +331,8 @@ namespace Orchid.ViewModels
             OnPropertyChanged("Alert");
             OnPropertyChanged("PointCost");
         }
+
+        //get the point total (for point buy)
         public void PointTF()
         {
             bool needAlert = false;
@@ -350,6 +361,8 @@ namespace Orchid.ViewModels
             OnPropertyChanged("PointTotal");
         }
 
+
+        //save the selected data to characters json file on the server
         public async void OnConfirm()
         {
             IDictionary<string, object> temp = ((App)Application.Current).CurrentCharacterProperties;

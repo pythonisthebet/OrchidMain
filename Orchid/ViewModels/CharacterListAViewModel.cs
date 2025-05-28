@@ -86,6 +86,7 @@ namespace Orchid.ViewModels
         }
         #endregion
 
+        //loads data from the database
         public async Task InitilizeAsync()
         {
             InServerCall = true;
@@ -95,6 +96,8 @@ namespace Orchid.ViewModels
         }
         public ICommand SingleSelectCommand => new Command(OnSingleSelectCharacter);
 
+
+        //go to CharacterSheetViewModel of the selected character
         public async void OnSingleSelectCharacter()
         {
             ((App)Application.Current).CurrentCharacter = (Character)selectedCharacter;

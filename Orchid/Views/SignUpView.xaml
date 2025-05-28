@@ -64,17 +64,6 @@
                 </VerticalStackLayout>
             </Frame>
 
-            <!-- Private Policy -->
-            <Frame BorderColor="LightGray" Padding="10" HasShadow="True">
-                <VerticalStackLayout Spacing="5">
-                    <Grid ColumnDefinitions="*,*">
-                        <Label Text="Private Policy" Grid.Column="0" Style="{StaticResource labelNameStyle}" />
-                        <Label Text="{Binding CheckBoxError}" IsVisible="{Binding ShowCheckBoxError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
-                    </Grid>
-                    <CheckBox Color="#58CCED" IsChecked="{Binding CheckBox}" />
-                </VerticalStackLayout>
-            </Frame>
-
             <!-- Submit Button -->
             <Button Text="Register"
                     Command="{Binding SaveDataCommand}"

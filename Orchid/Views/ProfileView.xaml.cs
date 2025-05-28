@@ -9,6 +9,8 @@ public partial class ProfileView : ContentPage
         this.BindingContext = vm;
         InitializeComponent();
     }
+
+    //Eraser user data after admin use on exiting page 
     protected override async void OnDisappearing()
     {
         ((App)Application.Current).ReviewUser = ((App)Application.Current).ReviewUserDefault;

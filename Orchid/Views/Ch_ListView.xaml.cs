@@ -13,6 +13,7 @@ public partial class Ch_ListView : ContentPage
         InitializeComponent();
     }
 
+    //Calls the InitilizeAsync function on page appearence to load data
     protected override async void OnAppearing()
     {
         Ch_ListViewModel _vm = (BindingContext as Ch_ListViewModel);

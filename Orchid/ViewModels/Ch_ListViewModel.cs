@@ -94,6 +94,8 @@ namespace Orchid.ViewModels
         #endregion
         public ICommand SingleSelectCommand => new Command(OnSingleSelectChar);
 
+
+        //creates a new character and start creating it or continue working on another character
         async void OnSingleSelectChar()
         {
             try

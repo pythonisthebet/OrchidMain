@@ -86,6 +86,7 @@ namespace Orchid.ViewModels
         }
         #endregion
 
+        //load data from the database
         public async Task InitilizeAsync()
         {
             InServerCall = true;
@@ -95,6 +96,7 @@ namespace Orchid.ViewModels
         }
         public ICommand SingleSelectCommand => new Command(OnSingleSelectUser);
 
+        //go to AppealView of the selected user
         public async void OnSingleSelectUser()
         {
             ((App)Application.Current).ReviewUser = (AppUser)selectedUser;

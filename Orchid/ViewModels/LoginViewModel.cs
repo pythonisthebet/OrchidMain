@@ -64,7 +64,6 @@ namespace Orchid.ViewModels
         #endregion
 
 
-        //constractor
         //initialize the properties, attributes and commands
         private IServiceProvider serviceProvider;
         public LoginViewModel(OrchidWebAPIProxy proxy, IServiceProvider serviceProvider)
@@ -82,9 +81,7 @@ namespace Orchid.ViewModels
         //command on pressing the signup button sends you to to SignUpView
         public Command SignUpCommand { protected set; get; }
 
-        //method
-        //activated by the LoginCommand
-        //checks with the servise if the given email and password match a user in the DB
+        //checks with the servise if the given email and password match a user in the DataBase
         //and if so login to the user and go to profile page in the shell
         private async void OnLogin()
         {
@@ -132,8 +129,7 @@ namespace Orchid.ViewModels
             }
         }
 
-        //method
-        //activated by SignUpCommand
+
         //send you to SignUpView
         private async void GoToSignUp()
         {

@@ -55,11 +55,13 @@ namespace Orchid.CustomXAMLElements
             _mainGrid.Add(_suggestionsListView, 0, 1);
         }
 
+        //gets the grid
         public Grid GetContainerGrid()
         {
             return _mainGrid;
         }
 
+        //changes the suggestions on the auto complete based on the current word the user is on
         private void OnTextChanged(object sender, TextChangedEventArgs e)
         {
             if (string.IsNullOrEmpty(e.NewTextValue))
@@ -130,6 +132,7 @@ namespace Orchid.CustomXAMLElements
             }
         }
 
+        //complete a word if the user selects an auto complete option
         private void OnSuggestionSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem != null)
@@ -176,11 +179,13 @@ namespace Orchid.CustomXAMLElements
             }
         }
 
+        //removed
         private void OnEntryFocused(object sender, FocusEventArgs e)
         {
             // Logic for when entry is focused
         }
 
+        //when clicking of the auto complete window
         private void OnEntryUnfocused(object sender, FocusEventArgs e)
         {
             // Delay hiding suggestions to allow selection
@@ -190,11 +195,13 @@ namespace Orchid.CustomXAMLElements
             });
         }
 
+        //shows the auto complete suggestions
         private void ShowSuggestions()
         {
             _suggestionsListView.IsVisible = true;
         }
 
+        //hide the auto complete suggestions
         private void HideSuggestions()
         {
             _suggestionsListView.IsVisible = false;

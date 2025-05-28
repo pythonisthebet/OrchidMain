@@ -10,6 +10,7 @@ public partial class AA_featsView : ContentPage
         InitializeComponent();
     }
 
+    //Calls the InitilizeAsync function on page appearence to load data
     protected override async void OnAppearing()
     {
         AA_featsViewModel _vm = (BindingContext as AA_featsViewModel);

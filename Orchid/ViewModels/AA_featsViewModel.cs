@@ -148,7 +148,7 @@ namespace Orchid.ViewModels
         public ICommand SelectionChangedCommand => new Command(OnSelectionChanged);
 
 
-
+        //loads data from the external api
         public async Task InitilizeAsync()
         {
             SelectedFeats.Clear();
@@ -182,6 +182,7 @@ namespace Orchid.ViewModels
             OnPropertyChanged("SelectedFeats");
         }
 
+        //enable or disable the confirm button
         public async void OnSelectionChanged()
         {
             isConfiremed = false;
@@ -196,7 +197,7 @@ namespace Orchid.ViewModels
             }
         }
 
-
+        //save the selected data to characters json file on the server
         public async void OnConfirm()
         {
             IDictionary<string, object> temp = ((App)Application.Current).CurrentCharacterProperties;

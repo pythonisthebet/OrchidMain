@@ -193,7 +193,7 @@ namespace Orchid.ViewModels
             UseTestCardCommand = new Command(UseTestCard);
         }
 
-        // Command implementations
+        //check if the amount is a valid number
         private async Task ProcessPaymentAsync()
         {
             if (string.IsNullOrWhiteSpace(Amount) || decimal.Parse(Amount) <= 0)
@@ -238,6 +238,8 @@ namespace Orchid.ViewModels
             IsProcessing = false;
         }
 
+
+        //update the app user to have a premium subscription
         private async void updatePremium() 
         {
             if (((App)Application.Current).LoggedInUser.IsPremium)
@@ -252,6 +254,8 @@ namespace Orchid.ViewModels
             await OrchidService.UpdateAppUser(((App)Application.Current).LoggedInUser);
         }
 
+
+        //checks and validate the give card information
         private bool ValidateCardDetails()
         {
             // Basic validation

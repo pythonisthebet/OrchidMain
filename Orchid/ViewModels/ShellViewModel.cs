@@ -14,7 +14,6 @@ namespace Orchid.ViewModels
     {
         //this page is just for a log out command and not showing views if you dont have permission 
 
-        //constractor
         //initilizing the logout command
         private IServiceProvider serviceProvider;
         public ShellViewModel(IServiceProvider serviceProvider)
@@ -59,7 +58,6 @@ namespace Orchid.ViewModels
 
         #endregion
 
-        //on LogoutCommand
         //clear the current user and send them to the login screen exiting the shell
         public void OnLogout()
         {

@@ -10,6 +10,7 @@ public partial class AA_equipmentView : ContentPage
         InitializeComponent();
     }
 
+    //Calls the InitilizeAsync function on page appearence to load data
     protected override async void OnAppearing()
     {
         AA_equipmentViewModel _vm = (BindingContext as AA_equipmentViewModel);

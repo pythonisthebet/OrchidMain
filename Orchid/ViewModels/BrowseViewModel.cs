@@ -99,6 +99,8 @@ namespace Orchid.ViewModels
 
         public ICommand Select => new Command(OnSelect);
 
+
+        //filters all characters just for the ones that fits the filters
         public async void OnSearch()
         {
             InServerCall = true;
@@ -126,6 +128,8 @@ namespace Orchid.ViewModels
             this.CharacterList = await OrchidService.GetCharactersFORFilters(filtered);
             InServerCall = false;
         }
+
+        //enter CharacterSheetViewModel of a selected character
         public async void OnSelect()
         {
             InServerCall = true;
@@ -144,6 +148,8 @@ namespace Orchid.ViewModels
             InServerCall = false;
             await ((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<CharacterSheetPage>());
         }
+
+        //loads data from the database
         public async Task<List<string>> InitilizeAsync()
         {
             List<Filter> filtersDB = await OrchidService.GetAllFilters();

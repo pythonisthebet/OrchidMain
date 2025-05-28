@@ -9,6 +9,8 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <!-- Added for the delete button -->
         </Grid.RowDefinitions>
 
         <!-- Info Label -->
@@ -53,16 +55,19 @@
         </Grid>
 
         <!-- Ban User Button (admin) -->
-        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
-            <Button Text="Delete Character"
-                                Command="{Binding DeleteCommand}"
-                                IsEnabled="{Binding IsEnabled}" 
-                        Grid.Column="1" 
-                        IsVisible="{Binding IsAdmin}"/>
-        </Grid>
+        <Button Grid.Row="3"
+                Text="Delete Character"
+                Command="{Binding DeleteCommand}"
+                IsEnabled="{Binding IsEnabled}"
+                IsVisible="{Binding IsAdmin}"
+                BackgroundColor="#e74c3c"
+                TextColor="White"
+                CornerRadius="8"
+                HeightRequest="45"
+                HorizontalOptions="FillAndExpand" />
 
         <!-- Loading Indicator -->
-        <Grid Grid.RowSpan="3" 
+        <Grid Grid.RowSpan="4"
               BackgroundColor="#80000000"
               IsVisible="{Binding IsBusy}">
             <StackLayout VerticalOptions="Center" 

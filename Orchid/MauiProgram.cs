@@ -9,6 +9,7 @@ namespace Orchid
 {
     public static class MauiProgram
     {
+        //builds the app (allow for pages to appear without calling for their constractor)
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
@@ -30,6 +31,8 @@ namespace Orchid
 
             return builder.Build();
         }
+
+        //register all views in the builder
         public static MauiAppBuilder RegisterPages(this MauiAppBuilder builder)
         {
 
@@ -67,6 +70,7 @@ namespace Orchid
             return builder;
         }
 
+        //register all services in the builder
         public static MauiAppBuilder RegisterDataServices(this MauiAppBuilder builder)
         {
             builder.Services.AddSingleton<OrchidWebAPIProxy>();
@@ -76,6 +80,8 @@ namespace Orchid
             builder.Services.AddSingleton<Orchid.Services.FileSaverImplementation>();
             return builder;
         }
+
+        //register all view models in the builder
         public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder builder)
         {
             builder.Services.AddSingleton<ShellViewModel>();

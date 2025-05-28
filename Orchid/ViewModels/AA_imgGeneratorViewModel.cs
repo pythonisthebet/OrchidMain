@@ -125,7 +125,7 @@ namespace Orchid.ViewModels
         public ICommand ChatGenerate => new Command(OnChatGenerate);
 
 
-
+        //checks if the user is premium
         public async Task InitilizeAsync()
 
         {
@@ -136,7 +136,7 @@ namespace Orchid.ViewModels
             }
         }
 
-
+        //sets the character image to the default image
         public async void OnDefaultGenerate()
         {
             ((App)Application.Current).CurrentCharacter.ImgId = OrchidService.GetDefaultCharacterImageUrl();
@@ -147,6 +147,7 @@ namespace Orchid.ViewModels
             await Application.Current.MainPage.DisplayAlert("Image", $"Image saved!", "ok");
         }
 
+        //uses the user given prompt to generate an image using openAIApi and saves the image on the server
         public async void OnChatGenerate()
         {
             InServerCall = true;
