@@ -68,7 +68,7 @@ namespace Orchid.ViewModels
             ((App)Application.Current).ReviewUserDefault = new();
             ((App)Application.Current).ReviewUser = ((App)Application.Current).ReviewUserDefault;
 
-            ((App)Application.Current).MainPage = new NavigationPage(serviceProvider.GetService<LoginView>());
+            ((App)Application.Current).MainPage = new NavigationPage(serviceProvider.GetService<StartPage>());
         }
     }
 }

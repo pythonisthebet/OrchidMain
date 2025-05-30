@@ -20,11 +20,11 @@ namespace Orchid
         public ExpandoObject CurrentCharacterProperties {  get; set; }
 
         //this is the Login page we have to create one here to not cause a loop couse login => shell == > login if we create a login on logout and not now
-        public LoginView Login;
+        public StartPage Start;
 
 
         //initilizing logged in user login page (via builder) and the main page which is the page we show to the user
-        public App(LoginView v)
+        public App(StartPage v)
         {
             LoggedInUser = new();
             CurrentCharacter = new();
@@ -32,7 +32,7 @@ namespace Orchid
             ReviewUserDefault = new();
             ReviewUser = ReviewUserDefault;
             InitializeComponent();
-            Login = v;
+            Start = v;
 
 
             MainPage = new NavigationPage(v);

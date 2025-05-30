@@ -37,6 +37,7 @@ namespace Orchid
         {
 
             builder.Services.AddTransient<AppShell>();
+            builder.Services.AddTransient<StartPage>();
             builder.Services.AddTransient<LoginView>();
             builder.Services.AddTransient<SignUpView>();
             builder.Services.AddTransient<AA_classView>();
@@ -85,6 +86,7 @@ namespace Orchid
         public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder builder)
         {
             builder.Services.AddSingleton<ShellViewModel>();
+            builder.Services.AddSingleton<StartPageViewModel>();
             builder.Services.AddSingleton<LoginViewModel>();
             builder.Services.AddSingleton<SignUpViewModel>();
             builder.Services.AddSingleton<AA_classViewModel>();
