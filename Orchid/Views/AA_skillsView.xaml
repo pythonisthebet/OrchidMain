@@ -9,6 +9,10 @@
              x:DataType="vm:AA_skillsViewModel">
 
     <VerticalStackLayout>
+        <Label Text="Select Skills:" Margin="20"
+                   FontSize="Title"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
         <Grid Margin="10">
             <CollectionView
                 x:Name="theCollectionView"

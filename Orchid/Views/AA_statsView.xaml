@@ -8,9 +8,81 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <toolkit:MathExpressionConverter x:Key="MathExpressionConverter" />
+
+            <!-- Modern Button Styles -->
+            <Style x:Key="PointBuyButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#667eea"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="CornerRadius" Value="12"/>
+                <Setter Property="HeightRequest" Value="50"/>
+                <Setter Property="WidthRequest" Value="120"/>
+                <Setter Property="Shadow">
+                    <Setter.Value>
+                        <Shadow Brush="#667eea" Opacity="0.3" Radius="8" Offset="0,4"/>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="ResetButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#ff6b6b"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="CornerRadius" Value="12"/>
+                <Setter Property="HeightRequest" Value="50"/>
+                <Setter Property="WidthRequest" Value="120"/>
+                <Setter Property="Shadow">
+                    <Setter.Value>
+                        <Shadow Brush="#ff6b6b" Opacity="0.3" Radius="8" Offset="0,4"/>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="ConfirmButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#51cf66"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="CornerRadius" Value="15"/>
+                <Setter Property="HeightRequest" Value="55"/>
+                <Setter Property="WidthRequest" Value="160"/>
+                <Setter Property="Shadow">
+                    <Setter.Value>
+                        <Shadow Brush="#51cf66" Opacity="0.4" Radius="10" Offset="0,5"/>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- Visual State Manager for button animations -->
+            <Style x:Key="AnimatedButtonStyle" TargetType="Button">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value="1"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value="0.95"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
         </ResourceDictionary>
     </ContentPage.Resources>
+
     <VerticalStackLayout>
+        <Label Text="Select Stats:" Margin="20"
+                   FontSize="Title"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*" />
@@ -23,8 +95,7 @@
                 <!--this one is for alerts-->
                 <RowDefinition Height="*" />
                 <!--last one for the reset and total points 0/27-->
-                <RowDefinition Height="*" /> 
-
+                <RowDefinition Height="1.5*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1.7*" />
@@ -42,13 +113,53 @@
             <Label Grid.Row="0" Grid.Column="3" Text="Total Score" HorizontalOptions="Center" VerticalOptions="Center" />
             <Label Grid.Row="0" Grid.Column="4" Text="Ability Modifier" HorizontalOptions="Center" VerticalOptions="Center" />
             <Label Grid.Row="0" Grid.Column="5" Text="Point Cost" HorizontalOptions="Center" VerticalOptions="Center" IsEnabled="{Binding PointBuy}"/>
+
             <!--footers-->
             <Label Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="6" Text="{Binding Alert}" HorizontalOptions="Center" VerticalOptions="Center" />
-            <Button Grid.Row="8" Grid.Column="0" Text="Point buy" Command="{Binding PointBuyCommand}"/>
-            <Button Grid.Row="8" Grid.Column="1" Text="reset" Grid.ColumnSpan="2" Command="{Binding ResetCommand}"/>
-            <Label Grid.Row="8" Grid.Column="4" Text="Total Points" HorizontalOptions="Center" VerticalOptions="Center" IsEnabled="{Binding PointBuy}"/>
-            <Label Grid.Row="8" Grid.Column="5" Text="{Binding PointTotal,StringFormat='{0:0} /27'}" HorizontalOptions="Center" VerticalOptions="Center" IsEnabled="{Binding PointBuy}"/>
 
+
+            <!-- Total Points Display -->
+            <StackLayout Orientation="Horizontal" 
+                         VerticalOptions="Center" 
+                         Spacing="10" Grid.Row="7" 
+                         HorizontalOptions="Center" 
+                         Grid.ColumnSpan="6" Margin="10">
+                <Label Text="Total Points:" 
+              FontSize="16" 
+              FontAttributes="Bold" 
+              TextColor="#4a5568"
+              VerticalOptions="Center" 
+              IsEnabled="{Binding PointBuy}"/>
+                <Frame BackgroundColor="#f7fafc" 
+              BorderColor="#e2e8f0" 
+              CornerRadius="8" 
+              Padding="10,5" 
+              IsEnabled="{Binding PointBuy}">
+                    <Label Text="{Binding PointTotal,StringFormat='{0:0} / 27'}" 
+                  FontSize="16" 
+                  FontAttributes="Bold" 
+                  TextColor="#2d3748"
+                  HorizontalOptions="Center" 
+                  VerticalOptions="Center"/>
+                </Frame>
+            </StackLayout>
+
+            <!-- Styled Control Buttons Row -->
+            <StackLayout Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="6" 
+                        Orientation="Horizontal" 
+                        HorizontalOptions="Center" 
+                        VerticalOptions="Center" 
+                        Spacing="10">
+
+                <Button Text="Point Buy" 
+                       Command="{Binding PointBuyCommand}"
+                       Style="{StaticResource PointBuyButtonStyle}" />
+
+                <Button Text="Reset" 
+                       Command="{Binding ResetCommand}"
+                       Style="{StaticResource ResetButtonStyle}" />
+
+            </StackLayout>
 
             <!--Attributes-->
             <Label Grid.Row="1" Grid.Column="0" Text="Strength" HorizontalOptions="Center" VerticalOptions="Center" />
@@ -57,17 +168,6 @@
             <Label Grid.Row="4" Grid.Column="0" Text="Intelligence" HorizontalOptions="Center" VerticalOptions="Center" />
             <Label Grid.Row="5" Grid.Column="0" Text="Wisdom" HorizontalOptions="Center" VerticalOptions="Center" />
             <Label Grid.Row="6" Grid.Column="0" Text="Charisma" HorizontalOptions="Center" VerticalOptions="Center" />
-
-            <!--Ability scores-->
-            <!--<ListView ItemsSource="{Binding Scores}" Grid.Column="1" Grid.Row="1">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Entry Text="{Binding}" HorizontalOptions="Center" VerticalOptions="Center" />
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>-->
 
             <!--Ability scores with visible and styled up/down arrows-->
             <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
@@ -118,8 +218,6 @@
                 <Label Text="{Binding Scores[5]}" VerticalOptions="Center" FontSize="20" HorizontalOptions="Center"/>
             </StackLayout>
 
-
-
             <!--Racial Bonus-->
             <Label Grid.Row="1" Grid.Column="2" Text="{Binding RacialBoostsScores[0]}" HorizontalOptions="Center" VerticalOptions="Center" />
             <Label Grid.Row="2" Grid.Column="2" Text="{Binding RacialBoostsScores[1]}" HorizontalOptions="Center" VerticalOptions="Center" />
@@ -136,8 +234,6 @@
             <Label Grid.Row="5" Grid.Column="3" Text="{Binding ScoreTotal[4]}" HorizontalOptions="Center" VerticalOptions="Center" />
             <Label Grid.Row="6" Grid.Column="3" Text="{Binding ScoreTotal[5]}" HorizontalOptions="Center" VerticalOptions="Center" />
 
-
-
             <!--Ability Modifier-->
             <Label Grid.Row="1" Grid.Column="4" Text="{Binding AbilityModifier[0]}" HorizontalOptions="Center" VerticalOptions="Center" />
             <Label Grid.Row="2" Grid.Column="4" Text="{Binding AbilityModifier[1]}" HorizontalOptions="Center" VerticalOptions="Center" />
@@ -145,8 +241,7 @@
             <Label Grid.Row="4" Grid.Column="4" Text="{Binding AbilityModifier[3]}" HorizontalOptions="Center" VerticalOptions="Center" />
             <Label Grid.Row="5" Grid.Column="4" Text="{Binding AbilityModifier[4]}" HorizontalOptions="Center" VerticalOptions="Center" />
             <Label Grid.Row="6" Grid.Column="4" Text="{Binding AbilityModifier[5]}" HorizontalOptions="Center" VerticalOptions="Center" />
-            
-            
+
             <!--Point Cost-->
             <Label Grid.Row="1" Grid.Column="5" Text="{Binding PointCost[0]}" HorizontalOptions="Center" VerticalOptions="Center" IsEnabled="{Binding PointBuy}"/>
             <Label Grid.Row="2" Grid.Column="5" Text="{Binding PointCost[1]}" HorizontalOptions="Center" VerticalOptions="Center" IsEnabled="{Binding PointBuy}"/>
@@ -156,6 +251,14 @@
             <Label Grid.Row="6" Grid.Column="5" Text="{Binding PointCost[5]}" HorizontalOptions="Center" VerticalOptions="Center" IsEnabled="{Binding PointBuy}"/>
 
         </Grid>
-        <Button Text="Confirm" HorizontalOptions="Center" Command="{Binding ConfirmCommand}"/>
+
+        <!-- Modern Confirm Button with enhanced styling -->
+        <Button Text="✓ Confirm Character" 
+                HorizontalOptions="Center" 
+                Command="{Binding ConfirmCommand}"
+                Style="{StaticResource ConfirmButtonStyle}"
+                Margin="10">
+        </Button>
+
     </VerticalStackLayout>
 </ContentPage>

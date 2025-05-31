@@ -4,6 +4,10 @@
              x:Class="Orchid.Views.AA_filtersView"
              Title="AA_filtersView">
     <VerticalStackLayout>
+        <Label Text="Select Filters:" Margin="20"
+                   FontSize="Title"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
         <Grid Margin="10">
             <CollectionView
                 x:Name="theCollectionView"

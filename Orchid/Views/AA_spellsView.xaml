@@ -5,6 +5,10 @@
              Title="AA_spellsView">
 
     <VerticalStackLayout>
+        <Label Text="Select Spells:" Margin="20"
+                   FontSize="Title"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
         <Grid Margin="10">
             <CollectionView
                 x:Name="theCollectionView"

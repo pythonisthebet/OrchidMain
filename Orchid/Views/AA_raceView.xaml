@@ -4,6 +4,12 @@
              x:Class="Orchid.Views.AA_raceView"
              Title="AA_raceView">
     <VerticalStackLayout>
+
+        <Label Text="Select Race:" Margin="20"
+                   FontSize="Title"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
+        
         <CollectionView
             x:Name="theCollectionView"
             ItemsLayout="VerticalList"
