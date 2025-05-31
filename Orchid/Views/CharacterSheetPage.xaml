@@ -20,12 +20,13 @@
                Padding="15"
                HorizontalOptions="FillAndExpand"
                VerticalOptions="CenterAndExpand"
-               Margin="0,20">
+               Margin="0,20"
+               IsVisible="{Binding IsDataLoaded}">
             <Label Text="Your PDF has been successfully generated and saved on your device."
                    FontSize="18"
                    HorizontalTextAlignment="Center"
                    VerticalTextAlignment="Center"
-                   TextColor="#333333" />
+                   TextColor="#333333"/>
         </Frame>
 
         <!-- Action Buttons -->
@@ -45,7 +46,7 @@
                     HeightRequest="45" />
 
             <Button Grid.Column="1"
-                    Text="Print PDF"
+                    Text="Print/Share PDF"
                     Command="{Binding PrintPdfCommand}"
                     IsEnabled="{Binding CanPrint}"
                     BackgroundColor="#2ecc71"
