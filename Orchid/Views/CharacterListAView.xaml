@@ -9,7 +9,7 @@
 
                 <!-- Instruction Label -->
                 <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
-                    <Label Text="Tap a User to review it"
+                    <Label Text="Tap a character to review it"
             FontAttributes="Bold"
             FontSize="14"
             HorizontalOptions="Center"/>
