@@ -17,16 +17,30 @@
                            FontSize="20"
                            HorizontalOptions="Center" />
 
-                    <Label Text="{Binding CurrentUser.UserEmail}" 
+                    <Label Text="{Binding CurrentUser.UserEmail, StringFormat='Email: {0}'}" 
                            FontAttributes="Bold" 
                            FontSize="16"
                            HorizontalOptions="Center" />
 
-                    <Label Text="{Binding CurrentUser.UserPassword}" 
+                    <Label Text="{Binding CurrentUser.UserPassword, StringFormat='Password: {0}'}" 
                            FontAttributes="Bold" 
                            FontSize="16"
                            HorizontalOptions="Center" />
 
+
+                    <!-- Update Name -->
+                    <Label Text="Change Nickname" FontAttributes="Bold" />
+                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                        <Entry Text="{Binding NewName}" 
+                               Placeholder="Enter new nickname"
+                               FontAttributes="Bold"
+                               IsEnabled="{Binding IsEnabled}" Grid.Column="0"/>
+                        <Button Text="Update"
+                                Command="{Binding ChangeCommand}"
+                                CommandParameter="name"
+                                IsEnabled="{Binding IsEnabled}" Grid.Column="1"/>
+                    </Grid>
+                    
                     <!-- Update Email -->
                     <Label Text="Change Email" FontAttributes="Bold" />
                     <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
@@ -50,19 +64,6 @@
                         <Button Text="Update"
                                 Command="{Binding ChangeCommand}"
                                 CommandParameter="pass"
-                                IsEnabled="{Binding IsEnabled}" Grid.Column="1"/>
-                    </Grid>
-
-                    <!-- Update Name -->
-                    <Label Text="Change Nickname" FontAttributes="Bold" />
-                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
-                        <Entry Text="{Binding NewName}" 
-                               Placeholder="Enter new nickname"
-                               FontAttributes="Bold"
-                               IsEnabled="{Binding IsEnabled}" Grid.Column="0"/>
-                        <Button Text="Update"
-                                Command="{Binding ChangeCommand}"
-                                CommandParameter="name"
                                 IsEnabled="{Binding IsEnabled}" Grid.Column="1"/>
                     </Grid>
 
