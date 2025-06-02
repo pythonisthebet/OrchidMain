@@ -239,10 +239,9 @@ namespace Orchid.ViewModels
             ValidatePassword();
             ValidateEmail();
             ValidateName();
-            ValidateCheckBox();
 
             //check if any validation failed
-            if (ShowPasswordError || ShowEmailError || ShowCheckBoxError||
+            if (ShowPasswordError || ShowEmailError ||
                 ShowNameError)
                 return false;
             return true;
