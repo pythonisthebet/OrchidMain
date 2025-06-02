@@ -279,8 +279,15 @@ namespace Orchid.ViewModels
                     InServerCall = false;
                     await Shell.Current.GoToAsync("..");
                 }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Ban Reason", $"Ban Reason is Empty! Please set ban reason!", "ok");
+                }
             }
-            await Shell.Current.DisplayAlert("Ban Reason", $"Ban Reason is Empty! Please set ban reason!", "ok");
+            else
+            {
+                await Shell.Current.DisplayAlert("Ban Reason", $"Ban Reason is Empty! Please set ban reason!", "ok");
+            }
 
         }
         #endregion
