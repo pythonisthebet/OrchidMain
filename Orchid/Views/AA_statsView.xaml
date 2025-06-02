@@ -92,6 +92,8 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
                 <!--this one is for alerts-->
                 <RowDefinition Height="*" />
                 <!--last one for the reset and total points 0/27-->
@@ -115,7 +117,7 @@
             <Label Grid.Row="0" Grid.Column="5" Text="Point Cost" HorizontalOptions="Center" VerticalOptions="Center" IsEnabled="{Binding PointBuy}"/>
 
             <!--footers-->
-            <Label Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="6" Text="{Binding Alert}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="6" Text="{Binding Alert}" HorizontalOptions="Center" VerticalOptions="Center" />
 
 
             <!-- Total Points Display -->
