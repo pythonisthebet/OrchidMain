@@ -23,7 +23,7 @@ namespace Orchid.Services
             {
                 // Check if we have saved character data
                 int Cid = ((App)Application.Current).CurrentCharacter.Id;
-                int Uid = ((App)Application.Current).LoggedInUser.Id;
+                int Uid = (int)((App)Application.Current).CurrentCharacter.UserId;
                 Orchid.Services.OrchidWebAPIProxy temp = new OrchidWebAPIProxy();
                 string json = await temp.GetJsonCharacter(Uid,Cid);
                 CharacterData data = JsonSerializer.Deserialize<CharacterData>(json);

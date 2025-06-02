@@ -109,6 +109,7 @@ namespace Orchid.ViewModels
                 PropertyNameCaseInsensitive = true
             };
             ((App)Application.Current).CurrentCharacterProperties = JsonSerializer.Deserialize<ExpandoObject>(temp2, options);
+            List<Character> characters = await OrchidService.GetAllCharacters();
             await ((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<CharacterSheetPage>());
 
 

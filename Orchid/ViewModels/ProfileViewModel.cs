@@ -256,7 +256,7 @@ namespace Orchid.ViewModels
             }
             else
             {
-                await Shell.Current.DisplayAlert("UpdateUser", $"Update seccesful! please open the profile page again to see your new details!", "ok");
+                await Shell.Current.DisplayAlert("UpdateUser", $"Update successful!", "ok");
                 CurrentUser = (((App)Application.Current).LoggedInUser);
             }
 
