@@ -276,6 +276,7 @@ namespace Orchid.ViewModels
                     banReason.Reason = BanReason;
                     await Orchidservice.SetBanReason(banReason);
                     ((App)Application.Current).ReviewUser = ((App)Application.Current).ReviewUserDefault;
+                    await Shell.Current.DisplayAlert("Ban Reason", $"Banned user!", "ok");
                     InServerCall = false;
                     await Shell.Current.GoToAsync("..");
                 }
